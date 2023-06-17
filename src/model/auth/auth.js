@@ -1,5 +1,6 @@
 import { supabase } from "../../configuration/supabaseClient.js";
 
+// function to handle signup with DB
 export const handleSignUp = async ({
   email,
   password,
@@ -26,28 +27,72 @@ export const handleSignUp = async ({
     }
   } catch (error) {
     return error.message;
-  } finally {
-  }
+  } 
 
-  const createProfileStaff = async ({ name, email }) => {};
+  const createProfileStaff = async ({ name, email }) => {
+    try {
+      const { error } = await supabase
+        .from("User")
+        .update({ name: name, type: 'Staff' })
+        .eq("email", email);
 
-  const createProfileStudent = async ({ children }) => {};
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      outputString = error.message;
+    }
+  };
 
-  const createProfileTA = async ({ children }) => {};
+  const createProfileStudent = async ({ name, email }) => {
+    try {
+      const { error } = await supabase
+        .from("User")
+        .update({ name: name, type: 'Student' })
+        .eq("email", email);
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      outputString = error.message;
+    }
+  };
+
+  const createProfileTA = async ({ name, email, moduleIfTA }) => {
+    try {
+      const { error } = await supabase
+        .from("User")
+        .update({ name: name, type: 'TA', moduleIfTA: moduleIfTA })
+        .eq("email", email);
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      outputString = error.message;
+    }
+  };
 
   switch (type) {
     case "Staff":
-      createProfileStaff();
+      createProfileStaff({ name, email });
       break;
     case "Student":
-      createProfileStudent();
+      createProfileStudent({ name, email });
       break;
     case "TA":
-      createProfileTA();
+      createProfileTA({ name, email, moduleIfTA });
       break;
     default:
-      return "Error recognising the type of user."
+      return "Error recognising the type of user.";
   }
 
   return outputString;
 };
+
+// function to handle login process
+export const handleLogin = async ({ email, password }) => {};
+
+// function to handle case where user forget password
+export const forgetPassword = async ({ email }) => {};
