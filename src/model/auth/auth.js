@@ -24,7 +24,6 @@ export const handleSignUp = async (info) => {
       outputString = "User email is already registered";
       return outputString;
     } else {
-      await handleLogin(info);
       outputString = "Sucess! Please check your email for confirmation."
     }
   } catch (error) {
@@ -77,32 +76,15 @@ export const handleSignUp = async (info) => {
     }
   };
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   switch (info.type) {
     case "Staff":
-      await createProfileStaff({
-        id: user?.id,
-        name: info.name,
-        email: info.email,
-      });
+      await createProfileStaff(info);
       break;
     case "Student":
-      await createProfileStudent({
-        id: user?.id,
-        name: info.name,
-        email: info.email,
-      });
+      await createProfileStudent(info);
       break;
     case "TA":
-      await createProfileTA({
-        id: user?.id,
-        name: info.name,
-        email: info.email,
-        moduleIfTA: info.moduleIfTA,
-      });
+      await createProfileTA(info);
       break;
     default:
       return "Error recognising the type of user.";
@@ -129,3 +111,5 @@ export const handleLogin = async (info) => {
 
 // function to handle case where user forget password
 export const forgetPassword = async ({ email }) => {};
+
+// function for logging out

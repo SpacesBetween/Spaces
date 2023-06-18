@@ -1,21 +1,19 @@
 /* Unit test to test single function in the auth.js model file */
-import { handleSignUp } from "../auth/auth.js"
-import { supabase } from "../../configuration/supabaseClient.js";
+import { handleLogin, handleSignUp } from "../auth/auth.js";
 
 /* Sign up */
 
 // Test case 1: successful sign up for student
 
-// Unit testing 
+// Unit testing
 /*test("Signing up as a student", () => {
-  expect(
-    handleSignUp({
+  expect(handleSignUp({
       email: "e0968931@u.nus.edu",
       password: "ncsfkjsbf99",
       type: "Student",
       name: "Tianyue",
-    })
-  ).resolve().toMatch("Success! Please check your inbox.");
+    }).then()
+  ).toMatch("Success! Please check your inbox.");
 });*/
 
 // Integration testing with DB
@@ -24,20 +22,36 @@ by supabase while also creating a new user under the 'User' table to keep
 track of the profile. 
 We expect the confirmation link sent to user's email to be 
 directed to the homepage. */
-const msg = handleSignUp({
-  email: "e0968931@u.nus.edu",
+
+// Test case 2: unrecognised email domain
+handleSignUp({
+  email: "ihopenoOneuseThis@hmail.com",
   password: "ncsfkjsbf99",
   type: "Student",
   name: "Tianyue",
 });
 
-msg.then((string) => console.log(string));
+// Test case 3: staff sign up
 
-/*const { data, error } = await supabase.auth.signUp({
+// Test case 4: TA sign up
+
+// Test case 5: Wrong emails (gibberish email)
+
+// Test case 6: Already registered email
+
+/*handleSignUp({
   email: "e0968931@u.nus.edu",
-  password: "ndksnfkdsnfksnfks212901",
-})
+  password: "ncsfkjsbf99",
+  type: "Student",
+  name: "Tianyue",
+});*/
 
-if (error) {
-  throw error;
-}*/
+/* Login */
+
+// Test case 1: successful login
+
+// handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjsbf99" });
+
+// Test case 2: Wrong password
+
+handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjf99" });
