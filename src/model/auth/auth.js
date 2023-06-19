@@ -4,12 +4,6 @@ import { supabase } from "../../configuration/supabaseClient.js";
 export const handleSignUp = async (info) => {
   let outputString = "";
 
-  // firstly, handle wrong email domain
-  const domain = info.email.slice(-9);
-  if (domain !== "us.edu.sg" && domain !== "u.nus.edu") {
-    return "Sorry, invalid input.";
-  }
-
   try {
     // proceed to call signUp if email is correct
     const { data, error } = await supabase.auth.signUp({
@@ -105,7 +99,7 @@ export const handleLogin = async (info) => {
       throw error;
     }
   } catch (error) {
-    return error.message;
+    return error;
   }
 };
 
