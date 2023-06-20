@@ -107,3 +107,17 @@ export const handleLogin = async (info) => {
 export const forgetPassword = async ({ email }) => {};
 
 // function for logging out
+export const signOut = async (info) => {
+  try {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      throw error;
+    } else {
+      return; 
+    }
+  } catch (error) {
+    return error.message;
+  }
+  
+}

@@ -1,11 +1,13 @@
 import "../../model/auth/auth";
 import { handleLogin, handleSignUp } from "../../model/auth/auth";
+import { useUser } from "../../model/auth/authContext";
+import React from "react";
 
-export const checkLoginStatus = () => {
-
+export const CheckLogin = () => {
+    const { user } = useUser();
 }
 
-export const loginController = (info) => {
+export const LoginController = (info) => {
     // used within the login page 
     if (info.email?.length === 0) {
         return "Please enter your email";
@@ -16,7 +18,7 @@ export const loginController = (info) => {
     }
 }
 
-export const signUpController = (info) => {
+export const SignUpController = (info) => {
   // used 'within' sign up page
   // controller check the input as user click on the submit button
   const domainNine = info.email.slice(-9);

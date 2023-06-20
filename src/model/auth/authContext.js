@@ -30,7 +30,7 @@ export const AuthContextProvider = (props) => {
     });
 
     return () => {
-      listener.subscription();
+      listener.unsubscribe();
     };
   }, []);
 
@@ -43,7 +43,5 @@ export const AuthContextProvider = (props) => {
 };
 
 export const useUser = () => {
-  const context = useContext(AuthContext);
-  
-  return context;
+  return useContext(AuthContext);
 };
