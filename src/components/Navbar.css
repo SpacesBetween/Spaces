@@ -53,6 +53,18 @@
   transition: all 0.2s ease-out;
 }
 
+.under-construction {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.under-construction {
+  border-radius: 1px;
+  transition: all 0.2s ease-out;
+  cursor: not-allowed;
+}
+
 .fa-bars {
   color: white;
 }
@@ -102,6 +114,18 @@
   .nav-links:hover {
     background-color: plum;
     border-radius: 0;
+  }
+
+  .under-construction {
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    display: table;
+  }
+
+  .under-construction:hover {
+    border-radius: 0;
+    cursor: not-allowed;
   }
 
   .menu-icon {

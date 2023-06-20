@@ -5,7 +5,6 @@ export const handleSignUp = async (info) => {
   let outputString = "";
 
   try {
-    // proceed to call signUp if email is correct
     const { data, error } = await supabase.auth.signUp({
       email: info.email,
       password: info.password,

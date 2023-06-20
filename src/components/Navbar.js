@@ -36,17 +36,17 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/" className="under-construction" onClick={closeMobileMenu}>
                 CAPACITY
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/" className="under-construction" onClick={closeMobileMenu}>
                 ANNOUNCEMENTS
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/" className="under-construction" onClick={closeMobileMenu}>
                 FAVOURITE
               </Link>
             </li>

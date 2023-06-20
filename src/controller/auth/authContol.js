@@ -5,6 +5,8 @@ import React from "react";
 
 export const CheckLogin = () => {
     const { user } = useUser();
+
+    // could be the authetication entry point! then react router
 }
 
 export const LoginController = (info) => {
