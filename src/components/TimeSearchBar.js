@@ -1,9 +1,11 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import NativeSelect from "@mui/material/NativeSelect";
-import { Typography } from "@mui/material";
+import {
+  Box,
+  InputLabel,
+  FormControl,
+  NativeSelect,
+  Typography,
+} from "@mui/material";
 
 export default function TimeSearchBar() {
   return (
@@ -16,7 +18,7 @@ export default function TimeSearchBar() {
           defaultValue={10}
           inputProps={{
             name: "Time",
-            id: "uncontrolled-native"
+            id: "uncontrolled-native",
           }}
         >
           <option value={10}>Now</option>

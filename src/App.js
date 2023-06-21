@@ -1,20 +1,25 @@
 import React from "react";
 import Navbar from "./components/Navbar.js";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./view/homepage/HomePage.js";
+import RoomSearchPage from "./view/roomSearch/RoomSearchPage.js";
+import homeVideo from "./assets/space-video.mp4";
 
 export default function App() {
   return (
     <>
-      <Router>
+      <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route index path="/home" element={<HomePage />} />
+          <Route path="/roomsearch" element={<RoomSearchPage />} />
         </Routes>
-      </Router>
+      </BrowserRouter>
+      <video className="videoTag" autoPlay loop muted>
+        <source src={homeVideo} type="video/mp4" />
+      </video>
     </>
   );
 }
-
-
