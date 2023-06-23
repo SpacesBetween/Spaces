@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Container, Typography, Box, Button } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import TypeOfBookingBar from "./utils/TypeOfBookingBar";
+import TimeSearchBar from "./utils/TimeSearchBar";
 import DurationSearchBar from "./utils/DurationSearchBar";
+import DateSearchBar from "./utils/DateSearchBar";
 import { Icon } from "@mdi/react";
 import { mdiRestart, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
 
@@ -14,7 +15,7 @@ const theme = createTheme({
   }
 });
 
-export default function BookingPage() {
+export default function RoomPage() {
   var days = [
     "Sunday",
     "Monday",
@@ -44,7 +45,7 @@ export default function BookingPage() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "30%",
+            height: "45%",
             width: "100%",
             bgcolor: "#eaeaea",
             padding: "16px",
@@ -56,7 +57,6 @@ export default function BookingPage() {
             //component="h1"
             sx={{
               marginTop: 2,
-              marginBottom: 4,
               flexGrow: 0.4,
               fontFamily: "monospace",
               fontSize: 20,
@@ -70,7 +70,9 @@ export default function BookingPage() {
               year: "numeric"
             })}
           </Typography>
-          <TypeOfBookingBar></TypeOfBookingBar>
+          <DateSearchBar></DateSearchBar>
+          <TimeSearchBar></TimeSearchBar>
+          <DurationSearchBar></DurationSearchBar>
 
           <div
             style={{
