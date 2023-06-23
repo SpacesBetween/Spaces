@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./view/homepage/HomePage.js";
 import RoomSearchPage from "./view/roomSearch/RoomSearchPage.js";
-import homeVideo from "./assets/space-video.mp4";
+import homeVideo from "./assets/space-video.mp4"
 
 export default function App() {
   return (
