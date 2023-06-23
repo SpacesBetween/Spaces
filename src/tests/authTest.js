@@ -1,9 +1,11 @@
 /* Unit test to test single function in the auth.js model file */
-import { handleLogin, handleSignUp } from "../auth/auth.js";
+import { handleLogin, handleSignUp } from "../model/auth/auth.js";
+
+/* Model file */
 
 /* Sign up */
 
-// Test case 1: successful sign up for student
+// Test case 1: successful sign up for student 
 
 // Unit testing
 /*test("Signing up as a student", () => {
@@ -13,7 +15,7 @@ import { handleLogin, handleSignUp } from "../auth/auth.js";
       type: "Student",
       name: "Tianyue",
     }).then()
-  ).toMatch("Success! Please check your inbox.");
+  ).toMatch("Sucess! Please check your email for confirmation.");
 });*/
 
 // Integration testing with DB
@@ -29,7 +31,7 @@ handleSignUp({
   password: "ncsfkjsbf99",
   type: "Student",
   name: "Tianyue",
-});
+}).then(msg => console.log(msg));
 
 // Test case 3: staff sign up
 
@@ -54,4 +56,13 @@ handleSignUp({
 
 // Test case 2: Wrong password
 
-handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjf99" });
+// handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjf99" });
+
+
+/* Controller file */
+
+/* Login */
+
+// Test case 1: successful login
+
+

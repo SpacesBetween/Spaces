@@ -2,6 +2,20 @@ import { supabase } from "../../configuration/supabaseClient.js";
 
 // function to handle signup with DB
 export const handleSignUp = async (info) => {
+  const domainNine = info.email.slice(-9);
+  const domainTen = info.email.slice(-10);
+
+  if (domainTen !== "nus.edu.sg" && domainNine !== "u.nus.edu") {
+    return "Sorry, invalid input.";
+  } else if (info.name?.length === 0) {
+    return "Please enter a name.";
+  } else if (info.password?.length < 8 || info.password?.length === 0) {
+    return "Please enter a password with at least 8 characters.";
+  } else if (info.type === "TA" && info.moduleIfTA?.length === 0) {
+    return "Please enter the module that you are teaching.";
+  } 
+
+  // outputstring to display msg if an error occurs during profile creation
   let outputString = "";
 
   try {
@@ -14,10 +28,9 @@ export const handleSignUp = async (info) => {
       // error apart from registering a registed email
       throw error;
     } else if (data.user?.identities?.length === 0) {
-      outputString = "User email is already registered";
-      return outputString;
+      return "User email is already registered";
     } else {
-      outputString = "Sucess! Please check your email for confirmation."
+      outputString = "Sucess! Please check your email for confirmation.";
     }
   } catch (error) {
     return error.message;
@@ -88,6 +101,12 @@ export const handleSignUp = async (info) => {
 
 // function to handle login process
 export const handleLogin = async (info) => {
+  if (info.email?.length === 0) {
+    return "Please enter your email";
+  } else if (info.password?.length === 0) {
+    return "Enter your password please.";
+  }
+
   try {
     const { error } = await supabase.auth.signInWithPassword({
       email: info.email,
@@ -96,9 +115,11 @@ export const handleLogin = async (info) => {
 
     if (error) {
       throw error;
+    } else {
+      return "Success";
     }
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
 
