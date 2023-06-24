@@ -4,9 +4,15 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mdi/js": "^7.2.96",
+    "@mdi/react": "^1.6.1",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.5",
     "@supabase/auth-helpers-nextjs": "^0.7.2",
     "@supabase/supabase-js": "^2.24.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,14 +22,14 @@
     "dotenv": "^16.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2",
+    "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll --testMatch **/src/**/*test.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }

@@ -5,9 +5,20 @@ import "./Navbar.css";
 
 function Navbar() {
   const [click, setClick] = useState(false);
+  const [button, setButton] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+
+  const showButton = () => {
+    if(window.innerWidth <= 960) {
+      setButton(false);
+    } else {
+      setButton(true);
+    }
+  }
+
+  window.addEventListener('resize', showButton);
 
   return (
     <>
@@ -21,36 +32,37 @@ function Navbar() {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="home" className="nav-links" onClick={closeMobileMenu}>
                 HOME
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="roomsearch" className="nav-links" onClick={closeMobileMenu}>
                 ROOM
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="eventsearch" className="nav-links" onClick={closeMobileMenu}>
                 EVENT
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/" className="under-construction" onClick={closeMobileMenu}>
                 CAPACITY
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/" className="under-construction" onClick={closeMobileMenu}>
                 ANNOUNCEMENTS
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/" className="under-construction" onClick={closeMobileMenu}>
                 FAVOURITE
               </Link>
             </li>
           </ul>
+
         </div>
       </nav>
     </>

@@ -1,40 +1,47 @@
 import { supabase } from "../../configuration/supabaseClient.js";
 
 // function to handle signup with DB
-export const handleSignUp = async ({
-  email,
-  password,
-  type,
-  name,
-  moduleIfTA,
-}) => {
+export const handleSignUp = async (info) => {
+  const domainNine = info.email.slice(-9);
+  const domainTen = info.email.slice(-10);
+
+  if (domainTen !== "nus.edu.sg" && domainNine !== "u.nus.edu") {
+    return "Sorry, invalid input.";
+  } else if (info.name?.length === 0) {
+    return "Please enter a name.";
+  } else if (info.password?.length < 8 || info.password?.length === 0) {
+    return "Please enter a password with at least 8 characters.";
+  } else if (info.type === "TA" && info.moduleIfTA?.length === 0) {
+    return "Please enter the module that you are teaching.";
+  } 
+
+  // outputstring to display msg if an error occurs during profile creation
   let outputString = "";
 
   try {
     const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email: info.email,
+      password: info.password,
     });
 
     if (error) {
       // error apart from registering a registed email
       throw error;
     } else if (data.user?.identities?.length === 0) {
-      error.message = "User email is already registered";
-      throw error;
+      return "User email is already registered";
     } else {
-      outputString = "Success! Please check your inbox.";
+      outputString = "Sucess! Please check your email for confirmation.";
     }
   } catch (error) {
     return error.message;
-  } 
+  }
 
-  const createProfileStaff = async ({ name, email }) => {
+  const createProfileStaff = async (info) => {
     try {
-      const { error } = await supabase
-        .from("User")
-        .update({ name: name, type: 'Staff' })
-        .eq("email", email);
+      const { error } = await supabase.from("User").update({
+        name: info.name,
+        type: "Staff",
+      }).eq('email', info.email);
 
       if (error) {
         throw error;
@@ -44,12 +51,12 @@ export const handleSignUp = async ({
     }
   };
 
-  const createProfileStudent = async ({ name, email }) => {
+  const createProfileStudent = async (info) => {
     try {
-      const { error } = await supabase
-        .from("User")
-        .update({ name: name, type: 'Student' })
-        .eq("email", email);
+      const { error } = await supabase.from("User").update({
+        name: info.name,
+        type: "Student",
+      }).eq('email', info.email);
 
       if (error) {
         throw error;
@@ -59,12 +66,13 @@ export const handleSignUp = async ({
     }
   };
 
-  const createProfileTA = async ({ name, email, moduleIfTA }) => {
+  const createProfileTA = async (info) => {
     try {
-      const { error } = await supabase
-        .from("User")
-        .update({ name: name, type: 'TA', moduleIfTA: moduleIfTA })
-        .eq("email", email);
+      const { error } = await supabase.from("User").update({
+        name: info.name,
+        type: "TA",
+        moduleIfTA: info.moduleIfTA,
+      }).eq('email', info.email);
 
       if (error) {
         throw error;
@@ -74,15 +82,15 @@ export const handleSignUp = async ({
     }
   };
 
-  switch (type) {
+  switch (info.type) {
     case "Staff":
-      createProfileStaff({ name, email });
+      await createProfileStaff(info);
       break;
     case "Student":
-      createProfileStudent({ name, email });
+      await createProfileStudent(info);
       break;
     case "TA":
-      createProfileTA({ name, email, moduleIfTA });
+      await createProfileTA(info);
       break;
     default:
       return "Error recognising the type of user.";
@@ -92,7 +100,44 @@ export const handleSignUp = async ({
 };
 
 // function to handle login process
-export const handleLogin = async ({ email, password }) => {};
+export const handleLogin = async (info) => {
+  if (info.email?.length === 0) {
+    return "Please enter your email";
+  } else if (info.password?.length === 0) {
+    return "Enter your password please.";
+  }
+
+  try {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: info.email,
+      password: info.password,
+    });
+
+    if (error) {
+      throw error;
+    } else {
+      return "Success";
+    }
+  } catch (error) {
+    return error.message;
+  }
+};
 
 // function to handle case where user forget password
 export const forgetPassword = async ({ email }) => {};
+
+// function for logging out
+export const signOut = async (info) => {
+  try {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      throw error;
+    } else {
+      return; 
+    }
+  } catch (error) {
+    return error.message;
+  }
+  
+}
