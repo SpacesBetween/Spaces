@@ -5,7 +5,7 @@ import { handleLogin, handleSignUp } from "../model/auth/auth.js";
 
 /* Sign up */
 
-// Test case 1: successful sign up for student 
+// Test case 1: successful sign up for student
 
 // Unit testing
 /*test("Signing up as a student", () => {
@@ -26,12 +26,12 @@ We expect the confirmation link sent to user's email to be
 directed to the homepage. */
 
 // Test case 2: unrecognised email domain
-handleSignUp({
+/*handleSignUp({
   email: "ihopenoOneuseThis@hmail.com",
   password: "ncsfkjsbf99",
   type: "Student",
   name: "Tianyue",
-}).then(msg => console.log(msg));
+}).then(msg => console.log(msg));*/
 
 // Test case 3: staff sign up
 
@@ -56,13 +56,16 @@ handleSignUp({
 
 // Test case 2: Wrong password
 
-// handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjf99" });
+// handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjf99" }).then(
+//   (msg) => console.log(msg)
+// );
 
+// Test case 3: no details input
+
+// handleLogin({ email: "", password: "" }).then((msg) => console.log(msg));
 
 /* Controller file */
 
 /* Login */
 
 // Test case 1: successful login
-
-
