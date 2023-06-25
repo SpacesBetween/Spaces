@@ -1,49 +1,136 @@
-import { Container } from "@mui/material";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "../../configuration/supabaseClient.js";
-import { Box } from "@mui/material";
+import { useState } from "react";
+import {
+  TextField,
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  IconButton,
+  Link,
+  Box,
+  Collapse,
+  Button,
+  Alert,
+  AlertTitle,
+  Container,
+} from "@mui/material";
+import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
+import { handleLogin } from "../../model/auth/auth.js";
 
 // can skip the sign-up part
 // the box is not align to the center, with the container
 export default function LoginScreen() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
-      <Container
-        maxWidth="xs"
+    <Container
+      maxWidth="xs"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        backgroundColor: "",
+        justifyBackground: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          height: "100vh",
-          backgroundColor: "",
-          justifyBackground: "center",
-          justifyContent: "center",
+          height: "35%",
+          width: "100%",
+          bgcolor: "#eaeaea",
+          padding: "16px",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            height: "35%",
-            width: "100%",
-            bgcolor: "#eaeaea",
-            padding: "16px",
-          }}
-        >
-          <Auth
-            supabaseClient={supabase}
-            appearance={{
-              theme: ThemeSupa,
-              style: {
-                button: {
-                  background: "white",
-                  color: "black",
-                  border: "white",
-                },
-              },
+        <div className="Email-input">
+          <TextField
+            id="outlined-start-adornment"
+            error={email === ""}
+            helperText="Please enter your email."
+            sx={{
+              m: 1,
+              width: "40ch",
+              position: "relative",
+              left: "5%",
+              top: "20%",
             }}
-            providers={[]} // removes third-party authentication
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">Email:</InputAdornment>
+              ),
+            }}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
           />
-        </Box>
-      </Container>
+        </div>
+        <div className="Password-input">
+          <FormControl
+            sx={{
+              m: 1,
+              width: "40ch",
+              position: "relative",
+              left: "5%",
+              top: "20%",
+            }}
+            error={password === ""}
+            variant="outlined"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          >
+            <InputLabel htmlFor="outlined-adornment-password">
+              Enter your Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
+        </div>
+        <div className="LoginButton">
+          <Button
+            variant="contained"
+            sx={{ m: 1, position: "relative", left: "75%", top: "40%" }}
+            onClick={() => setLoginMessage(handleLogin({ email, password }))}
+          >
+            Login
+          </Button>
+        </div>
+        <div className="Links">
+          <div>
+            <Link href="#">Don't have an account? Sign up!</Link>
+          </div>
+          <div>
+            <Link href="#">Forgot password</Link>
+          </div>
+        </div>
+      </Box>
+    </Container>
   );
 }
