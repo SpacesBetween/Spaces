@@ -5,5 +5,5 @@ const { data, error } = await supabase.from("venues").select('venueName', "AS1-0
 if (error) {
     console.log(error.message);
 } else {
-    console.log(data.toString());
+    console.log(data);
 }
