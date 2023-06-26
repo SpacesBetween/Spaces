@@ -11,7 +11,7 @@ export const handleSignUp = async (info) => {
     return "Please enter a name.";
   } else if (info.password?.length < 8 || info.password?.length === 0) {
     return "Please enter a password with at least 8 characters.";
-  } else if (info.type === "TA" && info.moduleIfTA?.length === 0) {
+  } else if (info.type === "TA" && !info.moduleIfTA) {
     return "Please enter the module that you are teaching.";
   } 
 
