@@ -5,7 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs/AdapterDayjs.js";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { Box } from "@mui/material";
 
-export default function ResponsiveDatePickers() {
+export default function DateSearchBar() {
   return (
     <Box sx={{ minWidth: 120, m: 8, marginBottom: 0, marginTop: 1 }}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

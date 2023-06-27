@@ -10,7 +10,7 @@ import {
 import TimeSearchBar from "../../components/TimeSearchBar.js";
 import DurationSearchBar from "../../components/DurationSearchBar.js";
 import DateSearchBar from "../../components/DateSearchBar.js";
-import Icon from "@mdi/react";
+import { Icon } from "@mdi/react";
 import { mdiRestart, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
 
 const theme = createTheme({
