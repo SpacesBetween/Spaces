@@ -7,6 +7,7 @@ import RoomPage from "./view/roomSearch/RoomPage.js";
 import homeVideo from "./assets/space-video.mp4";
 import { supabase } from "./configuration/supabaseClient.js";
 import LoginScreen from "./view/authentication/LoginScreen.js";
+import SignUp from "./view/authentication/SignUp.js"
 
 export default function App() {
   const [session, setSession] = useState(null)
