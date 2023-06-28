@@ -13,7 +13,9 @@ export const handleSignUp = async (info) => {
     return "Please enter a password with at least 8 characters.";
   } else if (info.type === "TA" && !info.moduleIfTA) {
     return "Please enter the module that you are teaching.";
-  } 
+  } else if (info.type === "Staff" && domainTen !== "nus.edu.sg") {
+    return "Are you sure that you are a staff?"
+  }
 
   // outputstring to display msg if an error occurs during profile creation
   let outputString = "";
@@ -30,7 +32,7 @@ export const handleSignUp = async (info) => {
     } else if (data.user?.identities?.length === 0) {
       return "User email is already registered";
     } else {
-      outputString = "Sucess! Please check your email for confirmation.";
+      outputString = "Success! Please check your email for confirmation.";
     }
   } catch (error) {
     return error.message;
@@ -127,7 +129,7 @@ export const handleLogin = async (info) => {
 export const forgetPassword = async ({ email }) => {};
 
 // function for logging out
-export const signOut = async (info) => {
+export const signOut = async () => {
   try {
     const { error } = await supabase.auth.signOut()
 

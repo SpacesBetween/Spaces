@@ -53,7 +53,7 @@ export default function HomePage() {
                 color="primary"
                 size="small"
                 endIcon={<Icon path={mdiCardSearchOutline} size={0.8} />}
-                href="../roomSearch/RoomPage.js"
+                href="/roomsearch"
               >
                 <Typography sx={{ fontSize: 14 }}>Room Bookings</Typography>
               </Button>

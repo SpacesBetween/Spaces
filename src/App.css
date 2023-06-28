@@ -10,3 +10,22 @@
 .videoTag {
   z-index: -10;
 }
+
+.signoutButton {
+  background-color: white;
+  color: black;
+  padding: 8px 20px;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+  width: 8%;
+  font-size: 15px;
+  position: absolute;
+  top: 90%;
+  right:3%;
+}
+
+.signoutButton:hover {
+  background-color: palevioletred;
+  color: black;
+  transform: all 0.3s ease-out;
+}

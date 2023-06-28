@@ -32,6 +32,7 @@ export default function LoginScreen() {
   const [moduleName, setModuleName] = useState("");
   const [signUpMessage, setsignUpMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [student, setStudent] = useState(false); // default is staff
   const [TA, setTA] = useState(false);
 
@@ -52,8 +53,11 @@ export default function LoginScreen() {
     }).then((msg) => {
       setsignUpMessage(msg);
       if (
-        signUpMessage !== "Sucess! Please check your email for confirmation."
+        msg === "Success! Please check your email for confirmation."
       ) {
+        setSuccess(true);
+        setOpen(false);
+      } else {
         setOpen(true);
       }
     });
@@ -270,7 +274,7 @@ export default function LoginScreen() {
           <div className="Links">
             <Link
               sx={{ position: "relative", left: "17%", top: "50%" }}
-              href="./LoginScreen.js"
+              href="/login"
             >
               Wait! I have an account! Login
             </Link>
@@ -292,7 +296,7 @@ export default function LoginScreen() {
             Submit!
           </Button>
         </div>
-        <Collapse in={open}>
+        <Collapse in={open === true}>
           <Alert
             severity="warning"
             action={
@@ -312,6 +316,14 @@ export default function LoginScreen() {
             {signUpMessage}
           </Alert>
         </Collapse>
+        <div>
+          {success && (
+            <Alert severity="success">
+              <AlertTitle>Success!</AlertTitle>
+              {signUpMessage}
+            </Alert>
+          )}
+        </div>
       </Container>
     </>
   );

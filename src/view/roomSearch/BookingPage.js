@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Container, Typography, Box, Button } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import TypeOfBookingBar from "./utils/TypeOfBookingBar";
-import DurationSearchBar from "./utils/DurationSearchBar";
+import { Container, Typography, Box, Button, ThemeProvider, createTheme } from "@mui/material";
+import DurationSearchBar from "../../components/DurationSearchBar";
+import TypeOfBookingBar from "../../components/TypeOfBookingBar";
 import { Icon } from "@mdi/react";
 import { mdiRestart, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
 

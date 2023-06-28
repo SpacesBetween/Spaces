@@ -1,6 +1,6 @@
 import React from 'react';
-import Spots from '../../components/Spots';
-import '../../App.css';
+import Spots from '../../components/Spots.js';
+import { Typography, Container } from '@mui/material';
 
 // have to add in the up to date time and location(not yet done)
 export default function AvailableSpotPage() {

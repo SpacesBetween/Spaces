@@ -12,12 +12,10 @@ import {
   Alert,
   AlertTitle,
   Container,
-  Link
+  Link,
 } from "@mui/material";
 import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import { handleLogin } from "../../model/auth/auth.js";
-import signup from "./SignUp.js"
-// import { Link } from "react-router-dom";
 
 // can skip the sign-up part
 // the box is not align to the center, with the container
@@ -38,7 +36,7 @@ export default function LoginScreen() {
     handleLogin({ email: email, password: password }).then((msg) => {
       setLoginMessage(msg);
       if (loginMessage !== "Success") {
-        setOpen(true);
+        setOpen(true)
       }
     });
 
@@ -136,13 +134,19 @@ export default function LoginScreen() {
             <div>
               <Link
                 sx={{ position: "relative", left: "17%", top: "40%" }}
+                href="/signup"
               >
                 Don't have an account? Sign up!
               </Link>
             </div>
             <div>
               <Link
-                sx={{ position: "relative", left: "30%", top: "40%", cursor:"not-allowed"}}
+                sx={{
+                  position: "relative",
+                  left: "30%",
+                  top: "40%",
+                  cursor: "not-allowed",
+                }}
                 href="#"
               >
                 Forgot password
