@@ -61,7 +61,6 @@ export const handleNewBooking = async (
   user,
   venue_id,
   date,
-  day,
   startTime,
   duration,
   endTime,
@@ -72,6 +71,18 @@ export const handleNewBooking = async (
   if (!user) {
     return "Please login.";
   }
+
+  const days = [
+    "Sunday", // dummy 
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const day = days[date.getDay()];
 
   try {
     const { data, error } = await supabase

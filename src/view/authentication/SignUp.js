@@ -320,7 +320,7 @@ export default function LoginScreen() {
           {success && (
             <Alert severity="success">
               <AlertTitle>Success!</AlertTitle>
-              {signUpMessage}
+              {signUpMessage} You can close this tab now.
             </Alert>
           )}
         </div>
