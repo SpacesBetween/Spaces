@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography } from "@mui/material";
+import { supabase } from "../../configuration/supabaseClient";
+
+  // can get the user session here 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
 const BookingRecords = () => {
   const [bookings, setBookings] = useState([]);

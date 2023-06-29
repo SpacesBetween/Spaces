@@ -21,7 +21,8 @@
   font-size: 15px;
   position: absolute;
   top: 90%;
-  right:3%;
+  left: 90%;
+  justify-content: center;
 }
 
 .signoutButton:hover {
