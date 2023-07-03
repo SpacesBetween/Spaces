@@ -1,6 +1,6 @@
 import { supabase } from "../../configuration/supabaseClient";
 
-// fetching booking history
+/* Booking Records */
 export const fetchBookingHistory = async (user) => {
   if (!user) {
     return "Please login.";
@@ -61,9 +61,8 @@ export const handleNewBooking = async (
   user,
   venue_id,
   date,
-  startTime,
+  selectedTime,
   duration,
-  endTime,
   type
 ) => {
   // Logic to handle the new booking
@@ -72,8 +71,12 @@ export const handleNewBooking = async (
     return "Please login.";
   }
 
+  // Make a Date object
+  const bookedDate = new Date(date);
+
+  // handle day conversion
   const days = [
-    "Sunday", // dummy 
+    "Sunday", // dummy
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -82,18 +85,24 @@ export const handleNewBooking = async (
     "Saturday",
   ];
 
-  const day = days[date.getDay()];
+  const day = days[bookedDate.getDay()];
+
+  // handle start time conversion
+  let timeString = selectedTime;
+  const hours = timeString[0] + timeString[1];
+  const startTime = bookedDate.setHours(hours);
+
+  // handle end time conversion
+  const endTime = bookedDate.setTime(startTime + duration * 3600000);
 
   try {
     const { data, error } = await supabase
       .from("booking")
       .insert({
         venue_id: venue_id,
-        date: date,
         day: day,
-        startTime: startTime,
         duration: duration,
-        endTime: endTime,
+        bookingTimeRange: [startTime, endTime],
         type: type,
       })
       .select();
@@ -103,6 +112,114 @@ export const handleNewBooking = async (
     } else {
       // will see how view want to format the result
       return data.id;
+    }
+  } catch (error) {
+    return error.message;
+  }
+};
+
+/* Room searching */
+
+export const roomSearchStudy = async ({
+  location,
+  date,
+  time,
+  duration,
+  type,
+}) => {
+  // helper function for outputing endtime in Number
+  function timeConvertor(duration, timeString) {
+    const number = Number(duration);
+    const timeNumber = Number(timeString);
+
+    if (duration % 1 === 0) {
+      return timeNumber + number * 100;
+    } else {
+      const working = (number - 0.5) * 100;
+      return timeNumber + 30 + working;
+    }
+  }
+
+  // array of free rooms
+  const freeRoomArray = [];
+  // array of bookings
+  const bookings = [];
+
+  const searchingDate = new Date(date);
+  // handle day conversion
+  const days = [
+    "Sunday", // dummy
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  // the day of the week
+  const day = days[searchingDate.getDay()];
+  // the start time (type timestamp) of the desired booking
+  const startTime = searchingDate.setHours(time[0] + time[1]);
+  // the end time (type timestamp) of the desired booking
+  const endTime = searchingDate.setTime(startTime + duration * 3600000);
+  // the string number representation of end time
+  const endTimeString = timeConvertor(duration, time);
+
+  // frist, fetch free rooms with the official lessons
+  try {
+    const { data: venueData, error } = await supabase
+      .from("venueLesson")
+      .select("venueName, timetableAvailability")
+      .like("venueName", location + "%") // match location name
+      .eq("day", day) // match day of the week
+      .or(
+        `timetableAvailability->${time}.is.undefined,timetableAvailability.is.null`
+      ); // match time availability
+
+    if (error) {
+      throw error;
+    } else {
+      // filter out venue whose lesson has a start time before the endTime of the booking
+      const noLesson = venueData.filter((venueLesson) => {
+        if (!venueLesson.timetableAvailability) {
+          return true;
+        } else {
+          for (const lessonTime in venueLesson.timetableAvailability) {
+            if (lessonTime <= endTimeString && lessonTime > time) {
+              return false;
+            }
+            continue;
+          }
+
+          return true;
+        }
+      });
+
+      freeRoomArray = noLesson;
+    }
+  } catch (error) {
+    return error.message;
+  }
+
+  // then, check against all bookings of that set of rooms
+
+  try {
+    for (const room in freeRoomArray) {
+      const { data, error } = await supabase
+        .from("booking")
+        .select("venue_id, type")
+        .eq("venue_id", freeRoomArray[room].venueName)
+        .overlaps("bookingTimeRange", [startTime, endTime]);
+        // thinking if i can merge with previous fetch to save time?
+
+      if (error) {
+        throw error;
+      } else {
+        if (data) {
+          bookings = bookings.concat(data);
+        }
+      }
     }
   } catch (error) {}
 };

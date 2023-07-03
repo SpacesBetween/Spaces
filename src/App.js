@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar.js";
-import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./view/homepage/HomePage.js";
 import RoomPage from "./view/roomSearch/RoomPage.js";
