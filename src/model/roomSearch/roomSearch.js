@@ -1,4 +1,4 @@
-import { supabase } from "../../configuration/supabaseClient";
+import { supabase } from "../../configuration/supabaseClient.js";
 
 /* Booking Records */
 export const fetchBookingHistory = async (user) => {
@@ -99,6 +99,7 @@ export const handleNewBooking = async (
     const { data, error } = await supabase
       .from("booking")
       .insert({
+        user_id: user.id,
         venue_id: venue_id,
         day: day,
         duration: duration,
@@ -111,7 +112,7 @@ export const handleNewBooking = async (
       throw error;
     } else {
       // will see how view want to format the result
-      return data.id;
+      return data;
     }
   } catch (error) {
     return error.message;
@@ -125,7 +126,6 @@ export const roomSearchStudy = async ({
   date,
   time,
   duration,
-  type,
 }) => {
   // helper function for outputing endtime in Number
   function timeConvertor(duration, timeString) {
@@ -141,9 +141,7 @@ export const roomSearchStudy = async ({
   }
 
   // array of free rooms
-  const freeRoomArray = [];
-  // array of bookings
-  const bookings = [];
+  let freeRoomArray = [];
 
   const searchingDate = new Date(date);
   // handle day conversion
@@ -170,12 +168,9 @@ export const roomSearchStudy = async ({
   try {
     const { data: venueData, error } = await supabase
       .from("venueLesson")
-      .select("venueName, timetableAvailability")
+      .select(`venueName, timetableAvailability, venues(totalCapacity)`)
       .like("venueName", location + "%") // match location name
       .eq("day", day) // match day of the week
-      .or(
-        `timetableAvailability->${time}.is.undefined,timetableAvailability.is.null`
-      ); // match time availability
 
     if (error) {
       throw error;
@@ -186,7 +181,7 @@ export const roomSearchStudy = async ({
           return true;
         } else {
           for (const lessonTime in venueLesson.timetableAvailability) {
-            if (lessonTime <= endTimeString && lessonTime > time) {
+            if (lessonTime < endTimeString && lessonTime >= time) {
               return false;
             }
             continue;
@@ -195,7 +190,6 @@ export const roomSearchStudy = async ({
           return true;
         }
       });
-
       freeRoomArray = noLesson;
     }
   } catch (error) {
@@ -211,15 +205,29 @@ export const roomSearchStudy = async ({
         .select("venue_id, type")
         .eq("venue_id", freeRoomArray[room].venueName)
         .overlaps("bookingTimeRange", [startTime, endTime]);
-        // thinking if i can merge with previous fetch to save time?
 
       if (error) {
         throw error;
       } else {
-        if (data) {
-          bookings = bookings.concat(data);
+        if (data.length !== 0) {
+          freeRoomArray[room].bookings = data;
         }
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    return error.message;
+  }
+
+  // check if the room is booked whole room or the room has max bookings at that time period
+  freeRoomArray.filter((room) => {
+    room.bookings?.filter(
+      (booking) => booking.type || booking.length >= room.venues[room.venueName]
+    );
+    return room.bookings ? true : false;
+  });
+
+  // format the array to just string of venue names
+  freeRoomArray = freeRoomArray.map(roomObj => roomObj.venueName);
+
+  return freeRoomArray;
 };
