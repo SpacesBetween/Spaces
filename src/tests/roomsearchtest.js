@@ -16,11 +16,18 @@ import { supabase } from "../configuration/supabaseClient.js";
   ).resolves.toContain("AS1-0201");
 });*/
 
-/*handleNewBooking(
+const {
+  data: { user },
+} = await supabase.auth.signInWithPassword({
+  email: "e0968931@u.nus.edu",
+  password: "ncsfkjsbf99",
+});
+
+handleNewBooking(
   user,
   "COM3-01-20",
   new Date("2023-01-27"),
   "0800",
   "2",
   true
-).then((msg) => console.log(msg));*/
+).then((msg) => console.log(msg));

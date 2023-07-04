@@ -10,7 +10,7 @@ export const fetchBookingHistory = async (user) => {
     const { data, error } = await supabase
       .from("booking")
       .select()
-      .eq("user_id", user.id);
+      .eq("user_email", user.email);
 
     if (error) {
       throw error;
@@ -99,7 +99,8 @@ export const handleNewBooking = async (
     const { data, error } = await supabase
       .from("booking")
       .insert({
-        user_id: user.id,
+        user_email: user.email,
+        user_id : user.id,
         venue_id: venue_id,
         day: day,
         duration: duration,
@@ -112,7 +113,7 @@ export const handleNewBooking = async (
       throw error;
     } else {
       // will see how view want to format the result
-      return data;
+      return data; // vital (booking_id needs to be returned)
     }
   } catch (error) {
     return error.message;
