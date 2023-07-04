@@ -19,13 +19,6 @@ test("Successful sign up as a student", async () => {
   ).resolves.toBe("Success! Please check your email for confirmation.");
 });
 
-// Integration testing with DB
-/* We expect the database to create a new user in the authetication database provided
-by supabase while also creating a new user under the 'User' table to keep
-track of the profile. 
-We expect the confirmation link sent to user's email to be 
-directed to the homepage. */
-
 // Test case 2: unrecognised email domain
 
 test("Unrecognised email domain", async () => {
@@ -44,10 +37,10 @@ test("Unrecognised email domain", async () => {
 test("successful sign up as TA", async () => {
   await expect(
     handleSignUp({
-      email: "e0968931@u.nus.edu",
+      email: "e0774768@u.nus.edu",
       password: "ncsfkjsbf99",
       type: "TA",
-      name: "Tianyue",
+      name: "Stephanie",
       moduleIfTA: ["CS1101S"],
     })
   ).resolves.toBe("Success! Please check your email for confirmation.");
@@ -119,25 +112,35 @@ test("Insecure passwords", async () => {
   ).resolves.toBe("Please enter a password with at least 8 characters.");
 });
 
+
 /* Login */
 
 // Test case 1: successful login
 
-/*handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjsbf99" }).then(
-  (msg) => console.log(msg)
-);*/
+test("successful login", async () =>
+  await expect(
+    handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjsbf99" })
+  ).resolves.toBe("Success"));
 
 // Test case 2: Wrong password
 
-// handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfkjf99" }).then(
-//   (msg) => console.log(msg)
-// );
+test("wrong password", async () =>
+  await expect(
+    handleLogin({ email: "e0968931@u.nus.edu", password: "ncsfsbf99" })
+  ).resolves.toBe("Invalid login credentials"));
 
 // Test case 3: no details input
 
-// handleLogin({ email: "", password: "" }).then((msg) => console.log(msg));
+test("no inputs", async () =>
+  await expect(handleLogin({ email: "", password: "" })).resolves.toBe(
+    "Please enter your email"
+  ));
 
 /* Sign out */
 
 // Test case 1: success sign out
-// signOut({email: "e0968931@u.nus.edu", password: "ncsfkjsbf99"}).then();
+
+test("successful signout", async () =>
+  await expect(
+    signOut({ email: "e0968931@u.nus.edu", password: "ncsfkjsbf99" })
+  ).resolves.toBe("Successfully logged out."));

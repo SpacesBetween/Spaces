@@ -136,7 +136,7 @@ export const signOut = async () => {
     if (error) {
       throw error;
     } else {
-      return; 
+      return "Successfully logged out."; 
     }
   } catch (error) {
     return error.message;
