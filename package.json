@@ -41,8 +41,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll --testMatch **/src/**/*test.js",
+    "test": "jest --coverage",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -63,6 +68,7 @@
     ]
   },
   "devDependencies": {
+    "babel-jest": "^29.5.0",
     "jest": "^27.5.1",
     "process": "^0.11.10"
   }
