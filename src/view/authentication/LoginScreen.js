@@ -13,12 +13,20 @@ import {
   AlertTitle,
   Container,
   Link,
+  createTheme,
+  ThemeProvider
 } from "@mui/material";
 import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import { handleLogin } from "../../model/auth/auth.js";
 
-// can skip the sign-up part
-// the box is not align to the center, with the container
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#8BB0D6",
+    },
+  },
+});
+
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -42,6 +50,7 @@ export default function LoginScreen() {
 
   return (
     <>
+    <ThemeProvider theme={theme}>
       <Container
         maxWidth="xs"
         sx={{
@@ -56,7 +65,7 @@ export default function LoginScreen() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "35%",
+            height: "50%",
             width: "100%",
             bgcolor: "#eaeaea",
             padding: "16px",
@@ -65,6 +74,8 @@ export default function LoginScreen() {
           <div className="Email-input">
             <TextField
               id="outlined-start-adornment"
+              label="Email"
+              variant="outlined"
               error={email === ""}
               helperText="Please enter your email."
               sx={{
@@ -72,12 +83,7 @@ export default function LoginScreen() {
                 width: "80%",
                 position: "relative",
                 left: "8%",
-                top: "20%",
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">Email:</InputAdornment>
-                ),
+                top: "20%"
               }}
               onChange={(event) => {
                 setEmail(event.target.value);
@@ -99,8 +105,8 @@ export default function LoginScreen() {
                 setPassword(event.target.value);
               }}
             >
-              <InputLabel htmlFor="outlined-adornment-password">
-                Enter your Password
+                     <InputLabel htmlFor="outlined-adornment-password">
+                Password
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -124,7 +130,7 @@ export default function LoginScreen() {
           <div className="LoginButton">
             <Button
               variant="contained"
-              sx={{ m: 1, position: "relative", left: "75%", top: "40%" }}
+              sx={{ m: 1, position: "relative", left: "62%", top: "40%" }}
               onClick={handleClickLogin}
             >
               Login
@@ -133,10 +139,10 @@ export default function LoginScreen() {
           <div className="Links">
             <div>
               <Link
-                sx={{ position: "relative", left: "17%", top: "40%" }}
+                sx={{ position: "relative", left: "11%", top: 40}}
                 href="/signup"
               >
-                Don't have an account? Sign up!
+                Don't have an account? Sign up
               </Link>
             </div>
             <div>
@@ -144,12 +150,12 @@ export default function LoginScreen() {
                 sx={{
                   position: "relative",
                   left: "30%",
-                  top: "40%",
+                  top: 40,
                   cursor: "not-allowed",
                 }}
                 href="#"
               >
-                Forgot password
+                Forget password
               </Link>
             </div>
           </div>
@@ -175,6 +181,7 @@ export default function LoginScreen() {
           </Alert>
         </Collapse>
       </Container>
+      </ThemeProvider>
     </>
   );
 }

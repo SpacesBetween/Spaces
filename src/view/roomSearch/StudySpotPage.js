@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Container, Typography, Box, Button } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import TimeSearchBar from "./utils/TimeSearchBar";
-import DurationSearchBar from "./utils/DurationSearchBar";
+import { ThemeProvider, createTheme } from "@mui/material";
+import TimeSearchBar from "../../components/TimeSearchBar.js";
+import DurationSearchBar from "../../components/DurationSearchBar.js";
 import { Icon } from "@mdi/react";
 import { mdiRestart, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
 

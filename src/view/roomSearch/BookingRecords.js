@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Typography } from "@mui/material";
-import { supabase } from "../../configuration/supabaseClient";
+import { supabase } from '../../configuration/supabaseClient.js';
 
   // can get the user session here 
   const {
@@ -45,7 +45,8 @@ const BookingRecords = () => {
           marginLeft: 20,
           marginBottom: -10,
           fontSize: "0.8rem",
-          fontWeight: "lighter"
+          fontWeight: "lighter",
+          color:"white"
         }}
       >
         Click on new bookings to book a slot.
@@ -55,18 +56,19 @@ const BookingRecords = () => {
           marginLeft: 20,
           marginBottom: 50,
           fontSize: "0.8rem",
-          fontWeight: "lighter"
+          fontWeight: "lighter",
+          color:"white"
         }}
       >
         Click on cancel if you wish to cancel an existing booking.
       </p>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h3 style={{ marginLeft: 20, fontSize: 25, color: "indianred" }}>
+        <h3 style={{ marginLeft: 20, fontSize: 25, color: "red" }}>
           {" "}
           Booking Records
         </h3>
         <div style={{ marginLeft: "auto", marginRight: 50, marginTop: 26 }}>
-          <Button variant="contained" size="small" color="primary">
+          <Button variant="contained" size="small" color="primary" href="/newbooking">
             <Typography sx={{ fontSize: 16 }}>New Booking</Typography>
           </Button>
         </div>
@@ -79,7 +81,8 @@ const BookingRecords = () => {
           font: "small-caption",
           fontSize: 19,
           fontWeight: "lighter",
-          textAlign: "center"
+          textAlign: "center",
+          color:"azure"
         }}
       >
         <thead>
@@ -100,7 +103,7 @@ const BookingRecords = () => {
                     fontSize: "0.75rem",
                     margin: "2rem 0",
                     fontWeight: "lighter",
-                    color: "indianred",
+                    color: "red",
                     fontStyle: "italic"
                   }}
                 >

@@ -102,6 +102,7 @@ export default function RoomPage() {
               endIcon={
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
+
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>

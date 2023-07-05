@@ -15,9 +15,19 @@ import {
   Container,
   Typography,
   Stack,
+  createTheme,
+  ThemeProvider
 } from "@mui/material";
 import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import { handleSignUp } from "../../model/auth/auth.js";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#8BB0D6",
+    },
+  },
+});
 
 // can skip the sign-up part
 // the box is not align to the center, with the container
@@ -94,6 +104,7 @@ export default function LoginScreen() {
 
   return (
     <>
+    <ThemeProvider theme={theme}>
       <Container
         maxWidth="xs"
         sx={{
@@ -105,35 +116,33 @@ export default function LoginScreen() {
         }}
       >
         <div className="stu-staff">
-          <Button onClick={handleClickStaff}>Staffs</Button>
-          <Button onClick={handleClickStudent}>Students</Button>
+          <Button variant="elevated" sx ={{fontSize: 20}} onClick={handleClickStaff}>Staffs</Button>
+          <Button variant="elevated" sx ={{fontSize: 20}} onClick={handleClickStudent}>Students</Button>
         </div>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "{TA} ? calc(100vh - 50px) : 50%",
+            height: "{TA} ? calc(100vh - 50px) : 120%",
             width: "100%",
             bgcolor: "#eaeaea",
-            padding: "16px",
+            padding: "32px",
           }}
         >
           <div className="Email-input">
             <TextField
-              id="outlined-start-adornment"
-              helperText="example@nus.edu.sg"
+              id="outlined-input-email"
+              label="Email"
+              variant="outlined"
+              helperText="UserID@u.nus.edu"
               sx={{
                 m: 1,
                 width: "80%",
                 position: "relative",
                 left: "8%",
-                top: "20%",
+                top: "5%",
               }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">Email:</InputAdornment>
-                ),
-              }}
+            
               onChange={(event) => {
                 setEmail(event.target.value);
               }}
@@ -141,19 +150,17 @@ export default function LoginScreen() {
           </div>
           <div className="name-input">
             <TextField
-              id="outlined-start-adornment"
+              id="outlined-input-name"
+              label="Name"
+              variant="outlined"
               sx={{
                 m: 1,
                 width: "80%",
                 position: "relative",
                 left: "8%",
-                top: "20%",
+                top: "-5%",
               }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">Name:</InputAdornment>
-                ),
-              }}
+      
               onChange={(event) => {
                 setName(event.target.value);
               }}
@@ -166,7 +173,7 @@ export default function LoginScreen() {
                 width: "80%",
                 position: "relative",
                 left: "8%",
-                top: "20%",
+                top: "-5%",
               }}
               variant="outlined"
               onChange={(event) => {
@@ -174,7 +181,7 @@ export default function LoginScreen() {
               }}
             >
               <InputLabel htmlFor="outlined-adornment-password">
-                Enter your Password
+                Password
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -202,16 +209,16 @@ export default function LoginScreen() {
                 <Button
                   variant="contained"
                   onClick={handleClickTA}
-                  sx={{ position: "relative", top: "30%" }}
+                  sx={{ position: "relative", top: 5, left: "57.5%"}}
                 >
                   I am a TA
                 </Button>
                 <Typography
                   fontSize="10"
                   color="red"
-                  sx={{ position: "relative", left: "30%", bottom: "20%" }}
+                  sx={{ position: "relative", left: "45%", top: 5, fontSize: 13 }}
                 >
-                  We may need to verify!
+                  Warning: Verification required.
                 </Typography>
               </div>
 
@@ -242,7 +249,7 @@ export default function LoginScreen() {
                           onClick={handleUpdateModulesAdd}
                           variant="contained"
                           size="medium"
-                          sx={{ position: "relative", left: "20%", top: "40%" }}
+                          sx={{ position: "relative", left: "10%", top: "40%" }}
                         >
                           Add
                         </Button>
@@ -271,31 +278,31 @@ export default function LoginScreen() {
               </div>
             </>
           )}
-          <div className="Links">
-            <Link
-              sx={{ position: "relative", left: "17%", top: "50%" }}
-              href="/login"
-            >
-              Wait! I have an account! Login
-            </Link>
-          </div>
-        </Box>
-
-        <div className="SubmitButton">
+          <div className="SubmitButton">
           <Button
             variant="contained"
             sx={{
               m: 1,
               position: "relative",
-              left: "75%",
-              top: "0%",
-              backgroundColor: "purple",
+              left: 120,
+              top: 10,
+              backgroundColor: "primary"
             }}
             onClick={handleClickSubmit}
           >
-            Submit!
+            Sign Up
           </Button>
         </div>
+        <div className="Links">
+            <Link
+              sx={{ position: "relative", left: "23%", top: 10, fontSize: 20 }}
+              href="/login"
+            >
+              Have an account? Log In
+            </Link>
+          </div>
+        
+        </Box>
         <Collapse in={open === true}>
           <Alert
             severity="warning"
@@ -324,7 +331,10 @@ export default function LoginScreen() {
             </Alert>
           )}
         </div>
+        
       </Container>
+      
+      </ThemeProvider>
     </>
   );
 }

@@ -3,10 +3,13 @@ import Navbar from "./components/Navbar.js";
 import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
 import "./App.css";
 import HomePage from "./view/homepage/HomePage.js";
-import RoomPage from "./view/roomSearch/RoomPage.js";
+import BookingRecords from "./view/roomSearch/BookingRecords.js";
 import homeVideo from "./assets/space-video.mp4";
 import LoginScreen from "./view/authentication/LoginScreen.js";
 import SignUp from "./view/authentication/SignUp.js";
+import BookingPage from "./view/roomSearch/BookingPage.js";
+import StudySpotPage from "./view/roomSearch/StudySpotPage.js";
+import RoomPage from "./view/roomSearch/RoomPage.js";
 import { supabase } from "./configuration/supabaseClient.js";
 
 export default function App() {
@@ -34,7 +37,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route index path="/home" element={<HomePage />} />
-          <Route path="/roomsearch" element={<RoomPage />} />
+          <Route path="/roomsearch" element={<BookingRecords />} />
+          <Route path="/newbooking" element={<BookingPage />} />
+          <Route path="/roombooking" element={<RoomPage />} />
+          <Route path="/studyspotbooking" element={<StudySpotPage />} />
         </Routes>
       </BrowserRouter>
       <video className="videoTag" autoPlay loop muted>
