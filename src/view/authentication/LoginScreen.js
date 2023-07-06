@@ -132,7 +132,6 @@ export default function LoginScreen() {
               variant="contained"
               sx={{ m: 1, position: "relative", left: "62%", top: "40%" }}
               onClick={handleClickLogin}
-              href="/home"
             >
               Login
             </Button>
