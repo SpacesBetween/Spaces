@@ -63,7 +63,8 @@ export const handleNewBooking = async (
   date,
   selectedTime,
   duration,
-  type
+  type,
+  time
 ) => {
   // Logic to handle the new booking
   // Redirect the user to the new booking page or show a modal, etc.
@@ -106,6 +107,8 @@ export const handleNewBooking = async (
         duration: duration,
         bookingTimeRange: [startTime, endTime],
         type: type,
+        time: time,
+        transactionDate: new Date()
       })
       .select();
 

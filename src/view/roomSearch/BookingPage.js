@@ -92,7 +92,8 @@ export default function BookingPage() {
               size="small"
               endIcon={<Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />}
             >
-              <Typography sx={{ fontSize: 14 }}>Go</Typography>
+              <Typography sx={{ fontSize: 14 }} href="/roombooking">Go</Typography>
+              {/* handle type of booking logic  */}
             </Button>
           </div>
         </Box>
