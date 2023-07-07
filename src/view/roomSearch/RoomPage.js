@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -23,6 +23,15 @@ const theme = createTheme({
 });
 
 export default function RoomPage() {
+  // states
+  const [date, setDate] = useState();
+  const [time, setTime] = useState();
+  const [duration, setDuration] = useState();
+
+  // functions
+  // need to set to default values when reset also
+
+  // variables
   var days = [
     "Sunday",
     "Monday",
@@ -103,7 +112,6 @@ export default function RoomPage() {
               endIcon={
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
-
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>

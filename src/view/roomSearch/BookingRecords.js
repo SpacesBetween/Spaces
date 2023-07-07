@@ -6,7 +6,7 @@ import {
   handleCancellation,
   fetchBookingHistory,
 } from "../../model/room/roomFunc.js";
-import { redirect } from "react-router-dom";
+import CancellationPage from "./CancellationPage.js";
 
 // can get the user session here
 const {
@@ -15,7 +15,7 @@ const {
 
 // handle cancellation redirection
 const handleCancellationDirection = (booking_id, user) => {
-   redirect("/")
+   return <CancellationPage onArrival={handleCancellation(booking_id, user)}/>
 }
 
 const BookingRecords = () => {
@@ -130,10 +130,10 @@ const BookingRecords = () => {
                   </td>
                   <td>{booking.time}</td>
                   <td>{booking.venue_id}</td>
-                  <td>{booking.status}</td>
+                  {/* <td>{booking.status}</td> */}
                   <td>
                     <button
-                      onClick={() => handleCancellation(booking.id, user)}
+                      onClick={handleCancellationDirection}
                     >
                       Cancel
                     </button>

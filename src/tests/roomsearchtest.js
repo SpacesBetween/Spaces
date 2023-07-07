@@ -28,6 +28,6 @@ handleNewBooking(
   "COM3-01-20",
   new Date("2023-01-27"),
   "0800",
-  "2",
+  "2 hr",
   true
 ).then((msg) => console.log(msg));

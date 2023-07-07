@@ -129,7 +129,7 @@ export const roomSearchStudy = async ({
   location,
   date,
   time,
-  duration,
+  durationRaw,
 }) => {
   // helper function for outputing endtime in Number
   function timeConvertor(duration, timeString) {
@@ -144,10 +144,20 @@ export const roomSearchStudy = async ({
     }
   }
 
+  // helper function to convert duration string to pure number string
+  function getDuration(durationRaw) {
+    return durationRaw.split(' ')[0];
+  }
+
   // array of free rooms
   let freeRoomArray = [];
 
+  // for date 
   const searchingDate = new Date(date);
+
+  //for duration
+  const duration = getDuration(durationRaw);
+
   // handle day conversion
   const days = [
     "Sunday", // dummy

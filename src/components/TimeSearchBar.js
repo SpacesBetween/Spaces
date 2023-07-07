@@ -4,10 +4,10 @@ import {
   InputLabel,
   FormControl,
   NativeSelect,
-  Typography
+  Typography,
 } from "@mui/material";
 
-export default function TimeSearchBar() {
+export default function TimeSearchBar({ onSelect }) {
   return (
     <Box sx={{ minWidth: 120, m: 8, marginTop: 3 }}>
       <FormControl fullWidth>
@@ -18,8 +18,9 @@ export default function TimeSearchBar() {
           defaultValue={10}
           inputProps={{
             name: "Time",
-            id: "uncontrolled-native"
+            id: "uncontrolled-native",
           }}
+          onChange={(e) => onSelect(e)}
         >
           <option value={10}>0800</option>
           <option value={10}>0900</option>

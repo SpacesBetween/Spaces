@@ -7,7 +7,7 @@ import {
   Typography
 } from "@mui/material";
 
-export default function DurationSearchBar() {
+export default function DurationSearchBar({ onSelect }) {
   return (
     <Box sx={{ minWidth: 120, m: 30, marginTop: -5, marginLeft: 8 }}>
       <FormControl fullWidth>
@@ -20,6 +20,7 @@ export default function DurationSearchBar() {
             name: "Duration",
             id: "uncontrolled-native"
           }}
+          onChange={e => onSelect(e)}
         >
           <option value={10}>0.5 hr</option>
           <option value={10}>1 hr</option>

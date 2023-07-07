@@ -59,6 +59,7 @@ import {
                 variant="contained"
                 size="small"
                 endIcon={<Icon path={mdiCloseBoxOutline} size={0.8} />}
+                href="/roomsearch"
               >
                 <Typography sx={{ fontSize: 16 }}>Close</Typography>
               </Button>

@@ -10,6 +10,7 @@ import SignUp from "./view/authentication/SignUp.js";
 import BookingPage from "./view/roomSearch/BookingPage.js";
 import StudySpotPage from "./view/roomSearch/StudySpotPage.js";
 import RoomPage from "./view/roomSearch/RoomPage.js";
+import CancelSuccess from "./view/roomSearch/BookingSuccessfulPage.js"
 import { supabase } from "./configuration/supabaseClient.js";
 
 export default function App() {
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/newbooking" element={<BookingPage />} />
           <Route path="/roombooking" element={<RoomPage />} />
           <Route path="/studyspotbooking" element={<StudySpotPage />} />
+          <Route path="cancelsuccess" element={<CancelSuccess/>} />
         </Routes>
       </BrowserRouter>
       <video className="videoTag" autoPlay loop muted>
