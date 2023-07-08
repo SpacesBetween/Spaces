@@ -110,6 +110,7 @@ export default function StudySpotPage() {
               color="primary"
               size="small"
               endIcon={<Icon path={mdiRestart} size={0.7} />}
+              href="/studyspotbooking"
             >
               <Typography sx={{ fontSize: 14 }}>Reset</Typography>
             </Button>
@@ -119,6 +120,7 @@ export default function StudySpotPage() {
               endIcon={
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
+              href="/spotssearchpage"
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>

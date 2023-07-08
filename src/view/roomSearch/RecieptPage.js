@@ -17,7 +17,7 @@ import {
     }
   });
   
-  export default function HomePage() {
+  export default function ReceiptPage() {
     return (
       <ThemeProvider theme={theme}>
         <Container

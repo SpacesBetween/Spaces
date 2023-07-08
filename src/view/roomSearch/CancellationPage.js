@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import { Icon } from "@mdi/react";
 import { mdiCheckCircle, mdiCloseBoxOutline } from "@mdi/js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { handleCancellation } from "../../model/room/roomFunc.js";
 
 const theme = createTheme({
   palette: {
@@ -18,23 +19,10 @@ const theme = createTheme({
   },
 });
 
-export default function CancellationPage({ onArrival }) {
+export default function CancellationPage({ userData }) {
   // state to handle the logic when 'yes' button is clicked
   const [yes, setYes] = useState(false);
   const [success, setSuccess] = useState(false);
-
-  // effect to handle async onArrival to remove booking from backend
-  useEffect(() => {
-    if (yes) {
-      onArrival()
-        .catch((err) => alert(err))
-        .then((msg) => {
-          setSuccess(true);
-          console.log(msg);
-        });
-    }
-    // else do nothing
-  });
 
   // function to handle routing logic
   const route = () => {
@@ -104,10 +92,17 @@ export default function CancellationPage({ onArrival }) {
               color="primary"
               size="small"
               endIcon={<Icon path={mdiCheckCircle} size={0.75} />}
-              onClick={() => setYes(true)}
+              onClick={() => {
+                setYes(true);
+                handleCancellation(userData.id, userData.user)
+                  .catch((err) => alert(err))
+                  .then((msg) => {
+                    setSuccess(true);
+                  });
+              }}
               href={route()}
             >
-              <Typography sx={{ fontSize: 16 }}>Yes</Typography>
+              <Typography sx={{ fontSize: 16 }}>Yes (click me twice!) </Typography>
             </Button>
             <Button
               variant="contained"

@@ -3,7 +3,6 @@ import { Button, Typography } from "@mui/material";
 import { supabase } from "../../configuration/supabaseClient.js";
 import "./BookingRecords.css";
 import {
-  handleCancellation,
   fetchBookingHistory,
 } from "../../model/room/roomFunc.js";
 import CancellationPage from "./CancellationPage.js";
@@ -19,18 +18,13 @@ const BookingRecords = () => {
   const [cancelling, setCancelling] = useState(false);
   const [cancelData, setCancelData] = useState({ id: null, user: user });
 
-  // cancel function
-  const handleCancelBooking = (cancelData) => {
-    return () => handleCancellation(cancelData.id, cancelData.user);
-  };
-
   // fetch bookings from database and set array
   fetchBookingHistory(user)
     .catch((error) => alert(error.mesaage))
     .then((bookings) => setBookings(bookings));
 
   return cancelling ? (
-    <CancellationPage onArrival={handleCancelBooking(cancelData)} />
+    <CancellationPage userData={cancelData} />
   ) : (
     <div className="maindiv">
       <p

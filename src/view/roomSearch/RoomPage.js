@@ -118,6 +118,7 @@ export default function RoomPage() {
               color="primary"
               size="small"
               endIcon={<Icon path={mdiRestart} size={0.7} />}
+              href="/roombooking"
             >
               <Typography sx={{ fontSize: 14 }}>Reset</Typography>
             </Button>
@@ -127,6 +128,7 @@ export default function RoomPage() {
               endIcon={
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
+              href="/spotssearchpage"
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>
