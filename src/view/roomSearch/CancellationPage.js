@@ -8,8 +8,9 @@ import {
 } from "@mui/material";
 import { Icon } from "@mdi/react";
 import { mdiCheckCircle, mdiCloseBoxOutline } from "@mdi/js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { handleCancellation } from "../../model/room/roomFunc.js";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -24,12 +25,17 @@ export default function CancellationPage({ userData }) {
   const [yes, setYes] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // function to handle routing logic
-  const route = () => {
+  const navigate = useNavigate();
+
+  // effect to handle routing logic
+  useEffect(() => {
     if (success && yes) {
-      return "/cancelsuccess";
+      return navigate("/cancelsuccess");
     }
-  };
+    return () => {
+    
+    }
+  }, [yes, success, navigate])
 
   return (
     <ThemeProvider theme={theme}>
@@ -100,9 +106,10 @@ export default function CancellationPage({ userData }) {
                     setSuccess(true);
                   });
               }}
-              href={route()}
             >
-              <Typography sx={{ fontSize: 16 }}>Yes (click me twice!) </Typography>
+              <Typography sx={{ fontSize: 16 }}>
+                Yes{" "}
+              </Typography>
             </Button>
             <Button
               variant="contained"
