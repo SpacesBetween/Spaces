@@ -7,26 +7,31 @@ import {
   fetchBookingHistory,
 } from "../../model/room/roomFunc.js";
 import CancellationPage from "./CancellationPage.js";
+import { mdiNull } from "@mdi/js";
 
 // can get the user session here
 const {
   data: { user },
 } = await supabase.auth.getUser();
 
-// handle cancellation redirection
-const handleCancellationDirection = (booking_id, user) => {
-   return <CancellationPage onArrival={handleCancellation(booking_id, user)}/>
-}
-
 const BookingRecords = () => {
   const [bookings, setBookings] = useState([]);
+  const [cancelling, setCancelling] = useState(false);
+  const [cancelData, setCancelData] = useState({ id: null, user: user });
+
+  // cancel function
+  const handleCancelBooking = (cancelData) => {
+    return () => handleCancellation(cancelData.id, cancelData.user);
+  };
 
   // fetch bookings from database and set array
   fetchBookingHistory(user)
     .catch((error) => alert(error.mesaage))
     .then((bookings) => setBookings(bookings));
 
-  return (
+  return cancelling ? (
+    <CancellationPage onArrival={handleCancelBooking(cancelData)} />
+  ) : (
     <div className="maindiv">
       <p
         style={{
@@ -47,25 +52,6 @@ const BookingRecords = () => {
         Click on new bookings to book a slot. <br />
         Click on cancel if you wish to cancel an existing booking.
       </p>
-      {/* <p
-        style={{
-          // changed margin top to see what happens
-          position:"relative",
-          top: 0,
-          marginLeft: 20,
-          marginBottom: 50,
-          fontSize: "0.8rem",
-          fontWeight: "lighter",
-          color:"white",
-          // added a background colour to see how it looks
-          backgroundColor:"black",
-          // added in a width
-          width: "15%",
-        }}
-      >
-        Click on cancel if you wish to cancel an existing booking.
-      </p> */}
-      {/* try to wrap the rest in a div container */}
       <div className="records">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h3 style={{ marginLeft: 20, fontSize: 25, color: "red" }}>
@@ -124,16 +110,18 @@ const BookingRecords = () => {
             ) : (
               bookings.map((booking) => (
                 <tr key={booking.booking_id}>
-                  <td>{booking.transactionDate}</td>
+                  <td>{new Date(booking.transactionDate).toDateString()}</td>
                   <td>
                     {new Date(booking.bookingTimeRange[0]).toDateString()}
                   </td>
                   <td>{booking.time}</td>
                   <td>{booking.venue_id}</td>
-                  {/* <td>{booking.status}</td> */}
                   <td>
                     <button
-                      onClick={handleCancellationDirection}
+                      onClick={() => {
+                        setCancelData({ id: booking.booking_id, user: user });
+                        setCancelling(true);
+                      }}
                     >
                       Cancel
                     </button>

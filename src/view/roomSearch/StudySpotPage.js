@@ -19,12 +19,11 @@ export default function StudySpotPage() {
   // states
   const [time, setTime] = useState();
   const [duration, setDuration] = useState();
-  const [location, setLocation] = useState();
 
   // functions
   const handleSearch = () => {
     roomSearchStudy({
-      location: location,
+      location: " ", // wait
       date: d,
       time: time,
       duration: duration,
@@ -33,6 +32,13 @@ export default function StudySpotPage() {
       .then((msg) => console.log(msg)); // dk how we want to format the result yet
   };
   // need to set to default values when reset also
+  const onSelectTime = (e) => {
+    setTime(e.target.value);
+  };
+
+  const onSelectDuration = (e) => {
+    setDuration(e.target.value);
+  };
 
   // variables
   var days = [
@@ -89,8 +95,8 @@ export default function StudySpotPage() {
               year: "numeric",
             })}
           </Typography>
-          <TimeSearchBar></TimeSearchBar>
-          <DurationSearchBar></DurationSearchBar>
+          <TimeSearchBar onSelect={onSelectTime}></TimeSearchBar>
+          <DurationSearchBar onSelect={onSelectDuration}></DurationSearchBar>
           <div
             style={{
               display: "flex",

@@ -10,7 +10,7 @@ import SignUp from "./view/authentication/SignUp.js";
 import BookingPage from "./view/roomSearch/BookingPage.js";
 import StudySpotPage from "./view/roomSearch/StudySpotPage.js";
 import RoomPage from "./view/roomSearch/RoomPage.js";
-import CancelSuccess from "./view/roomSearch/BookingSuccessfulPage.js"
+import CancelSuccess from "./view/roomSearch/CancellationSuccessfulPage.js"
 import { supabase } from "./configuration/supabaseClient.js";
 
 export default function App() {

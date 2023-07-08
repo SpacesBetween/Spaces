@@ -15,7 +15,7 @@ export default function DateSearchBar({ onSelect }) {
         <DemoContainer components={["DatePicker"]}>
           <DemoItem label="Date:">
             <DatePicker
-              defaultValue={dayjs("2023-06-22")}
+              defaultValue={dayjs()}
               onChange={(e) => onSelect(e)}
             />
           </DemoItem>

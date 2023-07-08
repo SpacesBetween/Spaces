@@ -26,8 +26,7 @@ export default function BookingPage() {
 
   // functions
   const onSelectType = (e) => {
-    // fix bug: why can't onSelect shows right type
-    if (e) {
+    if (e.target.value === "1") {
       setBookingType(true);
     } else {
       setBookingType(false);

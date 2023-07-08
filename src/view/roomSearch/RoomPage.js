@@ -30,6 +30,21 @@ export default function RoomPage() {
 
   // functions
   // need to set to default values when reset also
+  const onSelectDate = (e) => {
+    setDate(e);
+  };
+
+  const onSelectTime = (e) => {
+    setTime(e.target.value);
+  };
+
+  const onSelectDuration = (e) => {
+    setDuration(e.target.value);
+  };
+
+  const onReset = () => {
+
+  }
 
   // variables
   var days = [
@@ -86,9 +101,9 @@ export default function RoomPage() {
               year: "numeric",
             })}
           </Typography>
-          <DateSearchBar></DateSearchBar>
-          <TimeSearchBar></TimeSearchBar>
-          <DurationSearchBar></DurationSearchBar>
+          <DateSearchBar onSelect={onSelectDate}></DateSearchBar>
+          <TimeSearchBar onSelect={onSelectTime}></TimeSearchBar>
+          <DurationSearchBar onSelect={onSelectDuration}></DurationSearchBar>
 
           <div
             style={{

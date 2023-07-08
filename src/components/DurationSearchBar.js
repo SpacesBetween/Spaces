@@ -22,10 +22,10 @@ export default function DurationSearchBar({ onSelect }) {
           }}
           onChange={e => onSelect(e)}
         >
-          <option value={10}>0.5 hr</option>
-          <option value={10}>1 hr</option>
-          <option value={10}>1.5 hr</option>
-          <option value={10}>2 hr</option>
+          <option value={0.5}>0.5 hr</option>
+          <option value={1}>1 hr</option>
+          <option value={1.5}>1.5 hr</option>
+          <option value={2}>2 hr</option>
         </NativeSelect>
       </FormControl>
     </Box>

@@ -1,5 +1,12 @@
 import { supabase } from "../../configuration/supabaseClient.js";
 
+ // helper function to convert duration string to pure number string
+ function getDuration(durationRaw) {
+  const string = String(durationRaw);
+  return string.split(" ")[0];
+}
+
+
 /* Booking Records */
 export const fetchBookingHistory = async (user) => {
   if (!user) {
@@ -62,9 +69,8 @@ export const handleNewBooking = async (
   venue_id,
   date,
   selectedTime,
-  duration,
-  type,
-  time
+  durationRaw,
+  type
 ) => {
   // Logic to handle the new booking
   // Redirect the user to the new booking page or show a modal, etc.
@@ -73,7 +79,10 @@ export const handleNewBooking = async (
   }
 
   // Make a Date object
-  const bookedDate = new Date(date);
+  const bookedDate = date;
+
+    //for duration
+    const duration = getDuration(durationRaw);
 
   // handle day conversion
   const days = [
@@ -88,10 +97,12 @@ export const handleNewBooking = async (
 
   const day = days[bookedDate.getDay()];
 
+  // time string format
+  const time =
+    selectedTime.length === 2 ? selectedTime + "00" : "0" + selectedTime + "00";
+
   // handle start time conversion
-  let timeString = selectedTime;
-  const hours = timeString[0] + timeString[1];
-  const startTime = bookedDate.setHours(hours);
+  const startTime = bookedDate.setHours(selectedTime);
 
   // handle end time conversion
   const endTime = bookedDate.setTime(startTime + duration * 3600000);
@@ -101,14 +112,14 @@ export const handleNewBooking = async (
       .from("booking")
       .insert({
         user_email: user.email,
-        user_id : user.id,
+        user_id: user.id,
         venue_id: venue_id,
         day: day,
         duration: duration,
         bookingTimeRange: [startTime, endTime],
         type: type,
         time: time,
-        transactionDate: new Date()
+        transactionDate: new Date(),
       })
       .select();
 
@@ -134,7 +145,10 @@ export const roomSearchStudy = async ({
   // helper function for outputing endtime in Number
   function timeConvertor(duration, timeString) {
     const number = Number(duration);
-    const timeNumber = Number(timeString);
+    const timeNumber =
+      timeString.length === 2
+        ? Number(timeString + "00")
+        : Number("0" + timeString + "00");
 
     if (duration % 1 === 0) {
       return timeNumber + number * 100;
@@ -144,16 +158,11 @@ export const roomSearchStudy = async ({
     }
   }
 
-  // helper function to convert duration string to pure number string
-  function getDuration(durationRaw) {
-    return durationRaw.split(' ')[0];
-  }
-
   // array of free rooms
   let freeRoomArray = [];
 
-  // for date 
-  const searchingDate = new Date(date);
+  // for date
+  const searchingDate = date;
 
   //for duration
   const duration = getDuration(durationRaw);
@@ -172,7 +181,7 @@ export const roomSearchStudy = async ({
   // the day of the week
   const day = days[searchingDate.getDay()];
   // the start time (type timestamp) of the desired booking
-  const startTime = searchingDate.setHours(time[0] + time[1]);
+  const startTime = searchingDate.setHours(time);
   // the end time (type timestamp) of the desired booking
   const endTime = searchingDate.setTime(startTime + duration * 3600000);
   // the string number representation of end time
@@ -184,7 +193,7 @@ export const roomSearchStudy = async ({
       .from("venueLesson")
       .select(`venueName, timetableAvailability, venues(totalCapacity)`)
       .like("venueName", location + "%") // match location name
-      .eq("day", day) // match day of the week
+      .eq("day", day); // match day of the week
 
     if (error) {
       throw error;
@@ -241,7 +250,7 @@ export const roomSearchStudy = async ({
   });
 
   // format the array to just string of venue names
-  freeRoomArray = freeRoomArray.map(roomObj => roomObj.venueName);
+  freeRoomArray = freeRoomArray.map((roomObj) => roomObj.venueName);
 
   return freeRoomArray;
 };

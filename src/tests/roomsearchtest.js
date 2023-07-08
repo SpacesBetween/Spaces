@@ -1,7 +1,7 @@
 import {
   roomSearchStudy,
   handleNewBooking,
-} from "../model/roomSearch/roomSearch.js";
+} from "../model/room/roomFunc.js";
 import { handleLogin } from "../model/auth/auth.js";
 import { supabase } from "../configuration/supabaseClient.js";
 
@@ -10,8 +10,8 @@ import { supabase } from "../configuration/supabaseClient.js";
     roomSearchStudy({
       location: "AS1",
       date: new Date(),
-      time: "0800",
-      duration: "2",
+      time: "8",
+      durationRaw: "2 hr",
     })
   ).resolves.toContain("AS1-0201");
 });*/
@@ -27,7 +27,7 @@ handleNewBooking(
   user,
   "COM3-01-20",
   new Date("2023-01-27"),
-  "0800",
+  "8",
   "2 hr",
   true
 ).then((msg) => console.log(msg));
