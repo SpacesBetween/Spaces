@@ -7,6 +7,7 @@ import {
 } from "../../model/room/roomFunc.js";
 import CancellationPage from "./CancellationPage.js";
 import { mdiNull } from "@mdi/js";
+import { useNavigate } from "react-router-dom";
 
 // can get the user session here
 const {
@@ -17,6 +18,9 @@ const BookingRecords = () => {
   const [bookings, setBookings] = useState([]);
   const [cancelling, setCancelling] = useState(false);
   const [cancelData, setCancelData] = useState({ id: null, user: user });
+
+  // navigate const
+  const navigate = useNavigate();
 
   // fetch bookings from database and set array
   fetchBookingHistory(user)
@@ -57,7 +61,7 @@ const BookingRecords = () => {
               variant="contained"
               size="small"
               color="primary"
-              href="/newbooking"
+              onClick={() => navigate("/newbooking")}
             >
               <Typography sx={{ fontSize: 16 }}>New Booking</Typography>
             </Button>

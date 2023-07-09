@@ -9,7 +9,7 @@ import {
 import { Icon } from "@mdi/react";
 import { mdiCalendarHeart, mdiCardSearchOutline } from "@mdi/js";
 import { signOut } from "../../model/auth/auth.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -24,6 +24,8 @@ export default function HomePage() {
   const logOff = () => {
     signOut();
   };
+
+  const navigate = useNavigate();
 
   return (
     <CardMedia>
@@ -68,7 +70,7 @@ export default function HomePage() {
               color="primary"
               size="small"
               endIcon={<Icon path={mdiCardSearchOutline} size={0.8} />}
-              href="/roomsearch"
+              onClick={() => navigate("/roomsearch")}
             >
               <Typography sx={{ fontSize: 14 }}>Room Bookings</Typography>
             </Button>
