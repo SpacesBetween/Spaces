@@ -29,17 +29,17 @@ export default function AvailableSpotPage() {
     //   }}
     // >
     <>
-    <h1> Available Spots for Booking</h1>
       {/* <Typography
         //component="h1"
         sx={{
-          marginTop: -30,
-          marginLeft: -45,
+          marginTop: 0,
+          marginLeft: 45,
           flexGrow: 0.4,
           fontFamily: "monospace",
           fontSize: 20,
           textAlign: "left",
-          zIndex: "999"
+          zIndex: "999",
+          color: "white"
         }}
       >
         {dayName}, {""}

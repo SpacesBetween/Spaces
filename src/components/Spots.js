@@ -1,11 +1,42 @@
 import React from "react";
 import AvailableSpots from "./AvailableSpots.js";
 import "./Spots.css";
+import { Typography } from "@mui/material";
 
 function Spots() {
+  var days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  var d = new Date();
+  var dayName = days[d.getDay()];
 
   return (
     <div className="spots">
+      <h1> Available Spots for Booking</h1>
+      <Typography
+        //component="h1"
+        sx={{
+          flexGrow: 0.4,
+          fontFamily: "monospace",
+          fontSize: 20,
+          textAlign: "center",
+          zIndex: "999",
+          color: "white",
+        }}
+      >
+        {dayName}, {""}
+        {new Date().toLocaleString("en-US", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })}
+      </Typography>
       <div className="spots__container">
         <div className="spots__wrapper">
           <ul className="available__spots">
