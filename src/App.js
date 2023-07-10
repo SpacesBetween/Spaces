@@ -13,6 +13,7 @@ import RoomPage from "./view/roomSearch/RoomPage.js";
 import CancelSuccess from "./view/roomSearch/CancellationSuccessfulPage.js";
 import Spots from "./view/roomSearch/AvailableSpotsPage.js";
 import Receipt from "./view/roomSearch/RecieptPage.js"
+import PasswordReset from "./view/authentication/PasswordReset.js";
 import { supabase } from "./configuration/supabaseClient.js";
 
 export default function App() {
@@ -26,7 +27,16 @@ export default function App() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        const newPassword = prompt("What would you like your new password to be?");
+        const { data, error } = await supabase.auth
+          .updateUser({ password: newPassword })
+ 
+        if (data) alert("Password updated successfully!")
+        if (error) alert("There was an error updating your password.")
+      }
+
       setSession(session);
     });
 
@@ -60,6 +70,7 @@ export default function App() {
           <Route path="/" element={<LoginScreen />} />
           <Route index path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/passwordreset" element={<PasswordReset />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -16,10 +16,11 @@ import {
   Typography,
   Stack,
   createTheme,
-  ThemeProvider
+  ThemeProvider,
 } from "@mui/material";
 import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import { handleSignUp } from "../../model/auth/auth.js";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -46,6 +47,9 @@ export default function LoginScreen() {
   const [student, setStudent] = useState(false); // default is staff
   const [TA, setTA] = useState(false);
 
+  // navigate
+  const navigate = useNavigate();
+
   // functions
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -62,9 +66,7 @@ export default function LoginScreen() {
       moduleIfTA: modules,
     }).then((msg) => {
       setsignUpMessage(msg);
-      if (
-        msg === "Success! Please check your email for confirmation."
-      ) {
+      if (msg === "Success! Please check your email for confirmation.") {
         setSuccess(true);
         setOpen(false);
       } else {
@@ -104,236 +106,262 @@ export default function LoginScreen() {
 
   return (
     <>
-    <ThemeProvider theme={theme}>
-      <Container
-        maxWidth="xs"
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-          justifyBackground: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div className="stu-staff">
-          <Button variant="elevated" sx ={{fontSize: 20}} onClick={handleClickStaff}>Staffs</Button>
-          <Button variant="elevated" sx ={{fontSize: 20}} onClick={handleClickStudent}>Students</Button>
-        </div>
-        <Box
+      <ThemeProvider theme={theme}>
+        <Container
+          maxWidth="xs"
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "{TA} ? calc(100vh - 50px) : 120%",
-            width: "100%",
-            bgcolor: "#eaeaea",
-            padding: "32px",
+            height: "100vh",
+            justifyBackground: "center",
+            justifyContent: "center",
           }}
         >
-          <div className="Email-input">
-            <TextField
-              id="outlined-input-email"
-              label="Email"
-              variant="outlined"
-              helperText="UserID@u.nus.edu"
-              sx={{
-                m: 1,
-                width: "80%",
-                position: "relative",
-                left: "8%",
-                top: "5%",
-              }}
-            
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
-            />
-          </div>
-          <div className="name-input">
-            <TextField
-              id="outlined-input-name"
-              label="Name"
-              variant="outlined"
-              sx={{
-                m: 1,
-                width: "80%",
-                position: "relative",
-                left: "8%",
-                top: "-5%",
-              }}
-      
-              onChange={(event) => {
-                setName(event.target.value);
-              }}
-            />
-          </div>
-          <div className="Password-input">
-            <FormControl
-              sx={{
-                m: 1,
-                width: "80%",
-                position: "relative",
-                left: "8%",
-                top: "-5%",
-              }}
-              variant="outlined"
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
+          <div className="stu-staff">
+            <Button
+              variant="elevated"
+              sx={{ fontSize: 20 }}
+              onClick={handleClickStaff}
             >
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? "text" : "password"}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
+              Staffs
+            </Button>
+            <Button
+              variant="elevated"
+              sx={{ fontSize: 20 }}
+              onClick={handleClickStudent}
+            >
+              Students
+            </Button>
           </div>
-
-          {student && (
-            <>
-              <div className="TAButton">
-                <Button
-                  variant="contained"
-                  onClick={handleClickTA}
-                  sx={{ position: "relative", top: 5, left: "57.5%"}}
-                >
-                  I am a TA
-                </Button>
-                <Typography
-                  fontSize="10"
-                  color="red"
-                  sx={{ position: "relative", left: "45%", top: 5, fontSize: 13 }}
-                >
-                  Warning: Verification required.
-                </Typography>
-              </div>
-
-              <div>
-                {TA && (
-                  <div className="TA">
-                    <Stack direction="row" spacing={2} justifyContent="center">
-                      <div className="module-input">
-                        <TextField
-                          id="outlined-start-adornment"
-                          sx={{
-                            m: 1,
-                            width: "50%",
-                            position: "relative",
-                            left: "8%",
-                            top: "20%",
-                          }}
-                          InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
-                                Module {i + 1}:
-                              </InputAdornment>
-                            ),
-                          }}
-                          onChange={handleClickAddModuleName}
-                        />
-                        <Button
-                          onClick={handleUpdateModulesAdd}
-                          variant="contained"
-                          size="medium"
-                          sx={{ position: "relative", left: "10%", top: "40%" }}
-                        >
-                          Add
-                        </Button>
-                      </div>
-                    </Stack>
-                    <div className="moduleListView">
-                      <ul>
-                        {modules.map((module) => (
-                          <li key={module.id}>
-                            {module.name}{" "}
-                            <button
-                              onClick={() => {
-                                setModules(
-                                  modules.filter((m) => m.id !== module.id)
-                                );
-                              }}
-                            >
-                              Delete
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-          <div className="SubmitButton">
-          <Button
-            variant="contained"
+          <Box
             sx={{
-              m: 1,
-              position: "relative",
-              left: 120,
-              top: 10,
-              backgroundColor: "primary"
+              display: "flex",
+              flexDirection: "column",
+              height: "{TA} ? calc(100vh - 50px) : 120%",
+              width: "100%",
+              bgcolor: "#eaeaea",
+              padding: "32px",
             }}
-            onClick={handleClickSubmit}
           >
-            Sign Up
-          </Button>
-        </div>
-        <div className="Links">
-            <Link
-              sx={{ position: "relative", left: "23%", top: 10, fontSize: 20 }}
-              href="/login"
-            >
-              Have an account? Log In
-            </Link>
-          </div>
-        
-        </Box>
-        <Collapse in={open === true}>
-          <Alert
-            severity="warning"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setOpen(false);
+            <div className="Email-input">
+              <TextField
+                id="outlined-input-email"
+                label="Email"
+                variant="outlined"
+                helperText="UserID@u.nus.edu"
+                sx={{
+                  m: 1,
+                  width: "80%",
+                  position: "relative",
+                  left: "8%",
+                  top: "5%",
+                }}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
+              />
+            </div>
+            <div className="name-input">
+              <TextField
+                id="outlined-input-name"
+                label="Name"
+                variant="outlined"
+                sx={{
+                  m: 1,
+                  width: "80%",
+                  position: "relative",
+                  left: "8%",
+                  top: "-5%",
+                }}
+                onChange={(event) => {
+                  setName(event.target.value);
+                }}
+              />
+            </div>
+            <div className="Password-input">
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: "80%",
+                  position: "relative",
+                  left: "8%",
+                  top: "-5%",
+                }}
+                variant="outlined"
+                onChange={(event) => {
+                  setPassword(event.target.value);
                 }}
               >
-                <Close />
-              </IconButton>
-            }
-          >
-            <AlertTitle>Warning</AlertTitle>
-            {signUpMessage}
-          </Alert>
-        </Collapse>
-        <div>
-          {success && (
-            <Alert severity="success">
-              <AlertTitle>Success!</AlertTitle>
-              {signUpMessage} You can close this tab now.
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+            </div>
+
+            {student && (
+              <>
+                <div className="TAButton">
+                  <Button
+                    variant="contained"
+                    onClick={handleClickTA}
+                    sx={{ position: "relative", top: 5, left: "57.5%" }}
+                  >
+                    I am a TA
+                  </Button>
+                  <Typography
+                    fontSize="10"
+                    color="red"
+                    sx={{
+                      position: "relative",
+                      left: "45%",
+                      top: 5,
+                      fontSize: 13,
+                    }}
+                  >
+                    Warning: Verification required.
+                  </Typography>
+                </div>
+
+                <div>
+                  {TA && (
+                    <div className="TA">
+                      <Stack
+                        direction="row"
+                        spacing={2}
+                        justifyContent="center"
+                      >
+                        <div className="module-input">
+                          <TextField
+                            id="outlined-start-adornment"
+                            sx={{
+                              m: 1,
+                              width: "50%",
+                              position: "relative",
+                              left: "8%",
+                              top: "20%",
+                            }}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  Module {i + 1}:
+                                </InputAdornment>
+                              ),
+                            }}
+                            onChange={handleClickAddModuleName}
+                          />
+                          <Button
+                            onClick={handleUpdateModulesAdd}
+                            variant="contained"
+                            size="medium"
+                            sx={{
+                              position: "relative",
+                              left: "10%",
+                              top: "40%",
+                            }}
+                          >
+                            Add
+                          </Button>
+                        </div>
+                      </Stack>
+                      <div className="moduleListView">
+                        <ul>
+                          {modules.map((module) => (
+                            <li key={module.id}>
+                              {module.name}{" "}
+                              <button
+                                onClick={() => {
+                                  setModules(
+                                    modules.filter((m) => m.id !== module.id)
+                                  );
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+            <div className="SubmitButton">
+              <Button
+                variant="contained"
+                sx={{
+                  m: 1,
+                  position: "relative",
+                  left: 120,
+                  top: 10,
+                  backgroundColor: "primary",
+                }}
+                onClick={handleClickSubmit}
+              >
+                Sign Up
+              </Button>
+            </div>
+            <div className="Links">
+              <Link
+                sx={{
+                  position: "relative",
+                  left: "23%",
+                  top: 10,
+                  fontSize: 20,
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate("/login")}
+              >
+                Have an account? Log In
+              </Link>
+            </div>
+          </Box>
+          <Collapse in={open === true}>
+            <Alert
+              severity="warning"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  <Close />
+                </IconButton>
+              }
+            >
+              <AlertTitle>Warning</AlertTitle>
+              {signUpMessage}
             </Alert>
-          )}
-        </div>
-        
-      </Container>
-      
+          </Collapse>
+          <div>
+            {success && (
+              <Alert severity="success">
+                <AlertTitle>Success!</AlertTitle>
+                {signUpMessage} You can close this tab now.
+              </Alert>
+            )}
+          </div>
+        </Container>
       </ThemeProvider>
     </>
   );

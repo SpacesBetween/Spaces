@@ -145,8 +145,13 @@ export default function LoginScreen() {
             <div className="Links">
               <div>
                 <Link
-                  sx={{ position: "relative", left: "11%", top: 40 }}
-                  href="/signup"
+                  sx={{
+                    position: "relative",
+                    left: "11%",
+                    top: 40,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => navigate("/signup")}
                 >
                   Don't have an account? Sign up
                 </Link>
@@ -157,9 +162,9 @@ export default function LoginScreen() {
                     position: "relative",
                     left: "30%",
                     top: 40,
-                    cursor: "not-allowed",
+                    cursor: "pointer",
                   }}
-                  href="#"
+                  onClick={() => navigate("/passwordreset")}
                 >
                   Forget password
                 </Link>

@@ -1,6 +1,6 @@
 .spots {
     padding: 4rem;
-    background: #fff;
+    background: rgb(120, 116, 124);
   }
   
   h1 {
@@ -21,18 +21,19 @@
     margin: 50px 0 45px;
   }
   
-  .spots__items {
+  .available__spots {
     margin-bottom: 24px;
   }
   
-  .spots__item {
+  .available__spots {
     display: flex;
     flex: 1;
     margin: 0 1rem;
     border-radius: 10px;
+    background-color: #fff;
   }
   
-  .spots__item__link {
+  .available__spots__link {
     display: flex;
     flex-flow: column;
     width: 100%;
@@ -44,7 +45,7 @@
     text-decoration: none;
   }
   
-  .spots__item__pic-wrap {
+  .available__spots__pic-wrap {
     position: relative;
     width: 100%;
     padding-top: 67%;
@@ -56,7 +57,7 @@
     animation-duration: 2s;
   }
   
-  .spots__item__pic-wrap::after {
+  .available__spots__pic-wrap::after {
     content: attr(data-category);
     position: absolute;
     bottom: 0;
@@ -70,7 +71,7 @@
     box-sizing: border-box;
   }
   
-  .spots__item__img {
+  .available__spots__img {
     position: absolute;
     top: 0;
     right: 0;
@@ -85,15 +86,15 @@
     transition: all 0.2s linear;
   }
   
-  .spots__item__img:hover {
+  .available__spots__img:hover {
     transform: scale(1.1);
   }
   
-  .spots__item__info {
+  .available__spots__info {
     padding: 20px 30px 30px;
   }
   
-  .spots__item__text {
+  .available__spots__text {
     color: #252e48;
     font-size: 18px;
     line-height: 24px;
@@ -106,13 +107,13 @@
   }
   
   @media only screen and (min-width: 1024px) {
-    .spots__items {
+    .available-spots {
       display: flex;
     }
   }
   
   @media only screen and (max-width: 1024px) {
-    .spots__item {
+    .available__spots {
       margin-bottom: 2rem;
     }
   }

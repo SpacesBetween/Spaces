@@ -27,6 +27,8 @@ export default function RoomPage() {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [duration, setDuration] = useState();
+  // will be using conditional rendering to render availablespots page
+
 
   // functions
   // need to set to default values when reset also
@@ -41,10 +43,6 @@ export default function RoomPage() {
   const onSelectDuration = (e) => {
     setDuration(e.target.value);
   };
-
-  const onReset = () => {
-
-  }
 
   // variables
   var days = [
