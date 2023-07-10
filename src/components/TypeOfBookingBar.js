@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Box, InputLabel, FormControl, NativeSelect } from "@mui/material";
 
-export default function TypeOfBookingBar() {
+export default function TypeOfBookingBar({ onSelect }) {
+
   return (
     <Box sx={{ minWidth: 120, m: 8, marginBottom: 30, marginTop: 0 }}>
       <FormControl fullWidth>
@@ -9,11 +10,12 @@ export default function TypeOfBookingBar() {
           Type Of Booking
         </InputLabel>
         <NativeSelect
-          defaultValue={30}
+          defaultValue={2}
           inputProps={{
             name: "Type Of Booking",
-            id: "uncontrolled-native"
+            id: "uncontrolled-native",
           }}
+          onChange={e => onSelect(e)} // Call func onSelect when a menu is selected
         >
           <option value={1}>Room</option>
           <option value={2}>StudySpots</option>

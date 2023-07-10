@@ -11,9 +11,11 @@ export const handleSignUp = async (info) => {
     return "Please enter a name.";
   } else if (info.password?.length < 8 || info.password?.length === 0) {
     return "Please enter a password with at least 8 characters.";
-  } else if (info.type === "TA" && info.moduleIfTA?.length === 0) {
+  } else if (info.type === "TA" && !info.moduleIfTA) {
     return "Please enter the module that you are teaching.";
-  } 
+  } else if (info.type === "Staff" && domainTen !== "nus.edu.sg") {
+    return "Are you sure that you are a staff?";
+  }
 
   // outputstring to display msg if an error occurs during profile creation
   let outputString = "";
@@ -30,7 +32,7 @@ export const handleSignUp = async (info) => {
     } else if (data.user?.identities?.length === 0) {
       return "User email is already registered";
     } else {
-      outputString = "Sucess! Please check your email for confirmation.";
+      outputString = "Success! Please check your email for confirmation.";
     }
   } catch (error) {
     return error.message;
@@ -38,10 +40,13 @@ export const handleSignUp = async (info) => {
 
   const createProfileStaff = async (info) => {
     try {
-      const { error } = await supabase.from("User").update({
-        name: info.name,
-        type: "Staff",
-      }).eq('email', info.email);
+      const { error } = await supabase
+        .from("User")
+        .update({
+          name: info.name,
+          type: "Staff",
+        })
+        .eq("email", info.email);
 
       if (error) {
         throw error;
@@ -53,10 +58,13 @@ export const handleSignUp = async (info) => {
 
   const createProfileStudent = async (info) => {
     try {
-      const { error } = await supabase.from("User").update({
-        name: info.name,
-        type: "Student",
-      }).eq('email', info.email);
+      const { error } = await supabase
+        .from("User")
+        .update({
+          name: info.name,
+          type: "Student",
+        })
+        .eq("email", info.email);
 
       if (error) {
         throw error;
@@ -68,11 +76,14 @@ export const handleSignUp = async (info) => {
 
   const createProfileTA = async (info) => {
     try {
-      const { error } = await supabase.from("User").update({
-        name: info.name,
-        type: "TA",
-        moduleIfTA: info.moduleIfTA,
-      }).eq('email', info.email);
+      const { error } = await supabase
+        .from("User")
+        .update({
+          name: info.name,
+          type: "TA",
+          moduleIfTA: info.moduleIfTA,
+        })
+        .eq("email", info.email);
 
       if (error) {
         throw error;
@@ -124,20 +135,38 @@ export const handleLogin = async (info) => {
 };
 
 // function to handle case where user forget password
-export const forgetPassword = async ({ email }) => {};
-
-// function for logging out
-export const signOut = async (info) => {
+export const forgetPassword = async ( email ) => {
   try {
-    const { error } = await supabase.auth.signOut()
+    const domainNine = email.slice(-9);
+    const domainTen = email.slice(-10);
+  
+    if (domainTen !== "nus.edu.sg" && domainNine !== "u.nus.edu") {
+      return new Error("Sorry, invalid input.");
+    }
+  
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email);
 
     if (error) {
       throw error;
-    } else {
-      return; 
+    } else if (data) {
+      return "Success! Check your email to reset password! You can close this page now."
     }
   } catch (error) {
     return error.message;
   }
-  
-}
+};
+
+// function for logging out
+export const signOut = async () => {
+  try {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw error;
+    } else {
+      return "Successfully logged out.";
+    }
+  } catch (error) {
+    return error.message;
+  }
+};

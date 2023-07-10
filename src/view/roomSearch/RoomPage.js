@@ -1,21 +1,50 @@
-import React, { useEffect } from "react";
-import { Container, Typography, Box, Button } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import TimeSearchBar from "./utils/TimeSearchBar";
-import DurationSearchBar from "./utils/DurationSearchBar";
-import DateSearchBar from "./utils/DateSearchBar";
+import React, { useState } from "react";
+import {
+  Container,
+  Typography,
+  Box,
+  Button,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import TimeSearchBar from "../../components/TimeSearchBar.js";
+import DurationSearchBar from "../../components/DurationSearchBar.js";
+import DateSearchBar from "../../components/DateSearchBar.js";
 import { Icon } from "@mdi/react";
 import { mdiRestart, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
+import { roomSearchStudy } from "../../model/room/roomFunc.js";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#b1c3c3"
-    }
-  }
+      main: "#b1c3c3",
+    },
+  },
 });
 
 export default function RoomPage() {
+  // states
+  const [date, setDate] = useState();
+  const [time, setTime] = useState();
+  const [duration, setDuration] = useState();
+  // will be using conditional rendering to render availablespots page
+
+
+  // functions
+  // need to set to default values when reset also
+  const onSelectDate = (e) => {
+    setDate(e);
+  };
+
+  const onSelectTime = (e) => {
+    setTime(e.target.value);
+  };
+
+  const onSelectDuration = (e) => {
+    setDuration(e.target.value);
+  };
+
+  // variables
   var days = [
     "Sunday",
     "Monday",
@@ -23,7 +52,7 @@ export default function RoomPage() {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
   var d = new Date();
   var dayName = days[d.getDay()];
@@ -38,7 +67,7 @@ export default function RoomPage() {
           height: "100vh",
           backgroundColor: "",
           justifyBackground: "center",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         <Box
@@ -50,7 +79,7 @@ export default function RoomPage() {
             bgcolor: "#eaeaea",
             padding: "16px",
             borderRadius: "5%",
-            marginTop: 5
+            marginTop: 5,
           }}
         >
           <Typography
@@ -60,26 +89,26 @@ export default function RoomPage() {
               flexGrow: 0.4,
               fontFamily: "monospace",
               fontSize: 20,
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             {dayName}, {""}
             {new Date().toLocaleString("en-US", {
               day: "2-digit",
               month: "long",
-              year: "numeric"
+              year: "numeric",
             })}
           </Typography>
-          <DateSearchBar></DateSearchBar>
-          <TimeSearchBar></TimeSearchBar>
-          <DurationSearchBar></DurationSearchBar>
+          <DateSearchBar onSelect={onSelectDate}></DateSearchBar>
+          <TimeSearchBar onSelect={onSelectTime}></TimeSearchBar>
+          <DurationSearchBar onSelect={onSelectDuration}></DurationSearchBar>
 
           <div
             style={{
               display: "flex",
               gap: "30px",
               marginTop: -180,
-              alignSelf: "center"
+              alignSelf: "center",
             }}
           >
             <Button
@@ -87,13 +116,17 @@ export default function RoomPage() {
               color="primary"
               size="small"
               endIcon={<Icon path={mdiRestart} size={0.7} />}
+              href="/roombooking"
             >
               <Typography sx={{ fontSize: 14 }}>Reset</Typography>
             </Button>
             <Button
               variant="contained"
               size="small"
-              endIcon={<Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />}
+              endIcon={
+                <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
+              }
+              href="/spotssearchpage"
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>
