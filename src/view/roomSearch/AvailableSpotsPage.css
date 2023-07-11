@@ -1,0 +1,18 @@
+.SearchInput {
+  background-color: white;
+  width: 130px;
+  /* justify-content: end; */
+  border-radius: 5px;
+  display: flex;
+  margin: 30px;
+}
+
+.Input-Container {
+  background-color: transparent;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}

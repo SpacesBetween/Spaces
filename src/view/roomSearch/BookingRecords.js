@@ -45,6 +45,7 @@ const BookingRecords = () => {
           backgroundColor: "black",
           // added in a width
           width: "15%",
+          borderRadius: "5px",
         }}
       >
         Click on new bookings to book a slot. <br />

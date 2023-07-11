@@ -115,7 +115,7 @@ export default function CancellationPage({ userData }) {
               variant="contained"
               size="small"
               endIcon={<Icon path={mdiCloseBoxOutline} size={0.75} />}
-              href="/roomsearch"
+              onClick={() => navigate("/roomsearch")}
             >
               <Typography sx={{ fontSize: 16 }}>No</Typography>
             </Button>

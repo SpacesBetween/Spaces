@@ -31,7 +31,7 @@ export default function StudySpotPage() {
       .catch((err) => alert(err))
       .then((msg) => console.log(msg)); // dk how we want to format the result yet
   };
-  // need to set to default values when reset also
+
   const onSelectTime = (e) => {
     setTime(e.target.value);
   };

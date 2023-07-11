@@ -31,7 +31,6 @@ export default function RoomPage() {
 
 
   // functions
-  // need to set to default values when reset also
   const onSelectDate = (e) => {
     setDate(e);
   };
