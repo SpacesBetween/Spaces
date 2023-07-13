@@ -2,25 +2,8 @@ import React from "react";
 import AvailableSpots from "./AvailableSpots.js";
 import FullyBooked from "../view/roomSearch/FullyBookedPage.js";
 import "./Spots.css";
-import { roomSearchStudy } from "../model/room/roomFunc.js";
 
-function Spots({ date, time, duration, location, type }) {
-  // array of free rooms
-  let roomArray = [["COM3-01-20", "Room"]];
-  // find free room
-  async function resolving() {
-    await roomSearchStudy({
-      location: location,
-      date: date,
-      time: time,
-      durationRaw: duration,
-    })
-      .catch((err) => alert(err))
-      .then((arr) => {
-        roomArray = arr;
-      });
-  }
-  resolving().then();
+function Spots({ roomArray, time, duration, date, type}) {
 
   // will return an arr of jsx syntax
   const spotsArr = [];

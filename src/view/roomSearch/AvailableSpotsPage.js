@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Spots from "../../components/Spots.js";
 import {
   Typography,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { mdiArrowLeft, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
 import "./AvailableSpotsPage.css";
-import Receipt from "./RecieptPage.js";
+import { roomSearchStudy } from "../../model/room/roomFunc.js";
 
 export default function AvailableSpotPage({
   cDate,
@@ -25,6 +25,8 @@ export default function AvailableSpotPage({
   const [time, setTime] = useState(cTime);
   const [duration, setDuration] = useState(cDuration);
   const [location, setLocation] = useState("COM");
+  // array of free rooms
+  const [roomArray, setRoomArray] = useState([]);
 
   // functions
   const onSelectTime = (e) => {
@@ -64,6 +66,20 @@ export default function AvailableSpotPage({
       },
     },
   });
+
+  // find free room using Effects
+  useEffect(() => {
+    roomSearchStudy({
+      location: location,
+      date: date,
+      time: time,
+      durationRaw: duration,
+    })
+      .catch((err) => alert(err))
+      .then((arr) => {
+        setRoomArray(arr);
+      });
+  }, [time, location, date, duration]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -249,6 +265,7 @@ export default function AvailableSpotPage({
         </Button>
       </div>
       <Spots
+        roomArray={roomArray}
         date={date}
         time={time}
         duration={duration}

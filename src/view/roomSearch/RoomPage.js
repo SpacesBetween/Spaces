@@ -32,7 +32,7 @@ export default function RoomPage() {
 
   // functions
   const onSelectDate = (e) => {
-    setDate(e.d); // why is day null
+    setDate(e.$d); 
   };
 
   const onSelectTime = (e) => {
