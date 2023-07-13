@@ -5,7 +5,7 @@ function AvailableSpots(props) {
     return (
         <>
         <li className="available__spots">
-            <Link className="available__spots__link" to={props.path}>
+            <Link className="available__spots__link" to={props.path} state={props.data}>
                 <figure className="available__spots__pic-wrap" data-category={props.label}>
                     <img 
                     src={props.src}

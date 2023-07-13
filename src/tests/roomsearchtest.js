@@ -1,7 +1,4 @@
-import {
-  roomSearchStudy,
-  handleNewBooking,
-} from "../model/room/roomFunc.js";
+import { roomSearchStudy, handleNewBooking } from "../model/room/roomFunc.js";
 import { handleLogin } from "../model/auth/auth.js";
 import { supabase } from "../configuration/supabaseClient.js";
 
@@ -16,7 +13,18 @@ import { supabase } from "../configuration/supabaseClient.js";
   ).resolves.toContain("AS1-0201");
 });*/
 
-const {
+let arr = [];
+await roomSearchStudy({
+    location: "COM",
+    date: new Date(),
+    time: "8",
+    durationRaw: "1.5 hr",
+  }).then(arrR => arr = arrR);
+
+
+console.log(arr);
+
+/*const {
   data: { user },
 } = await supabase.auth.signInWithPassword({
   email: "e0968931@u.nus.edu",
@@ -30,4 +38,4 @@ handleNewBooking(
   "8",
   "2 hr",
   true
-).then((msg) => console.log(msg));
+).then((msg) => console.log(msg));*/

@@ -1,11 +1,10 @@
 import { supabase } from "../../configuration/supabaseClient.js";
 
- // helper function to convert duration string to pure number string
- function getDuration(durationRaw) {
+// helper function to convert duration string to pure number string
+function getDuration(durationRaw) {
   const string = String(durationRaw);
   return string.split(" ")[0];
 }
-
 
 /* Booking Records */
 export const fetchBookingHistory = async (user) => {
@@ -79,10 +78,10 @@ export const handleNewBooking = async (
   }
 
   // Make a Date object
-  const bookedDate = date;
+  const bookedDate = new Date(date);
 
-    //for duration
-    const duration = getDuration(durationRaw);
+  //for duration
+  const duration = getDuration(durationRaw);
 
   // handle day conversion
   const days = [
@@ -130,7 +129,7 @@ export const handleNewBooking = async (
       return data; // vital (booking_id needs to be returned)
     }
   } catch (error) {
-    return error.message;
+    return error;
   }
 };
 
@@ -162,7 +161,7 @@ export const roomSearchStudy = async ({
   let freeRoomArray = [];
 
   // for date
-  const searchingDate = date;
+  const searchingDate = new Date(date);
 
   //for duration
   const duration = getDuration(durationRaw);
@@ -191,7 +190,9 @@ export const roomSearchStudy = async ({
   try {
     const { data: venueData, error } = await supabase
       .from("venueLesson")
-      .select(`venueName, timetableAvailability, venues(totalCapacity)`)
+      .select(
+        `venueName, timetableAvailability, venues(totalCapacity, roomType)`
+      )
       .like("venueName", location + "%") // match location name
       .eq("day", day); // match day of the week
 
@@ -250,7 +251,10 @@ export const roomSearchStudy = async ({
   });
 
   // format the array to just string of venue names
-  freeRoomArray = freeRoomArray.map((roomObj) => roomObj.venueName);
+  freeRoomArray = freeRoomArray.map((roomObj) => [
+    roomObj.venueName,
+    roomObj.venues.roomType,
+  ]);
 
   return freeRoomArray;
 };

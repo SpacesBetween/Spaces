@@ -8,17 +8,23 @@ import {
   Button,
   Icon,
   createTheme,
-  ThemeProvider
+  ThemeProvider,
 } from "@mui/material";
 import { mdiArrowLeft, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
 import "./AvailableSpotsPage.css";
+import Receipt from "./RecieptPage.js";
 
-// have to add in the up to date time and location(not yet done)
-export default function AvailableSpotPage() {
+export default function AvailableSpotPage({
+  cDate,
+  cTime,
+  cDuration,
+  cType,
+  handleBackToSearch,
+}) {
   // states
-  const [time, setTime] = useState();
-  const [duration, setDuration] = useState();
-  const [location, setLocation] = useState();
+  const [time, setTime] = useState(cTime);
+  const [duration, setDuration] = useState(cDuration);
+  const [location, setLocation] = useState("COM");
 
   // functions
   const onSelectTime = (e) => {
@@ -46,8 +52,10 @@ export default function AvailableSpotPage() {
   var d = new Date();
   var dayName = days[d.getDay()];
 
-  // date
-  // booking type
+  // date (Date obj)
+  const date = cDate;
+  // booking type (boolean)
+  const type = cType;
 
   const theme = createTheme({
     palette: {
@@ -96,7 +104,7 @@ export default function AvailableSpotPage() {
               Time
             </InputLabel>
             <NativeSelect
-              defaultValue={8}
+              defaultValue={time}
               inputProps={{
                 name: "Time",
                 id: "uncontrolled-native",
@@ -133,12 +141,12 @@ export default function AvailableSpotPage() {
               Duration
             </InputLabel>
             <NativeSelect
-              defaultValue={0.5}
+              defaultValue={duration}
               inputProps={{
                 name: "Duration",
                 id: "uncontrolled-native",
               }}
-              onChange={(e) => onSelectLocation(e)}
+              onChange={(e) => onSelectDuration(e)}
             >
               <option value={0.5}>0.5 hr</option>
               <option value={1}>1 hr</option>
@@ -163,12 +171,12 @@ export default function AvailableSpotPage() {
               Location
             </InputLabel>
             <NativeSelect
-              defaultValue={"COM"}
+              defaultValue={location}
               inputProps={{
                 name: "Duration",
                 id: "uncontrolled-native",
               }}
-              onChange={(e) => onSelectDuration(e)}
+              onChange={(e) => onSelectLocation(e)}
             >
               <option value={"AS"}>AS</option>
               <option value={"BIZ"}>BIZ</option>
@@ -227,7 +235,7 @@ export default function AvailableSpotPage() {
           variant="contained"
           size="small"
           endIcon={<Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />}
-          sx={{margin: "30px"}}
+          sx={{ margin: "30px" }}
         >
           <Typography sx={{ fontSize: 14 }}>Go</Typography>
         </Button>
@@ -235,11 +243,18 @@ export default function AvailableSpotPage() {
           variant="contained"
           size="small"
           endIcon={<Icon path={mdiArrowLeft} size={0.7} />}
+          onClick={handleBackToSearch}
         >
           <Typography sx={{ fontSize: 14 }}>Back</Typography>
         </Button>
       </div>
-      <Spots />
+      <Spots
+        date={date}
+        time={time}
+        duration={duration}
+        location={location}
+        type={type}
+      />
       {/* pass in a function, the searching params to this file; the function will notify <Spots> to return which venues*/}
     </ThemeProvider>
   );

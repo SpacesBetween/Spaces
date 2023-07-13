@@ -10,9 +10,9 @@ import {
 import TimeSearchBar from "../../components/TimeSearchBar.js";
 import DurationSearchBar from "../../components/DurationSearchBar.js";
 import DateSearchBar from "../../components/DateSearchBar.js";
+import AvailableSpotPage from "./AvailableSpotsPage.js";
 import { Icon } from "@mdi/react";
 import { mdiRestart, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
-import { roomSearchStudy } from "../../model/room/roomFunc.js";
 
 const theme = createTheme({
   palette: {
@@ -24,15 +24,15 @@ const theme = createTheme({
 
 export default function RoomPage() {
   // states
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
-  const [duration, setDuration] = useState();
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("8");
+  const [duration, setDuration] = useState("0.5 hr");
   // will be using conditional rendering to render availablespots page
-
+  const [spotPage, setSpotPage] = useState(false);
 
   // functions
   const onSelectDate = (e) => {
-    setDate(e);
+    setDate(e.d); // why is day null
   };
 
   const onSelectTime = (e) => {
@@ -41,6 +41,10 @@ export default function RoomPage() {
 
   const onSelectDuration = (e) => {
     setDuration(e.target.value);
+  };
+
+  const handleBackToSearch = () => {
+    setSpotPage(false);
   };
 
   // variables
@@ -56,7 +60,15 @@ export default function RoomPage() {
   var d = new Date();
   var dayName = days[d.getDay()];
 
-  return (
+  return spotPage ? (
+    <AvailableSpotPage
+      cDate={date}
+      cDuration={duration}
+      cTime={time}
+      cType={true}
+      handleBackToSearch={handleBackToSearch}
+    />
+  ) : (
     <ThemeProvider theme={theme}>
       <Container
         maxWidth="xs"
@@ -125,7 +137,7 @@ export default function RoomPage() {
               endIcon={
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
-              href="/spotssearchpage"
+              onClick={() => setSpotPage(true)}
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>

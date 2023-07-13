@@ -3,9 +3,9 @@ import { Container, Typography, Box, Button } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material";
 import TimeSearchBar from "../../components/TimeSearchBar.js";
 import DurationSearchBar from "../../components/DurationSearchBar.js";
+import AvailableSpotPage from "./AvailableSpotsPage.js";
 import { Icon } from "@mdi/react";
 import { mdiRestart, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
-import { roomSearchStudy } from "../../model/room/roomFunc.js";
 
 const theme = createTheme({
   palette: {
@@ -17,20 +17,11 @@ const theme = createTheme({
 
 export default function StudySpotPage() {
   // states
-  const [time, setTime] = useState();
-  const [duration, setDuration] = useState();
+  const [time, setTime] = useState("8");
+  const [duration, setDuration] = useState("0.5 hr");
+  const [spotPage, setSpotPage] = useState(false);
 
   // functions
-  const handleSearch = () => {
-    roomSearchStudy({
-      location: " ", // wait
-      date: d,
-      time: time,
-      duration: duration,
-    })
-      .catch((err) => alert(err))
-      .then((msg) => console.log(msg)); // dk how we want to format the result yet
-  };
 
   const onSelectTime = (e) => {
     setTime(e.target.value);
@@ -38,6 +29,10 @@ export default function StudySpotPage() {
 
   const onSelectDuration = (e) => {
     setDuration(e.target.value);
+  };
+
+  const handleBackToSearch = () => {
+    setSpotPage(false);
   };
 
   // variables
@@ -53,7 +48,15 @@ export default function StudySpotPage() {
   var d = new Date();
   var dayName = days[d.getDay()];
 
-  return (
+  return spotPage ? (
+    <AvailableSpotPage
+      cDate={d} // today
+      cDuration={duration}
+      cTime={time}
+      cType={false}
+      handleBackToSearch={handleBackToSearch}
+    />
+  ) :(
     <ThemeProvider theme={theme}>
       <Container
         maxWidth="xs"
@@ -120,7 +123,7 @@ export default function StudySpotPage() {
               endIcon={
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
-              href="/spotssearchpage"
+              onClick={() => setSpotPage(true)}
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>
