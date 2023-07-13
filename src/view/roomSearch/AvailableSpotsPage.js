@@ -9,6 +9,7 @@ import {
   Icon,
   createTheme,
   ThemeProvider,
+  CircularProgress,
 } from "@mui/material";
 import { mdiArrowLeft, mdiArrowRightBoldHexagonOutline } from "@mdi/js";
 import "./AvailableSpotsPage.css";
@@ -25,6 +26,7 @@ export default function AvailableSpotPage({
   const [time, setTime] = useState(cTime);
   const [duration, setDuration] = useState(cDuration);
   const [location, setLocation] = useState("COM");
+  const [loading, setLoading] = useState(true);
   // array of free rooms
   const [roomArray, setRoomArray] = useState([]);
 
@@ -69,6 +71,7 @@ export default function AvailableSpotPage({
 
   // find free room using Effects
   useEffect(() => {
+    setLoading(true);
     roomSearchStudy({
       location: location,
       date: date,
@@ -78,6 +81,7 @@ export default function AvailableSpotPage({
       .catch((err) => alert(err))
       .then((arr) => {
         setRoomArray(arr);
+        setLoading(false);
       });
   }, [time, location, date, duration]);
 
@@ -250,29 +254,35 @@ export default function AvailableSpotPage({
         <Button
           variant="contained"
           size="small"
-          endIcon={<Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />}
-          sx={{ margin: "30px" }}
-        >
-          <Typography sx={{ fontSize: 14 }}>Go</Typography>
-        </Button>
-        <Button
-          variant="contained"
-          size="small"
           endIcon={<Icon path={mdiArrowLeft} size={0.7} />}
           onClick={handleBackToSearch}
+          sx={{ margin: "30px" }}
         >
           <Typography sx={{ fontSize: 14 }}>Back</Typography>
         </Button>
       </div>
-      <Spots
-        roomArray={roomArray}
-        date={date}
-        time={time}
-        duration={duration}
-        location={location}
-        type={type}
-      />
-      {/* pass in a function, the searching params to this file; the function will notify <Spots> to return which venues*/}
+      {loading ? (
+        <CircularProgress
+        size={70}
+        color="secondary"
+          sx={{
+            justifyContent: "center",
+            position: "relative",
+            left: "49%",
+            right: "49%",
+            marginTop: "20px"
+          }}
+        />
+      ) : (
+        <Spots
+          roomArray={roomArray}
+          date={date}
+          time={time}
+          duration={duration}
+          location={location}
+          type={type}
+        />
+      )}
     </ThemeProvider>
   );
 }

@@ -17,6 +17,7 @@ import {
   Stack,
   createTheme,
   ThemeProvider,
+  CircularProgress,
 } from "@mui/material";
 import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
 import { handleSignUp } from "../../model/auth/auth.js";
@@ -46,6 +47,7 @@ export default function LoginScreen() {
   const [success, setSuccess] = useState(false);
   const [student, setStudent] = useState(false); // default is staff
   const [TA, setTA] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // navigate
   const navigate = useNavigate();
@@ -57,7 +59,8 @@ export default function LoginScreen() {
     event.preventDefault();
   };
 
-  const handleClickSubmit = () =>
+  const handleClickSubmit = () => {
+    setLoading(true);
     handleSignUp({
       email: email,
       password: password,
@@ -66,6 +69,7 @@ export default function LoginScreen() {
       moduleIfTA: modules,
     }).then((msg) => {
       setsignUpMessage(msg);
+      setLoading(false);
       if (msg === "Success! Please check your email for confirmation.") {
         setSuccess(true);
         setOpen(false);
@@ -73,6 +77,7 @@ export default function LoginScreen() {
         setOpen(true);
       }
     });
+  };
 
   const handleClickStudent = () => {
     setStudent(true);
@@ -304,19 +309,25 @@ export default function LoginScreen() {
               </>
             )}
             <div className="SubmitButton">
-              <Button
-                variant="contained"
-                sx={{
-                  m: 1,
-                  position: "relative",
-                  left: 120,
-                  top: 10,
-                  backgroundColor: "primary",
-                }}
-                onClick={handleClickSubmit}
-              >
-                Sign Up
-              </Button>
+              {loading ? (
+                <CircularProgress
+                  sx={{ position: "relative", left: "49%", right: "49%" }}
+                />
+              ) : (
+                <Button
+                  variant="contained"
+                  sx={{
+                    m: 1,
+                    position: "relative",
+                    left: 120,
+                    top: 10,
+                    backgroundColor: "primary",
+                  }}
+                  onClick={handleClickSubmit}
+                >
+                  Sign Up
+                </Button>
+              )}
             </div>
             <div className="Links">
               <Link
