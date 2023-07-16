@@ -67,11 +67,16 @@ export default function ReceiptPage() {
             }}
           >
             Reciept of Booking
-            <br />Venue: {data.venueName}
-            <br />Date: {data.date.toDateString()}
-            <br />Time: {data.time}
-            <br />Duration: {data.duration}
-            <br />Booking Type: {data.type ? "Whole Room" : "Spot"}
+            <br />
+            Venue: {data.venueName}
+            <br />
+            Date: {data.date.toDateString()}
+            <br />
+            Time: {data.time}
+            <br />
+            Duration: {data.duration}
+            <br />
+            Booking Type: {data.type ? "Whole Room" : "Spot"}
           </Typography>
 
           <div
@@ -98,7 +103,7 @@ export default function ReceiptPage() {
                 )
                   .catch((err) => alert(err))
                   .then((data) => {
-                    navigate("/booksuccess", {state: {data}});
+                    navigate("/booksuccess", { state: { data } });
                   });
               }}
             >
@@ -114,6 +119,18 @@ export default function ReceiptPage() {
             </Button>
           </div>
         </Box>
+        <Button
+          target="_blank"
+          href={`https://nusmods.com/venues/${data.venueName}`}
+          sx={{
+            position: "relative",
+            top: "10%",
+            maxWidth: "600px",
+            backgroundColor: "purple",
+          }}
+        >
+          Linked to map (NUSMOD)
+        </Button>
       </Container>
     </ThemeProvider>
   );
