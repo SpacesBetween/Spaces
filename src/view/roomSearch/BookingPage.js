@@ -97,7 +97,6 @@ export default function BookingPage() {
             })}
           </Typography>
           <TypeOfBookingBar onSelect={onSelectType}></TypeOfBookingBar>
-
           <div
             style={{
               display: "flex",
@@ -118,6 +117,9 @@ export default function BookingPage() {
             </Button>
           </div>
         </Box>
+        <div style={{ color: "white", textAlign: "center" }}>
+          <p>Note: Room Booking can only one day in advance.</p>
+        </div>
       </Container>
     </ThemeProvider>
   );

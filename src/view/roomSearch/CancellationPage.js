@@ -10,7 +10,7 @@ import { Icon } from "@mdi/react";
 import { mdiCheckCircle, mdiCloseBoxOutline } from "@mdi/js";
 import { useState, useEffect } from "react";
 import { handleCancellation } from "../../model/room/roomFunc.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -20,22 +20,24 @@ const theme = createTheme({
   },
 });
 
-export default function CancellationPage({ userData }) {
+export default function CancellationPage() {
   // state to handle the logic when 'yes' button is clicked
   const [yes, setYes] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
 
+  // location data
+  const location = useLocation();
+  const userData = location.state;
+
   // effect to handle routing logic
   useEffect(() => {
     if (success && yes) {
       return navigate("/cancelsuccess");
     }
-    return () => {
-    
-    }
-  }, [yes, success, navigate])
+    return () => {};
+  }, [yes, success, navigate]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -107,9 +109,7 @@ export default function CancellationPage({ userData }) {
                   });
               }}
             >
-              <Typography sx={{ fontSize: 16 }}>
-                Yes{" "}
-              </Typography>
+              <Typography sx={{ fontSize: 16 }}>Yes </Typography>
             </Button>
             <Button
               variant="contained"

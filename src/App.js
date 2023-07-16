@@ -15,6 +15,7 @@ import Spots from "./view/roomSearch/AvailableSpotsPage.js";
 import Receipt from "./view/roomSearch/RecieptPage.js";
 import BookingSuccessfulPage from "./view/roomSearch/BookingSuccessfulPage.js";
 import PasswordReset from "./view/authentication/PasswordReset.js";
+import CancellationPage from "./view/roomSearch/CancellationPage.js";
 import { supabase } from "./configuration/supabaseClient.js";
 
 export default function App() {
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/spotssearchpage" element={<Spots />} />
           <Route path="/receipt" element={<Receipt />} />
           <Route path="/booksuccess" element={<BookingSuccessfulPage />} />
+          <Route path="/cancelpage" element={<CancellationPage />} />
         </Routes>
       </BrowserRouter>
       <video className="videoTag" autoPlay loop muted>
