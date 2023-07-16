@@ -6,6 +6,22 @@ function getDuration(durationRaw) {
   return string.split(" ")[0];
 }
 
+// helper function for outputing endtime in Number
+function timeConvertor(duration, timeString) {
+  const number = Number(duration);
+  const timeNumber =
+    timeString.length === 2
+      ? Number(timeString + "00")
+      : Number("0" + timeString + "00");
+
+  if (duration % 1 === 0) {
+    return timeNumber + number * 100;
+  } else {
+    const working = (number - 0.5) * 100;
+    return timeNumber + 30 + working;
+  }
+}
+
 /* Booking Records */
 export const fetchBookingHistory = async (user) => {
   if (!user) {
@@ -78,7 +94,11 @@ export const handleNewBooking = async (
   }
 
   // Make a Date object
-  const bookedDate = new Date(date);
+  const bookedDate = date;
+  // check if booking date is before today's date
+  if (bookedDate < new Date()) {
+    return "Illegal move: booking retrospective dates.";
+  }
 
   //for duration
   const duration = getDuration(durationRaw);
@@ -141,22 +161,9 @@ export const roomSearchStudy = async ({
   time,
   durationRaw,
 }) => {
-  // helper function for outputing endtime in Number
-  function timeConvertor(duration, timeString) {
-    const number = Number(duration);
-    const timeNumber =
-      timeString.length === 2
-        ? Number(timeString + "00")
-        : Number("0" + timeString + "00");
-
-    if (duration % 1 === 0) {
-      return timeNumber + number * 100;
-    } else {
-      const working = (number - 0.5) * 100;
-      return timeNumber + 30 + working;
-    }
+  if (!location || !date || !time || !durationRaw) {
+    return "Missing inputs";
   }
-
   // array of free rooms
   let freeRoomArray = [];
 

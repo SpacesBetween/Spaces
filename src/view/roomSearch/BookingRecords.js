@@ -129,7 +129,15 @@ const BookingRecords = () => {
                       <button
                         onClick={() => {
                           navigate("/cancelpage", {
-                            state: { id: booking.booking_id, user: user },
+                            state: {
+                              id: booking.booking_id,
+                              user: user,
+                              venue: booking.venue_id,
+                              day: booking.day,
+                              duration: booking.duration,
+                              time: booking.time,
+                              type: booking.type
+                            },
                           });
                         }}
                       >

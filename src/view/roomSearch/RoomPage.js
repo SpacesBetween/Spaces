@@ -43,7 +43,7 @@ const nextWeekday = () => {
 
 export default function RoomPage() {
   // states
-  const [date, setDate] = useState(nextWeekday());
+  const [date, setDate] = useState(nextWeekday().toDate());
   const [time, setTime] = useState("8");
   const [duration, setDuration] = useState("0.5 hr");
   // will be using conditional rendering to render availablespots page

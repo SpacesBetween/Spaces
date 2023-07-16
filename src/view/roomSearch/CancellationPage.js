@@ -86,6 +86,22 @@ export default function CancellationPage() {
           >
             Details of Booking:
           </Typography>
+          <Typography
+            sx={{
+              marginTop: 1,
+              flexGrow: 0.4,
+              fontFamily: "monospace",
+              fontSize: 20,
+              textAlign: "center",
+            }}
+          >
+            Reciept of Booking
+            <br />Venue: {userData.venueName}
+            <br />Day: {userData.day}
+            <br />Time: {userData.time}
+            <br />Duration: {userData.duration}
+            <br />Booking Type: {userData.type ? "Whole Room" : "Spot"}
+          </Typography>
 
           <div
             style={{

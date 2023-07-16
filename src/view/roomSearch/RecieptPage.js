@@ -68,7 +68,7 @@ export default function ReceiptPage() {
           >
             Reciept of Booking
             <br />Venue: {data.venueName}
-            <br />Date: {data.date?.toDateString()}
+            <br />Date: {data.date.toDateString()}
             <br />Time: {data.time}
             <br />Duration: {data.duration}
             <br />Booking Type: {data.type ? "Whole Room" : "Spot"}
