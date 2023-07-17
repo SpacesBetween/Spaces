@@ -95,8 +95,10 @@ export const handleNewBooking = async (
 
   // Make a Date object
   const bookedDate = date;
+  const today = new Date();
+  today.setHours(0);
   // check if booking date is before today's date
-  if (bookedDate < new Date()) {
+  if (bookedDate < today) {
     return "Illegal move: booking retrospective dates.";
   }
 

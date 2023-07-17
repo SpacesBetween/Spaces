@@ -88,7 +88,7 @@ export default function CancellationPage() {
           </Typography>
           <Typography
             sx={{
-              marginTop: 1,
+              marginTop: 6,
               flexGrow: 0.4,
               fontFamily: "monospace",
               fontSize: 20,

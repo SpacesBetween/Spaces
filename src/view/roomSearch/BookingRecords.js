@@ -11,6 +11,11 @@ const {
   data: { user },
 } = await supabase.auth.getUser();
 
+const { data } = await supabase
+  .from('User')
+  .select("type")
+  .eq("user_id", user?.id)
+
 const BookingRecords = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,6 +30,7 @@ const BookingRecords = () => {
       setBookings(bookings);
       setLoading(false);
     });
+    
 
   return (
     <div className="maindiv">
@@ -60,7 +66,13 @@ const BookingRecords = () => {
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => navigate("/newbooking")}
+              onClick={() => {
+                if (data[0].type === "Student") {
+                  navigate("/studyspotbooking");
+                  return;
+                }
+                navigate("/newbooking");
+              }}
             >
               <Typography sx={{ fontSize: 16 }}>New Booking</Typography>
             </Button>
