@@ -25,7 +25,7 @@ function timeConvertor(duration, timeString) {
 /* Booking Records */
 export const fetchBookingHistory = async (user) => {
   if (!user) {
-    return "Please login.";
+    throw new Error("Please login.");
   }
 
   try {
@@ -49,7 +49,7 @@ export const fetchBookingHistory = async (user) => {
 // handle booking cancellation
 export const handleCancellation = async (bookingId, user) => {
   if (!user) {
-    return "Please login.";
+    throw new Error("Please login.");
   }
 
   // Perform cancellation logic for the specified bookingId
@@ -90,8 +90,16 @@ export const handleNewBooking = async (
   // Logic to handle the new booking
   // Redirect the user to the new booking page or show a modal, etc.
   if (!user) {
-    return "Please login.";
+    throw new Error("Please login.");
   }
+
+  // check if users have existing bookings
+  // that clash with request booking
+  // by getting the user's bookings
+  const { data: bookings } = await supabase
+    .from("booking")
+    .select("bookingTimeRange")
+    .eq("user_id", user.id);
 
   // Make a Date object
   const bookedDate = date;
@@ -128,6 +136,16 @@ export const handleNewBooking = async (
   // handle end time conversion
   const endTime = bookedDate.setTime(startTime + duration * 3600000);
 
+  // timing validation
+  for (let i = 0; i < bookings.length; i++) {
+    if (
+      startTime >= bookings[i]["bookingTimeRange"][0] &&
+      startTime < bookings[i]["bookingTimeRange"][1]
+    ) {
+      throw new Error("Bookings cannot overlap in timing");
+    }
+  }
+
   try {
     const { data, error } = await supabase
       .from("booking")
@@ -151,7 +169,7 @@ export const handleNewBooking = async (
       return data; // vital (booking_id needs to be returned)
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 

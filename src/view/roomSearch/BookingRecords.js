@@ -25,11 +25,11 @@ const BookingRecords = () => {
 
   // fetch bookings from database and set array
   fetchBookingHistory(user)
-    .catch((error) => alert(error.mesaage))
     .then((bookings) => {
       setBookings(bookings);
-      setLoading(false);
-    });
+    })
+    .catch((error) => alert(error.mesaage))
+    .finally(() => setLoading(false));
     
 
   return (
