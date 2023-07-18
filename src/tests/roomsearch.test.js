@@ -38,7 +38,7 @@ test("RoomSearch function", async () => {
 test("RoomSearch unsuccess: fully booked", async () => {
   await expect(
     roomSearchStudy({
-      location: "EA",
+      location: "NAK-AUD",
       date: new Date("2023-07-21"),
       time: "8",
       durationRaw: "2 hr",
@@ -88,7 +88,7 @@ test("Retrospective booking", async () => {
 
 // test 1: successful cancellation
 test("Successful booking cancellation", async () => {
-  await expect(handleCancellation("105", user)).resolves.toBe(
+  await expect(handleCancellation("107", user)).resolves.toBe(
     "Successfully deleted"
   );
 });

@@ -1,4 +1,5 @@
 import { supabase } from "../configuration/supabaseClient.js";
+import { handleNewBooking } from "../model/room/roomFunc.js";
 
 // user object
 export const {
@@ -15,3 +16,12 @@ export const {
   email: "e0774768@u.nus.edu",
   password: "ncsfkjsbf99",
 });
+
+handleNewBooking(
+  user,
+  "COM3-01-20",
+  new Date("2023-07-31"),
+  "8",
+  "2 hr",
+  true
+).then(data => console.log(data))
