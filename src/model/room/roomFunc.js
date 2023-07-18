@@ -182,7 +182,7 @@ export const roomSearchStudy = async ({
   durationRaw,
 }) => {
   if (!location || !date || !time || !durationRaw) {
-    return "Missing inputs";
+    throw new Error("Missing inputs");
   }
   // array of free rooms
   let freeRoomArray = [];
