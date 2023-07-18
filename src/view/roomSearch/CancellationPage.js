@@ -119,10 +119,10 @@ export default function CancellationPage() {
               onClick={() => {
                 setYes(true);
                 handleCancellation(userData.id, userData.user)
-                  .catch((err) => alert(err))
                   .then((msg) => {
                     setSuccess(true);
-                  });
+                  })
+                  .catch((err) => alert(err));
               }}
             >
               <Typography sx={{ fontSize: 16 }}>Yes </Typography>

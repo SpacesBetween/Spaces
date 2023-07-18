@@ -5,10 +5,12 @@ import {
   Typography,
   createTheme,
   ThemeProvider,
+  CircularProgress,
 } from "@mui/material";
 import { Icon } from "@mdi/react";
 import { mdiArrowLeft, mdiBookCheckOutline } from "@mdi/js";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { handleNewBooking } from "../../model/room/roomFunc.js";
 import { supabase } from "../../configuration/supabaseClient.js";
 
@@ -26,6 +28,9 @@ const {
 } = await supabase.auth.getUser();
 
 export default function ReceiptPage() {
+  // states
+  const [loading, setLoading] = useState(false);
+
   // location data
   const location = useLocation();
   const data = location.state;
@@ -33,7 +38,19 @@ export default function ReceiptPage() {
   // navigator
   const navigate = useNavigate();
 
-  return (
+  return loading ? (
+    <CircularProgress
+      size={70}
+      color="secondary"
+      sx={{
+        justifyContent: "center",
+        position: "relative",
+        left: "49%",
+        right: "49%",
+        marginTop: "20px",
+      }}
+    />
+  ) : (
     <ThemeProvider theme={theme}>
       <Container
         maxWidth="xs"
@@ -93,6 +110,7 @@ export default function ReceiptPage() {
               size="small"
               endIcon={<Icon path={mdiBookCheckOutline} size={0.8} />}
               onClick={() => {
+                setLoading(true);
                 handleNewBooking(
                   user,
                   data.venueName,
@@ -101,10 +119,14 @@ export default function ReceiptPage() {
                   data.duration,
                   data.type
                 )
-                  .catch((err) => alert(err))
                   .then((data) => {
                     navigate("/booksuccess", { state: { data } });
-                  });
+                  })
+                  .catch((err) => {
+                    alert(err);
+                    navigate(-1);
+                  })
+                  .finally(() => setLoading(false));
               }}
             >
               <Typography sx={{ fontSize: 14 }}>Confirm</Typography>

@@ -15,7 +15,9 @@ test("User with records", async () => {
 
 // test 2: no user ( = null)
 test("Null user", async () => {
-  await expect(fetchBookingHistory(null)).resolves.toBe("Please login.");
+  await expect(fetchBookingHistory(null)).resolves.toThrow(
+    /^Please login$/
+  );
 });
 
 /* Searching rooms to study */
@@ -48,7 +50,7 @@ test("RoomSearch unsuccess: fully booked", async () => {
 test("Roomsearch missing input", async () => {
   await expect(
     roomSearchStudy({ location: "COM", date: new Date(), time: "10" })
-  ).resolves.toBe("Missing inputs");
+  ).resolves.toThrow(/^Missing inputs$/);
 });
 
 /* Make new booking */
@@ -79,19 +81,19 @@ test("Retrospective booking", async () => {
       "2 hr",
       true
     )
-  ).resolves.toBe("Illegal move: booking retrospective dates.");
+  ).resolves.toThrow(/^Illegal move: booking retrospective dates.$/);
 });
 
 /* Cancel a booking */
 
 // test 1: successful cancellation
 test("Successful booking cancellation", async () => {
-  await expect(handleCancellation("61", user)).resolves.toBe(
+  await expect(handleCancellation("105", user)).resolves.toBe(
     "Successfully deleted"
   );
 });
 
 // test 2: oter user trying to cancel another user's booking
 test("Booking attack", async () => {
-  await expect(handleCancellation(64, badUser)).resolves.toThrowError();
+  await expect(handleCancellation("79", badUser)).resolves.toThrow();
 });
