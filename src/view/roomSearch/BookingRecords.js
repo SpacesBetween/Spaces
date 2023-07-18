@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { Button, Typography, CircularProgress } from "@mui/material";
+import { Button, Typography, CircularProgress, createTheme, ThemeProvider } from "@mui/material";
 import { supabase } from "../../configuration/supabaseClient.js";
 import "./BookingRecords.css";
 import { fetchBookingHistory } from "../../model/room/roomFunc.js";
 import { mdiNull } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#b1c3c3",
+    },
+  },
+});
 
 // can get the user session here
 const {
@@ -33,6 +41,7 @@ const BookingRecords = () => {
     
 
   return (
+    <ThemeProvider theme={theme}>
     <div className="maindiv">
       <p
         style={{
@@ -153,7 +162,7 @@ const BookingRecords = () => {
                           });
                         }}
                       >
-                        Cancel
+                        CANCEL
                       </button>
                     </td>
                   </tr>
@@ -164,6 +173,7 @@ const BookingRecords = () => {
         )}
       </div>
     </div>
+    </ThemeProvider>
   );
 };
 

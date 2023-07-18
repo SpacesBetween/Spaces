@@ -72,7 +72,7 @@ export default function ReceiptPage() {
             <br />
             Date: {data.date.toDateString()}
             <br />
-            Time: {data.time}
+            Time: {data.time} 00
             <br />
             Duration: {data.duration}
             <br />

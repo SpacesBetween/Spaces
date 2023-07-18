@@ -61,7 +61,7 @@ export default function HomePage() {
               display: "flex",
               gap: "20px",
               position: "absolute",
-              left: "20%%",
+              left: "20%",
               right: "20%",
               top: "60%",
             }}
