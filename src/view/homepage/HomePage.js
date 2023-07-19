@@ -79,6 +79,7 @@ export default function HomePage() {
               variant="contained"
               size="small"
               endIcon={<Icon path={mdiCalendarHeart} size={0.7} />}
+              onClick={() => navigate("/eventsearch")}
             >
               <Typography sx={{ fontSize: 14 }}>Event Search</Typography>
             </Button>

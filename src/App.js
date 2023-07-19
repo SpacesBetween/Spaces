@@ -17,6 +17,9 @@ import BookingSuccessfulPage from "./view/roomSearch/BookingSuccessfulPage.js";
 import PasswordReset from "./view/authentication/PasswordReset.js";
 import CancellationPage from "./view/roomSearch/CancellationPage.js";
 import { supabase } from "./configuration/supabaseClient.js";
+import AvailableEventPage from "./view/eventSearch/AvailableEventPage.js";
+import DescriptionPage from "./view/eventSearch/DescriptionPage.js";
+import BookingSuccess from "./view/eventSearch/BookingSuccess.js";
 
 export default function App() {
   // useState and useEffect to check if a user is logged in
@@ -61,6 +64,9 @@ export default function App() {
           <Route path="/receipt" element={<Receipt />} />
           <Route path="/booksuccess" element={<BookingSuccessfulPage />} />
           <Route path="/cancelpage" element={<CancellationPage />} />
+          <Route path="/eventsearch" element={<AvailableEventPage />} />
+          <Route path="/description" element={<DescriptionPage />} />
+          <Route path="/eventbook" element={<BookingSuccess />} />
         </Routes>
       </BrowserRouter>
       <video className="videoTag" autoPlay loop muted>

@@ -73,7 +73,7 @@ export default function StudySpotPage() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "35%",
+            height: "50%",
             width: "100%",
             bgcolor: "#eaeaea",
             padding: "16px",

@@ -105,7 +105,7 @@ export default function RoomPage() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "45%",
+            height: "60%",
             width: "100%",
             bgcolor: "#eaeaea",
             padding: "16px",
