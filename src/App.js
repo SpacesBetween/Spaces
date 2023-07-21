@@ -16,30 +16,30 @@ import Receipt from "./view/roomSearch/RecieptPage.js";
 import BookingSuccessfulPage from "./view/roomSearch/BookingSuccessfulPage.js";
 import PasswordReset from "./view/authentication/PasswordReset.js";
 import CancellationPage from "./view/roomSearch/CancellationPage.js";
+import PasswordResetForm from "./view/authentication/PasswordResetForm.js";
 import { supabase } from "./configuration/supabaseClient.js";
 
 export default function App() {
   // useState and useEffect to check if a user is logged in
   const [session, setSession] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
+    setUser(supabase.auth.getUser());
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "PASSWORD_RECOVERY") {
-        const newPassword = prompt("What would you like your new password to be?");
-        const { data, error } = await supabase.auth
-          .updateUser({ password: newPassword })
- 
-        if (data) alert("Password updated successfully!")
-        if (error) alert("There was an error updating your password.")
-      }
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      // if (event === "PASSWORD_RECOVERY") {
+      //   navigate("/passwordform")
+      // } (test what does the link do first)
 
+      console.log(`Supbase auth event: ${event}`);
       setSession(session);
+      setUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();
@@ -52,7 +52,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route index path="/home" element={<HomePage />} />
-          <Route path="/roomsearch" element={<BookingRecords />} />
+          <Route path="/roomsearch" element={<BookingRecords user={user} />} />
           <Route path="/newbooking" element={<BookingPage />} />
           <Route path="/roombooking" element={<RoomPage />} />
           <Route path="/studyspotbooking" element={<StudySpotPage />} />
@@ -75,6 +75,7 @@ export default function App() {
           <Route index path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/passwordreset" element={<PasswordReset />} />
+          <Route path="/passwordform" element={<PasswordResetForm />} />
         </Routes>
       </BrowserRouter>
     </>

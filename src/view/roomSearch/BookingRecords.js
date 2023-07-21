@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Typography, CircularProgress } from "@mui/material";
 import { supabase } from "../../configuration/supabaseClient.js";
 import "./BookingRecords.css";
@@ -6,21 +6,18 @@ import { fetchBookingHistory } from "../../model/room/roomFunc.js";
 import { mdiNull } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 
-// can get the user session here
-const {
-  data: { user },
-} = await supabase.auth.getUser();
-
 /*const { data } = await supabase
   .from('User')
   .select("type")
   .eq("user_id", user?.id)*/
 
-const BookingRecords = () => {
+const BookingRecords = ({ user }) => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // navigate const
+  // sb-lctusxqoprkovqbkyjug-auth-token
+
   const navigate = useNavigate();
 
   // fetch bookings from database and set array
@@ -28,9 +25,8 @@ const BookingRecords = () => {
     .then((bookings) => {
       setBookings(bookings);
     })
-    .catch((error) => alert(error.mesaage))
+    .catch((error) => alert(error))
     .finally(() => setLoading(false));
-    
 
   return (
     <div className="maindiv">
@@ -148,7 +144,7 @@ const BookingRecords = () => {
                               day: booking.day,
                               duration: booking.duration,
                               time: booking.time,
-                              type: booking.type
+                              type: booking.type,
                             },
                           });
                         }}

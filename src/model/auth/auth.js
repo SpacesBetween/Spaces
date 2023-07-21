@@ -130,29 +130,32 @@ export const handleLogin = async (info) => {
       return "Success";
     }
   } catch (error) {
-    return error.message;
+    throw error;
   }
 };
 
 // function to handle case where user forget password
-export const forgetPassword = async ( email ) => {
+export const forgetPassword = async (email) => {
   try {
     const domainNine = email.slice(-9);
     const domainTen = email.slice(-10);
-  
+
     if (domainTen !== "nus.edu.sg" && domainNine !== "u.nus.edu") {
       return new Error("Sorry, invalid input.");
     }
-  
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email);
+
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "",
+      data: {email: email}
+    });
 
     if (error) {
       throw error;
     } else if (data) {
-      return "Success! Check your email to reset password! You can close this page now."
+      return "Success! Check your email to reset password! You can close this page now.";
     }
   } catch (error) {
-    return error.message;
+    throw error;
   }
 };
 

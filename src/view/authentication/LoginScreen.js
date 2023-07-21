@@ -12,6 +12,7 @@ import {
   Alert,
   AlertTitle,
   Container,
+  CircularProgress,
   Link,
   createTheme,
   ThemeProvider,
@@ -34,6 +35,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [loginMessage, setLoginMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // navigate const
   const navigate = useNavigate();
@@ -44,15 +46,18 @@ export default function LoginScreen() {
     event.preventDefault();
   };
 
-  const handleClickLogin = () =>
-    handleLogin({ email: email, password: password }).then((msg) => {
-      setLoginMessage(msg);
-      if (loginMessage !== "Success") {
-        setOpen(true);
-      } else {
+  const handleClickLogin = () => {
+    setLoading(true);
+    handleLogin({ email: email, password: password })
+      .then((msg) => {
+        setLoading(false);
         navigate("/home");
-      }
-    });
+      })
+      .catch((err) => {
+        setLoginMessage(err.message);
+        setOpen(true);
+      });
+  };
 
   return (
     <>
@@ -134,13 +139,24 @@ export default function LoginScreen() {
               </FormControl>
             </div>
             <div className="LoginButton">
-              <Button
-                variant="contained"
-                sx={{ m: 1, position: "relative", left: "62%", top: "40%" }}
-                onClick={handleClickLogin}
-              >
-                Login
-              </Button>
+              {loading ? (
+                <CircularProgress
+                  sx={{
+                    position: "relative",
+                    left: "49%",
+                    right: "49%",
+                    top: "20%",
+                  }}
+                />
+              ) : (
+                <Button
+                  variant="contained"
+                  sx={{ m: 1, position: "relative", left: "62%", top: "40%" }}
+                  onClick={handleClickLogin}
+                >
+                  Login
+                </Button>
+              )}
             </div>
             <div className="Links">
               <div>
