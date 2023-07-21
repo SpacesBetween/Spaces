@@ -65,7 +65,7 @@ export default function CancellationPage() {
         >
           <Typography
             sx={{
-              marginTop: 2,
+              marginTop: 5,
               flexGrow: 0.4,
               fontFamily: "monospace",
               fontSize: 20,
@@ -73,18 +73,6 @@ export default function CancellationPage() {
             }}
           >
             Confirm Cancellation?
-          </Typography>
-
-          <Typography
-            sx={{
-              marginTop: -15,
-              flexGrow: 0.4,
-              fontFamily: "monospace",
-              fontSize: 15,
-              textAlign: "left",
-            }}
-          >
-            Details of Booking:
           </Typography>
           <Typography
             sx={{
@@ -95,7 +83,7 @@ export default function CancellationPage() {
               textAlign: "center",
             }}
           >
-            Reciept of Booking
+            -Booking Details-
             <br />Venue: {userData.venueName}
             <br />Day: {userData.day}
             <br />Time: {userData.time}
@@ -108,7 +96,8 @@ export default function CancellationPage() {
               display: "flex",
               gap: "20px",
               alignSelf: "center",
-              marginTop: 190,
+              marginTop: 60,
+              marginBottom: 30
             }}
           >
             <Button

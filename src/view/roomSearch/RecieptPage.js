@@ -67,7 +67,7 @@ export default function ReceiptPage() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "30%",
+            height: "50%",
             width: "100%",
             bgcolor: "#eaeaea",
             padding: "16px",
@@ -89,7 +89,7 @@ export default function ReceiptPage() {
             <br />
             Date: {data.date.toDateString()}
             <br />
-            Time: {data.time}
+            Time: {data.time} 00
             <br />
             Duration: {data.duration}
             <br />
@@ -143,15 +143,17 @@ export default function ReceiptPage() {
         </Box>
         <Button
           target="_blank"
+          variant="contained"
           href={`https://nusmods.com/venues/${data.venueName}`}
           sx={{
             position: "relative",
-            top: "10%",
+            top: "-25%",
+            right: -15,
             maxWidth: "600px",
-            backgroundColor: "purple",
+            backgroundColor: "transparent",
           }}
         >
-          Linked to map (NUSMOD)
+          Go to Map (NUSMods)
         </Button>
       </Container>
     </ThemeProvider>

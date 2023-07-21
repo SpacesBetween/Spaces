@@ -7,7 +7,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { Icon } from "@mdi/react";
-import { mdiArrowURightTop, mdiCloseBoxOutline } from "@mdi/js";
+import { mdiCloseBoxOutline } from "@mdi/js";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const theme = createTheme({
@@ -49,18 +49,6 @@ export default function BookingSuccessfulPage() {
             borderRadius: "5%",
           }}
         >
-
-          <Typography
-            sx={{
-              flexGrow: 0.4,
-              fontFamily: "monospace",
-              fontSize: 15,
-              textAlign: "left",
-              marginLeft: 2,
-            }}
-          >
-            Details of Booking:
-          </Typography>
           <div>
           <Typography
             sx={{
@@ -68,6 +56,7 @@ export default function BookingSuccessfulPage() {
               fontFamily: "monospace",
               fontSize: 19,
               textAlign: "center",
+              marginTop: 10
             }}
           >
             Booking Successful!

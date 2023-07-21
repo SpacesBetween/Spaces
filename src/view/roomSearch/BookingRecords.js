@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Button, Typography, CircularProgress } from "@mui/material";
-import { supabase } from "../../configuration/supabaseClient.js";
+import React, { useState } from "react";
+import { Button, Typography, CircularProgress, createTheme, ThemeProvider } from "@mui/material";
 import "./BookingRecords.css";
 import { fetchBookingHistory } from "../../model/room/roomFunc.js";
 import { mdiNull } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 
-/*const { data } = await supabase
-  .from('User')
-  .select("type")
-  .eq("user_id", user?.id)*/
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#b1c3c3",
+    },
+  },
+});
 
 const BookingRecords = ({ user }) => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // navigate const
-  // sb-lctusxqoprkovqbkyjug-auth-token
 
   const navigate = useNavigate();
 
@@ -29,6 +28,7 @@ const BookingRecords = ({ user }) => {
     .finally(() => setLoading(false));
 
   return (
+    <ThemeProvider theme={theme}>
     <div className="maindiv">
       <p
         style={{
@@ -149,7 +149,7 @@ const BookingRecords = ({ user }) => {
                           });
                         }}
                       >
-                        Cancel
+                        CANCEL
                       </button>
                     </td>
                   </tr>
@@ -160,6 +160,7 @@ const BookingRecords = ({ user }) => {
         )}
       </div>
     </div>
+    </ThemeProvider>
   );
 };
 
