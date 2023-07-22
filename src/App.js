@@ -65,7 +65,7 @@ export default function App() {
           <Route path="/booksuccess" element={<BookingSuccessfulPage />} />
           <Route path="/cancelpage" element={<CancellationPage />} />
           <Route path="/eventsearch" element={<AvailableEventPage />} />
-          <Route path="/description" element={<DescriptionPage />} />
+          <Route path="/description" element={<DescriptionPage user={user}/>} />
           <Route path="/eventbook" element={<BookingSuccess />} />
         </Routes>
       </BrowserRouter>

@@ -21,12 +21,7 @@ import {
     },
   });
   
-  // can get the user session here
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  
-  export default function DescriptionPage() {
+  export default function DescriptionPage({ user }) {
     // states
     const [loading, setLoading] = useState(false);
   

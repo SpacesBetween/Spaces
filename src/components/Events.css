@@ -3,11 +3,6 @@
     background: transparent;
   }
   
-  h1 {
-    text-align: center;
-    color: white;
-  }
-  
   .events__container {
     display: flex;
     flex-flow: column;

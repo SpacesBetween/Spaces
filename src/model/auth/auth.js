@@ -11,10 +11,12 @@ export const handleSignUp = async (info) => {
     return "Please enter a name.";
   } else if (info.password?.length < 8 || info.password?.length === 0) {
     return "Please enter a password with at least 8 characters.";
-  } else if (info.type === "TA" && !info.moduleIfTA) {
+  } else if (info.type === "TA" && info.moduleIfTA === []) {
     return "Please enter the module that you are teaching.";
   } else if (info.type === "Staff" && domainTen !== "nus.edu.sg") {
     return "Are you sure that you are a staff?";
+  } else if (info.moduleIfTA?.length > 7) {
+    return "Are you sure you are teaching so many modules?";
   }
 
   // outputstring to display msg if an error occurs during profile creation
@@ -146,7 +148,7 @@ export const forgetPassword = async (email) => {
 
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: "",
-      data: {email: email}
+      data: { email: email },
     });
 
     if (error) {
