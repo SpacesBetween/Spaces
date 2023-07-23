@@ -53,7 +53,7 @@ export const addEvent = async (
 
   // Note: startTime, endTime, duration, persons are String.
   // description helper text (for view) should just be brief, < 500 characters
-  if (description.length > 500) {
+  if (description.length > 100) {
     throw new Error("Maximum length for description exceeded.");
   }
 

@@ -84,7 +84,7 @@ export default function CancellationPage() {
             }}
           >
             -Booking Details-
-            <br />Venue: {userData.venueName}
+            <br />Venue: {userData.venue}
             <br />Day: {userData.day}
             <br />Time: {userData.time}
             <br />Duration: {userData.duration}
