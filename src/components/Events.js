@@ -20,7 +20,7 @@ function Events({ eventArr }) {
             <ul className="available__spots">
               <AvailableEvents
                 src="images/event image.jpeg"
-                text={eventArr[i].StartingDate}
+                text={eventArr[i].Name}
                 label={eventArr[i].Name}
                 data={{
                   venue: eventArr[i].Venue,
@@ -36,7 +36,7 @@ function Events({ eventArr }) {
               />
               <AvailableEvents
                 src="images/event image.jpeg"
-                text={eventArr[i + 1].StartingDate}
+                text={eventArr[i + 1].Name}
                 label={eventArr[i + 1].Name}
                 data={{
                   venue: eventArr[i + 1].Venue,
@@ -60,7 +60,7 @@ function Events({ eventArr }) {
           <ul className="available__spots">
             <AvailableEvents
               src="images/event image.jpeg"
-              text={eventArr[i].StartingDate}
+              text={eventArr[i].Name}
               label={eventArr[i].Name}
               data={{
                 venue: eventArr[i].Venue,
@@ -83,7 +83,7 @@ function Events({ eventArr }) {
         <ul className="available__spots">
           <AvailableEvents
             src="images/event image.jpeg"
-            text={eventArr[i].StartingDate}
+            text={eventArr[i].Name}
             label={eventArr[i].Name}
             data={{
               venue: eventArr[i].Venue,
@@ -99,7 +99,7 @@ function Events({ eventArr }) {
           />
           <AvailableEvents
             src="images/event image.jpeg"
-            text={eventArr[i + 1].StartingDate}
+            text={eventArr[i + 1].Name}
             label={eventArr[i + 1].Name}
             data={{
               venue: eventArr[i + 1].Venue,
@@ -115,7 +115,7 @@ function Events({ eventArr }) {
           />
           <AvailableEvents
             src="images/event image.jpeg"
-            text={eventArr[i + 2].StartingDate}
+            text={eventArr[i + 2].Name}
             label={eventArr[i + 2].Name}
             data={{
               venue: eventArr[i + 2].Venue,
