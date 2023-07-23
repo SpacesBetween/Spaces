@@ -35,16 +35,17 @@ import {
             sx={{
               display: "flex",
               flexDirection: "column",
-              height: "30%",
+              height: "20%",
               width: "100%",
               bgcolor: "#eaeaea",
               padding: "16px",
-              borderRadius: "5%"
+              borderRadius: "5%",
+              marginTop: -40
             }}
           >
             <Typography
               sx={{
-                marginTop: 8,
+                marginTop: 7,
                 flexGrow: 0.4,
                 fontFamily: "monospace",
                 fontSize: 20,

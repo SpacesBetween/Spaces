@@ -65,13 +65,14 @@ export default function AvailableEventPage() {
         //component="h1"
         sx={{
           flexGrow: 0.4,
-          fontFamily: "monospace",
+          fontFamily:"serif",
           fontSize: 50,
           textAlign: "center",
           zIndex: "999",
           color: "black",
-          backgroundColor: "lightblue",
-          marginTop: "8",
+          backgroundColor: "transparent",
+          marginTop: 8,
+      
         }}
       >
         WHAT TO EVENT @ NUS?!
@@ -80,8 +81,9 @@ export default function AvailableEventPage() {
         style={{
           textAlign: "center",
           color: "black",
-          backgroundColor: "lightblue",
+          backgroundColor: "transparent",
           marginTop: "0",
+          fontFamily:"serif"
         }}
       >
         Here are the official NUS events for you to browse~

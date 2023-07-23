@@ -45,7 +45,7 @@ const BookingRecords = ({ user }) => {
           // added in a width
           width: "100%",
           maxWidth: "300px",
-          borderRadius: "5px",
+          borderRadius: "10px",
         }}
       >
         Click on new bookings to book a slot. <br />
