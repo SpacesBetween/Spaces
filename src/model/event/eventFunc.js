@@ -130,6 +130,7 @@ export const fetchEvents = async (i) => {
     if (error) {
       throw error;
     } else if (data) {
+      console.log(data);
       return data;
     } else {
       throw new Error("Something unusual occured, please try again!");

@@ -27,10 +27,10 @@ export default function PasswordReset() {
 
   const handleReset = () => {
     forgetPassword(email)
-      .catch((err) => console.log(err))
       .then((msg) => {
         alert(msg);
-      });
+      })
+      .catch((err) => alert(err));
   };
 
   return (
