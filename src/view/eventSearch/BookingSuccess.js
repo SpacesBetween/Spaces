@@ -7,7 +7,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { Icon } from "@mdi/react";
-import { mdiCloseBoxOutline } from "@mdi/js";
+import { mdiArrowURightTop, mdiCloseBoxOutline } from "@mdi/js";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const theme = createTheme({
@@ -18,13 +18,15 @@ const theme = createTheme({
   },
 });
 
-export default function BookingSuccessfulPage() {
+export default function BookingSuccess() {
   // navigator
   const navigate = useNavigate();
 
   // location data
   const location = useLocation();
   const data = location.state;
+  console.log(data);
+
   return (
     <ThemeProvider theme={theme}>
       <Container
@@ -49,22 +51,39 @@ export default function BookingSuccessfulPage() {
             borderRadius: "5%",
           }}
         >
-          <div>
           <Typography
             sx={{
               flexGrow: 0.4,
               fontFamily: "monospace",
-              fontSize: 19,
-              textAlign: "center",
-              marginTop: 10
+              fontSize: 15,
+              textAlign: "left",
+              marginLeft: 2,
             }}
           >
-            Booking Successful!
-            <br/>Venue: {data["data"][0].venue_id}
-            <br/>Time: {data["data"][0].time}
-            <br/>Duration: {data["data"][0].duration} hr
-            <br />Day: {data["data"][0].day}
+            Details of Booking:
           </Typography>
+          <div>
+            <Typography
+              sx={{
+                flexGrow: 0.4,
+                fontFamily: "monospace",
+                fontSize: 19,
+                textAlign: "center",
+              }}
+            >
+              Booking Successful!
+              <br />
+              Venue: {data["data"][0]["Event"]?.Venue}
+              <br />
+              Time: {data["data"][0]["Event"]?.StartTime}
+              <br />
+              Duration: {data["data"][0]["Event"]?.Duration}
+              <br />
+              Date:{" "}
+              {new Date(
+                data["data"][0]["Event"]?.StartingDate
+              ).toLocaleDateString()}
+            </Typography>
           </div>
           <div
             style={{
@@ -78,7 +97,7 @@ export default function BookingSuccessfulPage() {
               variant="contained"
               size="small"
               endIcon={<Icon path={mdiCloseBoxOutline} size={0.8} />}
-              onClick={() => navigate("/roomsearch")}
+              onClick={() => navigate("/eventsearch")}
             >
               <Typography sx={{ fontSize: 16 }}>Close</Typography>
             </Button>

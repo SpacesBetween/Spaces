@@ -1,35 +1,34 @@
 import React, { useState } from "react";
-import { Button, Typography } from "@mui/material";
-import { supabase } from "../../configuration/supabaseClient.js";
+import { Button, Typography, CircularProgress, createTheme, ThemeProvider } from "@mui/material";
 import "./BookingRecords.css";
-import {
-  fetchBookingHistory,
-} from "../../model/room/roomFunc.js";
-import CancellationPage from "./CancellationPage.js";
+import { fetchBookingHistory } from "../../model/room/roomFunc.js";
 import { mdiNull } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 
-// can get the user session here
-const {
-  data: { user },
-} = await supabase.auth.getUser();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#b1c3c3",
+    },
+  },
+});
 
-const BookingRecords = () => {
+const BookingRecords = ({ user }) => {
   const [bookings, setBookings] = useState([]);
-  const [cancelling, setCancelling] = useState(false);
-  const [cancelData, setCancelData] = useState({ id: null, user: user });
+  const [loading, setLoading] = useState(true);
 
-  // navigate const
   const navigate = useNavigate();
 
   // fetch bookings from database and set array
   fetchBookingHistory(user)
-    .catch((error) => alert(error.mesaage))
-    .then((bookings) => setBookings(bookings));
+    .then((bookings) => {
+      setBookings(bookings);
+    })
+    .catch((error) => alert(error))
+    .finally(() => setLoading(false));
 
-  return cancelling ? (
-    <CancellationPage userData={cancelData} />
-  ) : (
+  return (
+    <ThemeProvider theme={theme}>
     <div className="maindiv">
       <p
         style={{
@@ -44,7 +43,8 @@ const BookingRecords = () => {
           // added a background colour to see how it looks
           backgroundColor: "black",
           // added in a width
-          width: "15%",
+          width: "100%",
+          maxWidth: "300px",
           borderRadius: "5px",
         }}
       >
@@ -62,76 +62,105 @@ const BookingRecords = () => {
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => navigate("/newbooking")}
+              onClick={() => {
+                /*if (data[0].type === "Student") {
+                  navigate("/studyspotbooking");
+                  return;
+                }*/
+                navigate("/newbooking");
+              }}
             >
               <Typography sx={{ fontSize: 16 }}>New Booking</Typography>
             </Button>
           </div>
         </div>
-
-        <table
-          style={{
-            margin: "0 auto",
-            tableLayout: "auto",
-            font: "small-caption",
-            fontSize: 19,
-            fontWeight: "lighter",
-            textAlign: "center",
-            color: "azure",
-          }}
-        >
-          <thead>
-            <tr>
-              <th style={{ width: "15%" }}>Transaction Date</th>
-              <th style={{ width: "10%" }}>Booked Date</th>
-              <th style={{ width: "10%" }}>Time</th>
-              <th style={{ width: "10%" }}>Location</th>
-              <th style={{ width: "10%" }}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.length === 0 ? (
+        {loading ? (
+          <CircularProgress
+            size={70}
+            color="secondary"
+            sx={{
+              justifyContent: "center",
+              position: "relative",
+              left: "49%",
+              right: "49%",
+              marginTop: "20px",
+            }}
+          />
+        ) : (
+          <table
+            style={{
+              margin: "0 auto",
+              tableLayout: "auto",
+              font: "small-caption",
+              fontSize: 19,
+              fontWeight: "lighter",
+              textAlign: "center",
+              color: "azure",
+            }}
+          >
+            <thead>
               <tr>
-                <td colSpan="9" style={{ textAlign: "center" }}>
-                  <p
-                    style={{
-                      fontSize: "0.75rem",
-                      margin: "2rem 0",
-                      fontWeight: "lighter",
-                      color: "red",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    No bookings found.
-                  </p>
-                </td>
+                <th style={{ width: "15%" }}>Transaction Date</th>
+                <th style={{ width: "10%" }}>Booked Date</th>
+                <th style={{ width: "10%" }}>Time</th>
+                <th style={{ width: "10%" }}>Location</th>
+                <th style={{ width: "10%" }}>Status</th>
               </tr>
-            ) : (
-              bookings.map((booking) => (
-                <tr key={booking.booking_id}>
-                  <td>{new Date(booking.transactionDate).toDateString()}</td>
-                  <td>
-                    {new Date(booking.bookingTimeRange[0]).toDateString()}
-                  </td>
-                  <td>{booking.time}</td>
-                  <td>{booking.venue_id}</td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        setCancelData({ id: booking.booking_id, user: user });
-                        setCancelling(true);
+            </thead>
+            <tbody>
+              {bookings.length === 0 ? (
+                <tr>
+                  <td colSpan="9" style={{ textAlign: "center" }}>
+                    <p
+                      style={{
+                        fontSize: "0.75rem",
+                        margin: "2rem 0",
+                        fontWeight: "lighter",
+                        color: "red",
+                        fontStyle: "italic",
                       }}
                     >
-                      Cancel
-                    </button>
+                      No bookings found.
+                    </p>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                bookings.map((booking) => (
+                  <tr key={booking.booking_id}>
+                    <td>{new Date(booking.transactionDate).toDateString()}</td>
+                    <td>
+                      {new Date(booking.bookingTimeRange[0]).toDateString()}
+                    </td>
+                    <td>{booking.time}</td>
+                    <td>{booking.venue_id}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          navigate("/cancelpage", {
+                            state: {
+                              id: booking.booking_id,
+                              user: user,
+                              venue: booking.venue_id,
+                              day: booking.day,
+                              duration: booking.duration,
+                              time: booking.time,
+                              type: booking.type,
+                            },
+                          });
+                        }}
+                      >
+                        CANCEL
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
+    </ThemeProvider>
   );
 };
 

@@ -78,11 +78,11 @@ export default function AvailableSpotPage({
       time: time,
       durationRaw: duration,
     })
-      .catch((err) => alert(err))
       .then((arr) => {
         setRoomArray(arr);
-        setLoading(false);
-      });
+      })
+      .catch((err) => alert(err))
+      .finally(() => setLoading(false));
   }, [time, location, date, duration]);
 
   return (

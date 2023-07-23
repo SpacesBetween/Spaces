@@ -10,7 +10,7 @@ import { Icon } from "@mdi/react";
 import { mdiCheckCircle, mdiCloseBoxOutline } from "@mdi/js";
 import { useState, useEffect } from "react";
 import { handleCancellation } from "../../model/room/roomFunc.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -20,22 +20,24 @@ const theme = createTheme({
   },
 });
 
-export default function CancellationPage({ userData }) {
+export default function CancellationPage() {
   // state to handle the logic when 'yes' button is clicked
   const [yes, setYes] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
 
+  // location data
+  const location = useLocation();
+  const userData = location.state;
+
   // effect to handle routing logic
   useEffect(() => {
     if (success && yes) {
       return navigate("/cancelsuccess");
     }
-    return () => {
-    
-    }
-  }, [yes, success, navigate])
+    return () => {};
+  }, [yes, success, navigate]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -63,7 +65,7 @@ export default function CancellationPage({ userData }) {
         >
           <Typography
             sx={{
-              marginTop: 2,
+              marginTop: 5,
               flexGrow: 0.4,
               fontFamily: "monospace",
               fontSize: 20,
@@ -72,17 +74,21 @@ export default function CancellationPage({ userData }) {
           >
             Confirm Cancellation?
           </Typography>
-
           <Typography
             sx={{
-              marginTop: -15,
+              marginTop: 6,
               flexGrow: 0.4,
               fontFamily: "monospace",
-              fontSize: 15,
-              textAlign: "left",
+              fontSize: 20,
+              textAlign: "center",
             }}
           >
-            Details of Booking:
+            -Booking Details-
+            <br />Venue: {userData.venueName}
+            <br />Day: {userData.day}
+            <br />Time: {userData.time}
+            <br />Duration: {userData.duration}
+            <br />Booking Type: {userData.type ? "Whole Room" : "Spot"}
           </Typography>
 
           <div
@@ -90,7 +96,8 @@ export default function CancellationPage({ userData }) {
               display: "flex",
               gap: "20px",
               alignSelf: "center",
-              marginTop: 190,
+              marginTop: 60,
+              marginBottom: 30
             }}
           >
             <Button
@@ -101,15 +108,13 @@ export default function CancellationPage({ userData }) {
               onClick={() => {
                 setYes(true);
                 handleCancellation(userData.id, userData.user)
-                  .catch((err) => alert(err))
                   .then((msg) => {
                     setSuccess(true);
-                  });
+                  })
+                  .catch((err) => alert(err));
               }}
             >
-              <Typography sx={{ fontSize: 16 }}>
-                Yes{" "}
-              </Typography>
+              <Typography sx={{ fontSize: 16 }}>Yes </Typography>
             </Button>
             <Button
               variant="contained"

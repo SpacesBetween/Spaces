@@ -3,8 +3,7 @@ import AvailableSpots from "./AvailableSpots.js";
 import FullyBooked from "../view/roomSearch/FullyBookedPage.js";
 import "./Spots.css";
 
-function Spots({ roomArray, time, duration, date, type}) {
-
+function Spots({ roomArray, time, duration, date, type }) {
   // will return an arr of jsx syntax
   const spotsArr = [];
 
@@ -18,7 +17,7 @@ function Spots({ roomArray, time, duration, date, type}) {
           spotsArr.push(
             <ul className="available__spots">
               <AvailableSpots
-                src="images/central-library.jpeg"
+                src={`images/${roomArray[i][1]}.jpg`}
                 text={roomArray[i][0]}
                 label={roomArray[i][1]}
                 data={{
@@ -31,7 +30,7 @@ function Spots({ roomArray, time, duration, date, type}) {
                 path="/receipt"
               />
               <AvailableSpots
-                src="images/science-library.jpeg"
+                src={`images/${roomArray[i + 1][1]}.jpg`}
                 text={roomArray[i + 1][0]}
                 label={roomArray[i + 1][1]}
                 data={{
@@ -50,7 +49,7 @@ function Spots({ roomArray, time, duration, date, type}) {
         spotsArr.push(
           <ul className="available__spots">
             <AvailableSpots
-              src="images/Classroom.jpeg"
+              src={`images/${roomArray[i][1]}.jpg`}
               text={roomArray[i][0]}
               label={roomArray[i][1]}
               data={{
@@ -70,7 +69,7 @@ function Spots({ roomArray, time, duration, date, type}) {
       spotsArr.push(
         <ul className="available__spots">
           <AvailableSpots
-            src="images/Classroom.jpeg"
+            src={`images/${roomArray[i][1]}.jpg`}
             text={roomArray[i][0]}
             label={roomArray[i][1]}
             data={{
@@ -83,7 +82,7 @@ function Spots({ roomArray, time, duration, date, type}) {
             path="/receipt"
           />
           <AvailableSpots
-            src="images/musicLib.jpg"
+            src={`images/${roomArray[i + 1][1]}.jpg`}
             text={roomArray[i + 1][0]}
             label={roomArray[i + 1][1]}
             data={{
@@ -96,7 +95,7 @@ function Spots({ roomArray, time, duration, date, type}) {
             path="/receipt"
           />
           <AvailableSpots
-            src="images/area-outside-starbucks.jpeg"
+            src={`images/${roomArray[i + 2][1]}.jpg`}
             text={roomArray[i + 2][0]}
             label={roomArray[i + 2][1]}
             data={{

@@ -6,10 +6,26 @@ function getDuration(durationRaw) {
   return string.split(" ")[0];
 }
 
+// helper function for outputing endtime in Number
+function timeConvertor(duration, timeString) {
+  const number = Number(duration);
+  const timeNumber =
+    timeString.length === 2
+      ? Number(timeString + "00")
+      : Number("0" + timeString + "00");
+
+  if (duration % 1 === 0) {
+    return timeNumber + number * 100;
+  } else {
+    const working = (number - 0.5) * 100;
+    return timeNumber + 30 + working;
+  }
+}
+
 /* Booking Records */
 export const fetchBookingHistory = async (user) => {
   if (!user) {
-    return "Please login.";
+    throw new Error("Please login.");
   }
 
   try {
@@ -33,7 +49,7 @@ export const fetchBookingHistory = async (user) => {
 // handle booking cancellation
 export const handleCancellation = async (bookingId, user) => {
   if (!user) {
-    return "Please login.";
+    throw new Error("Please login.");
   }
 
   // Perform cancellation logic for the specified bookingId
@@ -74,11 +90,25 @@ export const handleNewBooking = async (
   // Logic to handle the new booking
   // Redirect the user to the new booking page or show a modal, etc.
   if (!user) {
-    return "Please login.";
+    throw new Error("Please login.");
   }
 
+  // check if users have existing bookings
+  // that clash with request booking
+  // by getting the user's bookings
+  const { data: bookings } = await supabase
+    .from("booking")
+    .select("bookingTimeRange")
+    .eq("user_id", user.id);
+
   // Make a Date object
-  const bookedDate = new Date(date);
+  const bookedDate = date;
+  const today = new Date();
+  today.setHours(0);
+  // check if booking date is before today's date
+  if (bookedDate < today) {
+    return "Illegal move: booking retrospective dates.";
+  }
 
   //for duration
   const duration = getDuration(durationRaw);
@@ -106,6 +136,16 @@ export const handleNewBooking = async (
   // handle end time conversion
   const endTime = bookedDate.setTime(startTime + duration * 3600000);
 
+  // timing validation
+  for (let i = 0; i < bookings.length; i++) {
+    if (
+      startTime >= bookings[i]["bookingTimeRange"][0] &&
+      startTime < bookings[i]["bookingTimeRange"][1]
+    ) {
+      throw new Error("Bookings cannot overlap in timing");
+    }
+  }
+
   try {
     const { data, error } = await supabase
       .from("booking")
@@ -129,7 +169,7 @@ export const handleNewBooking = async (
       return data; // vital (booking_id needs to be returned)
     }
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -141,22 +181,9 @@ export const roomSearchStudy = async ({
   time,
   durationRaw,
 }) => {
-  // helper function for outputing endtime in Number
-  function timeConvertor(duration, timeString) {
-    const number = Number(duration);
-    const timeNumber =
-      timeString.length === 2
-        ? Number(timeString + "00")
-        : Number("0" + timeString + "00");
-
-    if (duration % 1 === 0) {
-      return timeNumber + number * 100;
-    } else {
-      const working = (number - 0.5) * 100;
-      return timeNumber + 30 + working;
-    }
+  if (!location || !date || !time || !durationRaw) {
+    throw new Error("Missing inputs");
   }
-
   // array of free rooms
   let freeRoomArray = [];
 

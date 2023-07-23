@@ -54,7 +54,7 @@ import {
               Sorry, the booking is NOT available as it is FULLY BOOKED.
             </Typography>
   
-            <div style={{ display: "flex", gap: "20px", alignSelf: "center" }}>
+            {/* <div style={{ display: "flex", gap: "20px", alignSelf: "center" }}>
               <Button
                 variant="contained"
                 color="primary"
@@ -70,7 +70,7 @@ import {
               >
                 <Typography sx={{ fontSize: 16 }}>Close</Typography>
               </Button>
-            </div>
+            </div> */}
           </Box>
         </Container>
       </ThemeProvider>

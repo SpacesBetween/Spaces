@@ -97,7 +97,6 @@ export default function BookingPage() {
             })}
           </Typography>
           <TypeOfBookingBar onSelect={onSelectType}></TypeOfBookingBar>
-
           <div
             style={{
               display: "flex",

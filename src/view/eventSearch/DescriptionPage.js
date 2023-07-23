@@ -8,11 +8,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Icon } from "@mdi/react";
-import { mdiArrowLeft, mdiBookCheckOutline } from "@mdi/js";
+import { mdiArrowLeft, mdiCalendarStarFourPoints } from "@mdi/js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { handleNewBooking } from "../../model/room/roomFunc.js";
-import { supabase } from "../../configuration/supabaseClient.js";
+import { joinEvent } from "../../model/event/eventFunc.js";
 
 const theme = createTheme({
   palette: {
@@ -22,7 +21,7 @@ const theme = createTheme({
   },
 });
 
-export default function ReceiptPage({ user }) {
+export default function DescriptionPage({ user }) {
   // states
   const [loading, setLoading] = useState(false);
 
@@ -32,6 +31,19 @@ export default function ReceiptPage({ user }) {
 
   // navigator
   const navigate = useNavigate();
+
+  // functions
+  const participantJoining = () => {
+    setLoading(true);
+    joinEvent(user.id, data.id, "Participant")
+      .then((data) => {
+        navigate("/eventbook", { state: { data } });
+      })
+      .catch((err) => alert(err))
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return loading ? (
     <CircularProgress
@@ -78,17 +90,13 @@ export default function ReceiptPage({ user }) {
               textAlign: "center",
             }}
           >
-            Reciept of Booking
+            Decription of Event
             <br />
-            Venue: {data.venueName}
+            {data?.description} <br />
+            Host: {data?.host}
             <br />
-            Date: {new Date(data.date).toDateString()}
-            <br />
-            Time: {data.time} 00
-            <br />
-            Duration: {data.duration}
-            <br />
-            Booking Type: {data.type ? "Whole Room" : "Spot"}
+            Date: {data?.date} <br />
+            Time: {data?.time} <br />
           </Typography>
 
           <div
@@ -103,28 +111,10 @@ export default function ReceiptPage({ user }) {
               variant="contained"
               color="primary"
               size="small"
-              endIcon={<Icon path={mdiBookCheckOutline} size={0.8} />}
-              onClick={() => {
-                setLoading(true);
-                handleNewBooking(
-                  user,
-                  data.venueName,
-                  data.date,
-                  data.time,
-                  data.duration,
-                  data.type
-                )
-                  .then((data) => {
-                    navigate("/booksuccess", { state: { data } });
-                  })
-                  .catch((err) => {
-                    alert(err);
-                    navigate(-1);
-                  })
-                  .finally(() => setLoading(false));
-              }}
+              endIcon={<Icon path={mdiCalendarStarFourPoints} size={0.8} />}
+              onClick={participantJoining}
             >
-              <Typography sx={{ fontSize: 14 }}>Confirm</Typography>
+              <Typography sx={{ fontSize: 14 }}>Join!</Typography>
             </Button>
             <Button
               variant="contained"
@@ -136,20 +126,6 @@ export default function ReceiptPage({ user }) {
             </Button>
           </div>
         </Box>
-        <Button
-          target="_blank"
-          variant="contained"
-          href={`https://nusmods.com/venues/${data.venueName}`}
-          sx={{
-            position: "relative",
-            top: "-25%",
-            right: -15,
-            maxWidth: "600px",
-            backgroundColor: "transparent",
-          }}
-        >
-          Go to Map (NUSMods)
-        </Button>
       </Container>
     </ThemeProvider>
   );

@@ -80,7 +80,7 @@ export default function PasswordReset() {
               sx={{ m: 1, position: "relative", left: "62%", top: "40%" }}
               onClick={handleReset}
             >
-              Reset
+              Send
             </Button>
           </div>
           <div className="Links">

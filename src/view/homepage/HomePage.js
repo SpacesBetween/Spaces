@@ -61,7 +61,8 @@ export default function HomePage() {
               display: "flex",
               gap: "20px",
               position: "absolute",
-              left: "13%",
+              left: "20%",
+              right: "20%",
               top: "60%",
             }}
           >
@@ -78,6 +79,7 @@ export default function HomePage() {
               variant="contained"
               size="small"
               endIcon={<Icon path={mdiCalendarHeart} size={0.7} />}
+              onClick={() => navigate("/eventsearch")}
             >
               <Typography sx={{ fontSize: 14 }}>Event Search</Typography>
             </Button>
