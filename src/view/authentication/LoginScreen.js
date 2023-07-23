@@ -178,7 +178,7 @@ export default function LoginScreen() {
                     position: "relative",
                     left: "30%",
                     top: 40,
-                    cursor: "pointer",
+                    cursor: "not-allowed",
                   }}
                   onClick={() => navigate("/passwordreset")}
                 >
