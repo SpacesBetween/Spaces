@@ -61,7 +61,7 @@ export default function App() {
           <Route path="/studyspotbooking" element={<StudySpotPage />} />
           <Route path="/cancelsuccess" element={<CancelSuccess />} />
           <Route path="/spotssearchpage" element={<Spots />} />
-          <Route path="/receipt" element={<Receipt />} />
+          <Route path="/receipt" element={<Receipt user={user}/>} />
           <Route path="/booksuccess" element={<BookingSuccessfulPage />} />
           <Route path="/cancelpage" element={<CancellationPage />} />
           <Route path="/eventsearch" element={<AvailableEventPage />} />

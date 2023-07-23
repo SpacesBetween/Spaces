@@ -25,6 +25,8 @@ export default function BookingSuccess() {
   // location data
   const location = useLocation();
   const data = location.state;
+  console.log(data);
+
   return (
     <ThemeProvider theme={theme}>
       <Container
@@ -71,14 +73,16 @@ export default function BookingSuccess() {
             >
               Booking Successful!
               <br />
-              {/* Venue: {data["data"][0].Venue} */}
+              Venue: {data["data"][0]["Event"]?.Venue}
               <br />
-              {/* Time: {data["data"][0].StartTime} */}
+              Time: {data["data"][0]["Event"]?.StartTime}
               <br />
-              {/* Duration: {data["data"][0].Duration} hr */}
+              Duration: {data["data"][0]["Event"]?.Duration}
               <br />
-              {/* Date: {data["data"][0].StartingDate} */}
-              {/* need change some words for backend may have different names names */}
+              Date:{" "}
+              {new Date(
+                data["data"][0]["Event"]?.StartingDate
+              ).toLocaleDateString()}
             </Typography>
           </div>
           <div

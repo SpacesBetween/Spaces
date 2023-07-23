@@ -88,8 +88,12 @@ export const addEvent = async (
 
 // joining
 export const joinEvent = async (user_id, event_id, user_type) => {
-  if (!user_id || event_id || user_type) {
+  if (!user_id || !event_id) {
     throw new Error("Missing inputs");
+  } else if (!user_type) {
+    throw new Error(
+      "Sorry, participant type not recognised, it is probably our problem. Please try again."
+    );
   }
 
   try {

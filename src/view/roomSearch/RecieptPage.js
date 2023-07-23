@@ -22,12 +22,7 @@ const theme = createTheme({
   },
 });
 
-// can get the user session here
-const {
-  data: { user },
-} = await supabase.auth.getUser();
-
-export default function ReceiptPage() {
+export default function ReceiptPage({ user }) {
   // states
   const [loading, setLoading] = useState(false);
 
@@ -87,7 +82,7 @@ export default function ReceiptPage() {
             <br />
             Venue: {data.venueName}
             <br />
-            Date: {data.date.toDateString()}
+            Date: {new Date(data.date).toDateString()}
             <br />
             Time: {data.time} 00
             <br />

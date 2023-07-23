@@ -5,6 +5,7 @@ import "./AvailableEventPage.css";
 export default function AddEventPage() {
   return (
     <>
+    {/* some input fields can be not applicable */}
       <Events />
     </>
   );
