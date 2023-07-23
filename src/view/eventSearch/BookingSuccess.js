@@ -25,7 +25,6 @@ export default function BookingSuccess() {
   // location data
   const location = useLocation();
   const data = location.state;
-  console.log(data);
 
   return (
     <ThemeProvider theme={theme}>

@@ -39,7 +39,10 @@ export default function DescriptionPage({ user }) {
       .then((data) => {
         navigate("/eventbook", { state: { data } });
       })
-      .catch((err) => alert(err))
+      .catch((err) => {
+        alert("have you joined this event already? or something is wrong?");
+        console.log(err);
+      })
       .finally(() => {
         setLoading(false);
       });
