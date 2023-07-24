@@ -157,7 +157,11 @@ export default function RoomPage() {
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
               onClick={() => {
-                if (date < dayjs().add(1, "day") || isWeekend(date)) {
+                if (
+                  date < dayjs() ||
+                  date.getDay() === 0 ||
+                  date.getDay() === 6
+                ) {
                   alert("Illegal date, please select a weekday in the future.");
                 } else {
                   setSpotPage(true);
