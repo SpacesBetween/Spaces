@@ -21,7 +21,7 @@ function Events({ eventArr }) {
               <AvailableEvents
                 src="images/event image.jpeg"
                 text={eventArr[i].Name}
-                label={eventArr[i].Name}
+                label={eventArr[i].Host}
                 data={{
                   venue: eventArr[i].Venue,
                   time: eventArr[i].StartTime,
@@ -37,7 +37,7 @@ function Events({ eventArr }) {
               <AvailableEvents
                 src="images/event image.jpeg"
                 text={eventArr[i + 1].Name}
-                label={eventArr[i + 1].Name}
+                label={eventArr[i + 1].Host}
                 data={{
                   venue: eventArr[i + 1].Venue,
                   time: eventArr[i + 1].StartTime,
@@ -61,7 +61,7 @@ function Events({ eventArr }) {
             <AvailableEvents
               src="images/event image.jpeg"
               text={eventArr[i].Name}
-              label={eventArr[i].Name}
+              label={eventArr[i].Host}
               data={{
                 venue: eventArr[i].Venue,
                 time: eventArr[i].StartTime,
@@ -84,7 +84,7 @@ function Events({ eventArr }) {
           <AvailableEvents
             src="images/event image.jpeg"
             text={eventArr[i].Name}
-            label={eventArr[i].Name}
+            label={eventArr[i].Host}
             data={{
               venue: eventArr[i].Venue,
               time: eventArr[i].StartTime,
@@ -100,7 +100,7 @@ function Events({ eventArr }) {
           <AvailableEvents
             src="images/event image.jpeg"
             text={eventArr[i + 1].Name}
-            label={eventArr[i + 1].Name}
+            label={eventArr[i + 1].Host}
             data={{
               venue: eventArr[i + 1].Venue,
               time: eventArr[i + 1].StartTime,
@@ -116,7 +116,7 @@ function Events({ eventArr }) {
           <AvailableEvents
             src="images/event image.jpeg"
             text={eventArr[i + 2].Name}
-            label={eventArr[i + 2].Name}
+            label={eventArr[i + 2].Host}
             data={{
               venue: eventArr[i + 2].Venue,
               time: eventArr[i + 2].StartTime,
