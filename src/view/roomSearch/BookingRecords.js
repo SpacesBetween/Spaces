@@ -48,8 +48,8 @@ const BookingRecords = ({ user }) => {
           borderRadius: "10px",
         }}
       >
-        Click on new bookings to book a slot. <br />
-        Click on cancel if you wish to cancel an existing booking.
+        Click on New Booking to book a slot. <br />
+        Click on CANCEL if you wish to cancel an existing booking.
       </p>
       <div className="records">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -104,7 +104,8 @@ const BookingRecords = ({ user }) => {
                 <th style={{ width: "10%" }}>Booked Date</th>
                 <th style={{ width: "10%" }}>Time</th>
                 <th style={{ width: "10%" }}>Location</th>
-                <th style={{ width: "10%" }}>Status</th>
+                <th style={{width: "10%"}}>Duration</th>
+                <th style={{ width: "10%" }}>Cancel?</th>
               </tr>
             </thead>
             <tbody>
@@ -133,6 +134,7 @@ const BookingRecords = ({ user }) => {
                     </td>
                     <td>{booking.time}</td>
                     <td>{booking.venue_id}</td>
+                    <td>{booking.duration}</td>
                     <td>
                       <button
                         onClick={() => {

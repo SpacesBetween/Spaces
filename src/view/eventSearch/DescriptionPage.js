@@ -93,7 +93,7 @@ export default function DescriptionPage({ user }) {
               textAlign: "center",
             }}
           >
-            Decription of Event
+            Description of Event
             <br />
             {data?.description} <br />
             Host: {data?.host}

@@ -78,7 +78,7 @@ export default function ReceiptPage({ user }) {
               textAlign: "center",
             }}
           >
-            Reciept of Booking
+            Receipt of Booking
             <br />
             Venue: {data.venueName}
             <br />
@@ -88,7 +88,7 @@ export default function ReceiptPage({ user }) {
             <br />
             Duration: {data.duration}
             <br />
-            Booking Type: {data.type ? "Whole Room" : "Spot"}
+            Booking Type: {data.type ? "Whole Room" : "StudySpot"}
           </Typography>
 
           <div

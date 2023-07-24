@@ -33,12 +33,12 @@ const isWeekend = (date) => {
 const nextWeekday = () => {
   // Room can only book in advance, so default
   // date can only book from tomorrow onwards.
-  const tomorrow = dayjs().add(1, 'day');
-  
+  const tomorrow = dayjs().add(1, "day");
+
   // check if today is a weekend or not
-  return isWeekend(tomorrow) 
-         ? dayjs().startOf('week').add(1, 'week')
-         : tomorrow;
+  return isWeekend(tomorrow)
+    ? dayjs().startOf("week").add(1, "week")
+    : tomorrow;
 };
 
 export default function RoomPage() {
@@ -51,7 +51,7 @@ export default function RoomPage() {
 
   // functions
   const onSelectDate = (e) => {
-    setDate(e.$d); 
+    setDate(e.$d);
   };
 
   const onSelectTime = (e) => {
@@ -65,7 +65,6 @@ export default function RoomPage() {
   const handleBackToSearch = () => {
     setSpotPage(false);
   };
-
 
   // variables
   var days = [
@@ -157,7 +156,13 @@ export default function RoomPage() {
               endIcon={
                 <Icon path={mdiArrowRightBoldHexagonOutline} size={0.7} />
               }
-              onClick={() => setSpotPage(true)}
+              onClick={() => {
+                if (date < dayjs().add(1, "day") || isWeekend(date)) {
+                  alert("Illegal date, please select a weekday in the future.");
+                } else {
+                  setSpotPage(true);
+                }
+              }}
             >
               <Typography sx={{ fontSize: 14 }}>Go</Typography>
             </Button>

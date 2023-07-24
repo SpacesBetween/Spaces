@@ -1,3 +1,4 @@
+import { en } from "@supabase/auth-ui-shared";
 import { supabase } from "../../configuration/supabaseClient.js";
 
 // helper function to convert duration string to pure number string
@@ -139,8 +140,10 @@ export const handleNewBooking = async (
   // timing validation
   for (let i = 0; i < bookings.length; i++) {
     if (
-      startTime >= bookings[i]["bookingTimeRange"][0] &&
-      startTime < bookings[i]["bookingTimeRange"][1]
+      (startTime >= bookings[i]["bookingTimeRange"][0] &&
+      startTime < bookings[i]["bookingTimeRange"][1]) || 
+      (endTime > bookings[i]["bookingTimeRange"][0] &&
+      endTime < bookings[i]["bookingTimeRange"[1]])
     ) {
       throw new Error("Bookings cannot overlap in timing");
     }

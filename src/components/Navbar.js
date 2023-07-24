@@ -38,16 +38,16 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <Link to="roomsearch" className="nav-links" onClick={closeMobileMenu}>
-                ROOM
+                BOOKINGS
               </Link>
             </li>
             <li className="nav-item">
               <Link to="eventsearch" className="nav-links" onClick={closeMobileMenu}>
-                EVENT
+                EVENTS
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/" className="under-construction" onClick={closeMobileMenu}>
+              <Link to="#" className="under-construction" onClick={closeMobileMenu}>
                 CAPACITY
               </Link>
             </li>
