@@ -77,7 +77,7 @@ export default function DescriptionPage({ user }) {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "50%",
+            height: "70%",
             width: "100%",
             bgcolor: "#eaeaea",
             padding: "16px",
@@ -89,17 +89,28 @@ export default function DescriptionPage({ user }) {
               marginTop: 1,
               flexGrow: 0.4,
               fontFamily: "monospace",
-              fontSize: 20,
+              fontSize: 25,
               textAlign: "center",
+              fontWeight:"bold"
             }}
           >
             Description of Event
-            <br />
+            </Typography>
+            <Typography
+            sx={{
+              marginTop: 0,
+              flexGrow: 0.4,
+              fontFamily: "monospace",
+              fontSize: 18,
+              textAlign: "center",
+            }}
+          >
             {data?.description} <br />
-            Host: {data?.host}
+             <br />
+            <b>Host: </b>{data?.host}
             <br />
-            Date: {data?.date} <br />
-            Time: {data?.time} <br />
+            <b>Date:</b> {data?.date} <br />
+            <b>Time:</b> {data?.time} <br />
           </Typography>
 
           <div
@@ -107,7 +118,7 @@ export default function DescriptionPage({ user }) {
               display: "flex",
               gap: "20px",
               alignSelf: "center",
-              marginTop: 100,
+              marginTop: 70,
             }}
           >
             <Button

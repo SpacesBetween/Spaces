@@ -74,21 +74,32 @@ export default function ReceiptPage({ user }) {
               marginTop: 1,
               flexGrow: 0.4,
               fontFamily: "monospace",
+              fontSize: 25,
+              textAlign: "center",
+              fontWeight:"bold"
+            }}
+          >
+           Receipt of Booking
+            </Typography>
+            <Typography
+            sx={{
+              marginTop: -5,
+              flexGrow: 0.4,
+              fontFamily: "monospace",
               fontSize: 20,
               textAlign: "center",
             }}
           >
-            Receipt of Booking
             <br />
-            Venue: {data.venueName}
+            <b>Venue:</b> {data.venueName}
             <br />
-            Date: {new Date(data.date).toDateString()}
+            <b>Date:</b> {new Date(data.date).toDateString()}
             <br />
-            Time: {data.time} 00
+            <b>Time:</b> {data.time} 00
             <br />
-            Duration: {data.duration} hrs
+            <b>Duration:</b> {data.duration} hrs
             <br />
-            Booking Type: {data.type ? "Whole Room" : "Study Spot"}
+            <b>Booking Type:</b> {data.type ? "Whole Room" : "Study Spot"}
           </Typography>
 
           <div
@@ -142,7 +153,7 @@ export default function ReceiptPage({ user }) {
           href={`https://nusmods.com/venues/${data.venueName}`}
           sx={{
             position: "relative",
-            top: "-25%",
+            top: "-20%",
             right: -15,
             maxWidth: "600px",
             backgroundColor: "transparent",
