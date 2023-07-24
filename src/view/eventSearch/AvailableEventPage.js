@@ -69,8 +69,8 @@ export default function AvailableEventPage() {
           fontSize: 50,
           textAlign: "center",
           zIndex: "999",
-          color: "black",
-          backgroundColor: "transparent",
+          color: "white",
+          backgroundColor: "black",
           marginTop: 8,
       
         }}
@@ -80,8 +80,8 @@ export default function AvailableEventPage() {
       <h3
         style={{
           textAlign: "center",
-          color: "black",
-          backgroundColor: "transparent",
+          color: "white",
+          backgroundColor: "black",
           marginTop: "0",
           fontFamily:"serif"
         }}
