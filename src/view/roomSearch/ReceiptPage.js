@@ -97,7 +97,7 @@ export default function ReceiptPage({ user }) {
             <br />
             <b>Time:</b> {data.time} 00
             <br />
-            <b>Duration:</b> {data.duration} hrs
+            <b>Duration:</b> {data.duration} 
             <br />
             <b>Booking Type:</b> {data.type ? "Whole Room" : "Study Spot"}
           </Typography>
