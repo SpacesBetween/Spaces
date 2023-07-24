@@ -88,7 +88,7 @@ export default function CancellationPage() {
             <br />Day: {userData.day}
             <br />Time: {userData.time}
             <br />Duration: {userData.duration}
-            <br />Booking Type: {userData.type ? "Whole Room" : "Spot"}
+            <br />Booking Type: {userData.type ? "Whole Room" : "StudySpot"}
           </Typography>
 
           <div

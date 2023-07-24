@@ -105,11 +105,6 @@ export default function DescriptionPage({ user }) {
               textAlign: "center",
             }}
           >
-<<<<<<< HEAD
-            Description of Event
-            <br />
-=======
->>>>>>> d11436171bf98f0d9c5c98d2f58fd9b8cc4d5f98
             {data?.description} <br />
              <br />
             <b>Host: </b>{data?.host}
