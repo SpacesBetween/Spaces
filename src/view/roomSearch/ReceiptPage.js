@@ -8,10 +8,11 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Icon } from "@mdi/react";
-import { mdiArrowLeft, mdiCalendarStarFourPoints } from "@mdi/js";
+import { mdiArrowLeft, mdiBookCheckOutline } from "@mdi/js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { joinEvent } from "../../model/event/eventFunc.js";
+import { handleNewBooking } from "../../model/room/roomFunc.js";
+import { supabase } from "../../configuration/supabaseClient.js";
 
 const theme = createTheme({
   palette: {
@@ -21,7 +22,7 @@ const theme = createTheme({
   },
 });
 
-export default function DescriptionPage({ user }) {
+export default function ReceiptPage({ user }) {
   // states
   const [loading, setLoading] = useState(false);
 
@@ -31,22 +32,6 @@ export default function DescriptionPage({ user }) {
 
   // navigator
   const navigate = useNavigate();
-
-  // functions
-  const participantJoining = () => {
-    setLoading(true);
-    joinEvent(user.id, data.id, "Participant")
-      .then((data) => {
-        navigate("/eventbook", { state: { data } });
-      })
-      .catch((err) => {
-        alert("have you joined this event already? or something is wrong?");
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
 
   return loading ? (
     <CircularProgress
@@ -77,7 +62,7 @@ export default function DescriptionPage({ user }) {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "70%",
+            height: "50%",
             width: "100%",
             bgcolor: "#eaeaea",
             padding: "16px",
@@ -94,28 +79,27 @@ export default function DescriptionPage({ user }) {
               fontWeight:"bold"
             }}
           >
-            Description of Event
+           Receipt of Booking
             </Typography>
             <Typography
             sx={{
-              marginTop: 0,
+              marginTop: -5,
               flexGrow: 0.4,
               fontFamily: "monospace",
-              fontSize: 18,
+              fontSize: 20,
               textAlign: "center",
             }}
           >
-<<<<<<< HEAD
-            Description of Event
             <br />
-=======
->>>>>>> d11436171bf98f0d9c5c98d2f58fd9b8cc4d5f98
-            {data?.description} <br />
-             <br />
-            <b>Host: </b>{data?.host}
+            <b>Venue:</b> {data.venueName}
             <br />
-            <b>Date:</b> {data?.date} <br />
-            <b>Time:</b> {data?.time} <br />
+            <b>Date:</b> {new Date(data.date).toDateString()}
+            <br />
+            <b>Time:</b> {data.time} 00
+            <br />
+            <b>Duration:</b> {data.duration} 
+            <br />
+            <b>Booking Type:</b> {data.type ? "Whole Room" : "Study Spot"}
           </Typography>
 
           <div
@@ -123,17 +107,35 @@ export default function DescriptionPage({ user }) {
               display: "flex",
               gap: "20px",
               alignSelf: "center",
-              marginTop: 70,
+              marginTop: 100,
             }}
           >
             <Button
               variant="contained"
               color="primary"
               size="small"
-              endIcon={<Icon path={mdiCalendarStarFourPoints} size={0.8} />}
-              onClick={participantJoining}
+              endIcon={<Icon path={mdiBookCheckOutline} size={0.8} />}
+              onClick={() => {
+                setLoading(true);
+                handleNewBooking(
+                  user,
+                  data.venueName,
+                  data.date,
+                  data.time,
+                  data.duration,
+                  data.type
+                )
+                  .then((data) => {
+                    navigate("/booksuccess", { state: { data } });
+                  })
+                  .catch((err) => {
+                    alert(err);
+                    navigate(-1);
+                  })
+                  .finally(() => setLoading(false));
+              }}
             >
-              <Typography sx={{ fontSize: 14 }}>Join!</Typography>
+              <Typography sx={{ fontSize: 14 }}>Confirm</Typography>
             </Button>
             <Button
               variant="contained"
@@ -145,6 +147,20 @@ export default function DescriptionPage({ user }) {
             </Button>
           </div>
         </Box>
+        <Button
+          target="_blank"
+          variant="contained"
+          href={`https://nusmods.com/venues/${data.venueName}`}
+          sx={{
+            position: "relative",
+            top: "-20%",
+            right: -15,
+            maxWidth: "600px",
+            backgroundColor: "transparent",
+          }}
+        >
+          Go to Map (NUSMods)
+        </Button>
       </Container>
     </ThemeProvider>
   );

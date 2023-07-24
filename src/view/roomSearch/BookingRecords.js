@@ -35,9 +35,9 @@ const BookingRecords = ({ user }) => {
           // changed margin top to see what happens
           position: "relative",
           marginTop: 30,
-          marginLeft: 20,
+          marginLeft: 10,
           marginBottom: 10,
-          fontSize: "0.8rem",
+          fontSize: "0.7rem",
           fontWeight: "lighter",
           color: "white",
           // added a background colour to see how it looks
@@ -48,8 +48,8 @@ const BookingRecords = ({ user }) => {
           borderRadius: "10px",
         }}
       >
-        Click on New Booking to book a slot. <br />
-        Click on CANCEL if you wish to cancel an existing booking.
+        Click on new bookings to book a slot. <br />
+        Click on cancel if you wish to cancel an existing booking.
       </p>
       <div className="records">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
