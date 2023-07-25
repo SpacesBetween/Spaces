@@ -12,7 +12,6 @@ import { mdiArrowLeft, mdiBookCheckOutline } from "@mdi/js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { handleNewBooking } from "../../model/room/roomFunc.js";
-import { supabase } from "../../configuration/supabaseClient.js";
 
 const theme = createTheme({
   palette: {
@@ -74,32 +73,21 @@ export default function ReceiptPage({ user }) {
               marginTop: 1,
               flexGrow: 0.4,
               fontFamily: "monospace",
-              fontSize: 25,
-              textAlign: "center",
-              fontWeight:"bold"
-            }}
-          >
-           Receipt of Booking
-            </Typography>
-            <Typography
-            sx={{
-              marginTop: -5,
-              flexGrow: 0.4,
-              fontFamily: "monospace",
               fontSize: 20,
               textAlign: "center",
             }}
           >
+            Receipt of Booking
             <br />
-            <b>Venue:</b> {data.venueName}
+            Venue: {data.venueName}
             <br />
-            <b>Date:</b> {new Date(data.date).toDateString()}
+            Date: {new Date(data.date).toDateString()}
             <br />
-            <b>Time:</b> {data.time} 00
+            Time: {data.time} 00
             <br />
-            <b>Duration:</b> {data.duration} hrs
+            Duration: {data.duration}
             <br />
-            <b>Booking Type:</b> {data.type ? "Whole Room" : "Study Spot"}
+            Booking Type: {data.type ? "Whole Room" : "StudySpot"}
           </Typography>
 
           <div
@@ -153,7 +141,7 @@ export default function ReceiptPage({ user }) {
           href={`https://nusmods.com/venues/${data.venueName}`}
           sx={{
             position: "relative",
-            top: "-20%",
+            top: "-25%",
             right: -15,
             maxWidth: "600px",
             backgroundColor: "transparent",
