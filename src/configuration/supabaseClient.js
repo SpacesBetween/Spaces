@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseKey = process.env.REACT_APP_ANON_KEY;
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+// const supabaseKey = process.env.REACT_APP_ANON_KEY;
+// const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 
 export const supabase = createClient(
   "https://lctusxqoprkovqbkyjug.supabase.co",
@@ -10,6 +10,6 @@ export const supabase = createClient(
     auth: {
       persistSession: true,
       // storage: localStorage,
-    },
+    }
   }
 );

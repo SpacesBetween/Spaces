@@ -50,13 +50,14 @@ export default function LoginScreen() {
     setLoading(true);
     handleLogin({ email: email, password: password })
       .then((msg) => {
-        setLoading(false);
         navigate("/home");
       })
       .catch((err) => {
         setLoginMessage(err.message);
         setOpen(true);
-      });
+      }).finally(
+        () => setLoading(false)
+      );
   };
 
   return (
