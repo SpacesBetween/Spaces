@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Typography, CircularProgress, createTheme, ThemeProvider } from "@mui/material";
 import "./BookingRecords.css";
 import { fetchBookingHistory } from "../../model/room/roomFunc.js";
-import { mdiNull } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({

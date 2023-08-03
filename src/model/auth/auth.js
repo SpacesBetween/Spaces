@@ -175,3 +175,52 @@ export const signOut = async () => {
     return error.message;
   }
 };
+
+// get user details
+export const getUserDetails = async (user) => {
+  let prosessingData;
+
+  try {
+    const { data, error } = await supabase
+      .from("User")
+      .select("*, EventParticipants(event_id, UserType)")
+      .eq("user_id", user.id);
+
+    if (error) {
+      throw error;
+    } else if (data) {
+      prosessingData = data[0];
+
+      for (const count in prosessingData.EventParticipants) {
+        const { data, error } = await supabase
+          .from("Event")
+          .select()
+          .eq("id", prosessingData.EventParticipants[count].event_id);
+
+        if (data) {
+          prosessingData.EventParticipants[count].event = data[0];
+        } else if (error) {
+          throw new Error(error.message + ". Please refresh");
+        } else {
+          throw new Error("Something went wrong, please refresh!");
+        }
+      }
+    } else {
+      throw new Error("An error occured, please try again!");
+    }
+  } catch (error) {
+    throw error;
+  }
+
+  return prosessingData;
+};
+
+export const tempGetPfp = (email) => {
+   const maybeNum = email?.slice(0, 1)[1];
+
+   if (isNaN(maybeNum)) {
+     return 10;
+   } 
+
+   return maybeNum;
+}

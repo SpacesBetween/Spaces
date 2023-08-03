@@ -53,8 +53,8 @@ export default function AvailableSpotPage({
     "Friday",
     "Saturday",
   ];
-  var d = new Date();
-  var dayName = days[d.getDay()];
+  // var d = new Date();
+  var dayName = days[cDate.getDay()];
 
   // date (Date obj)
   const date = cDate;
@@ -100,7 +100,7 @@ export default function AvailableSpotPage({
         }}
       >
         {dayName}, {""}
-        {new Date().toLocaleString("en-US", {
+        {date.toLocaleString("en-US", {
           day: "2-digit",
           month: "long",
           year: "numeric",

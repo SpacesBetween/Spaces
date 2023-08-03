@@ -21,6 +21,9 @@ import { supabase } from "./configuration/supabaseClient.js";
 import AvailableEventPage from "./view/eventSearch/AvailableEventPage.js";
 import DescriptionPage from "./view/eventSearch/DescriptionPage.js";
 import BookingSuccess from "./view/eventSearch/BookingSuccess.js";
+import ProfilePage from "./view/profile/ProfilePage.js";
+import ProfilePageBooking from "./view/profile/ProfilePageBooking.js";
+import UnjoinEventPage from "./view/eventSearch/UnjoinEventPage.js";
 
 export default function App() {
   // useState and useEffect to check if a user is logged in
@@ -67,9 +70,12 @@ export default function App() {
           <Route path="/eventsearch" element={<AvailableEventPage />} />
           <Route path="/description" element={<DescriptionPage user={user}/>} />
           <Route path="/eventbook" element={<BookingSuccess />} />
+          <Route path="/profile" element={<ProfilePage user={user}/>}/>
+          <Route path="/profile/bookings" element={<ProfilePageBooking user={user}/>}/>
+          <Route path="/unjoiningevent" element={<UnjoinEventPage/>}/>
         </Routes>
       </BrowserRouter>
-      <video className="videoTag" autoPlay loop muted>
+      <video className="videoTag" autoPlay muted>
         <source src={homeVideo} type="video/mp4" />
       </video>
     </>

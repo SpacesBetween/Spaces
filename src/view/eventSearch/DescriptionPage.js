@@ -40,8 +40,14 @@ export default function DescriptionPage({ user }) {
         navigate("/eventbook", { state: { data } });
       })
       .catch((err) => {
-        alert("have you joined this event already? or something is wrong?");
-        console.log(err);
+        if (
+          err.message ===
+          'duplicate key value violates unique constraint "EventParticipants_pkey"'
+        ) {
+          alert("have you joined this event already?");
+        } else {
+          alert(err.message);
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -91,12 +97,12 @@ export default function DescriptionPage({ user }) {
               fontFamily: "monospace",
               fontSize: 25,
               textAlign: "center",
-              fontWeight:"bold"
+              fontWeight: "bold",
             }}
           >
             Description of Event
-            </Typography>
-            <Typography
+          </Typography>
+          <Typography
             sx={{
               marginTop: 0,
               flexGrow: 0.4,
@@ -106,8 +112,9 @@ export default function DescriptionPage({ user }) {
             }}
           >
             {data?.description} <br />
-             <br />
-            <b>Host: </b>{data?.host}
+            <br />
+            <b>Host: </b>
+            {data?.host}
             <br />
             <b>Date:</b> {data?.date} <br />
             <b>Time:</b> {data?.time} <br />

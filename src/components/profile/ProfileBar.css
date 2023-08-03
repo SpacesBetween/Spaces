@@ -1,0 +1,24 @@
+.bar {
+  background-color: black;
+  size: 200px;
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  z-index: 999;
+}
+
+.particulars {
+  display: grid;
+  grid-gap: 5px;
+  list-style: none;
+  text-align: center;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  color: white;
+}

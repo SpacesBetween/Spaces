@@ -130,7 +130,6 @@ export const fetchEvents = async (i) => {
     if (error) {
       throw error;
     } else if (data) {
-      console.log(data);
       return data;
     } else {
       throw new Error("Something unusual occured, please try again!");
@@ -167,3 +166,21 @@ export const deleteEvent = async (event_id, event_name, staff_id) => {
 };
 
 // students unjoining an event
+export const unjoinEvent = async (event_id, user_id) => {
+  try {
+    const { error } = await supabase
+      .from("EventParticipants")
+      .delete()
+      .eq("user_id", user_id)
+      .eq("event_id", event_id);
+
+    if (error) {
+      console.log(error);
+      throw error;
+    } else {
+      return "Successfully unjoined.";
+    }
+  } catch (error) {
+    throw error;
+  }
+};

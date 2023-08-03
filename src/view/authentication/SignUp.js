@@ -67,16 +67,18 @@ export default function LoginScreen() {
       type: type,
       name: name,
       moduleIfTA: modules,
-    }).then((msg) => {
-      setsignUpMessage(msg);
-      setLoading(false);
-      if (msg === "Success! Please check your email for confirmation.") {
-        setSuccess(true);
-        setOpen(false);
-      } else {
-        setOpen(true);
-      }
-    });
+    })
+      .then((msg) => {
+        setsignUpMessage(msg);
+        if (msg === "Success! Please check your email for confirmation.") {
+          setSuccess(true);
+          setOpen(false);
+          // navigate("/") 
+        } else {
+          setOpen(true);
+        }
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleClickStudent = () => {
