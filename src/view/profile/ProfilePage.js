@@ -53,7 +53,7 @@ function ProfilePage({ user }) {
           >
             <Button
               onClick={() =>
-                navigate("/profile/bookings", { state: { userDetails } })
+                navigate("/profilebookings", { state: { userDetails } })
               }
               variant="outlined"
             >
@@ -99,7 +99,7 @@ function ProfilePage({ user }) {
                           fontSize: "0.75rem",
                           margin: "2rem 0",
                           fontWeight: "lighter",
-                          color: "red",
+                          color: "white",
                           fontStyle: "italic",
                         }}
                       >

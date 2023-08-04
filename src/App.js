@@ -71,7 +71,7 @@ export default function App() {
           <Route path="/description" element={<DescriptionPage user={user}/>} />
           <Route path="/eventbook" element={<BookingSuccess />} />
           <Route path="/profile" element={<ProfilePage user={user}/>}/>
-          <Route path="/profile/bookings" element={<ProfilePageBooking user={user}/>}/>
+          <Route path="/profilebookings" element={<ProfilePageBooking user={user}/>}/>
           <Route path="/unjoiningevent" element={<UnjoinEventPage/>}/>
         </Routes>
       </BrowserRouter>

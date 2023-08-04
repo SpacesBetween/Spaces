@@ -103,7 +103,7 @@ function ProfilePageBooking({ user }) {
                           fontSize: "0.75rem",
                           margin: "2rem 0",
                           fontWeight: "lighter",
-                          color: "red",
+                          color: "white",
                           fontStyle: "italic",
                         }}
                       >
