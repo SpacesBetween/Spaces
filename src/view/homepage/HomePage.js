@@ -9,7 +9,7 @@ import {
 import { Icon } from "@mdi/react";
 import { mdiCalendarHeart, mdiCardSearchOutline } from "@mdi/js";
 import { signOut } from "../../model/auth/auth.js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -20,10 +20,6 @@ const theme = createTheme({
 });
 
 export default function HomePage() {
-  // functions
-  const logOff = () => {
-    signOut();
-  };
 
   const navigate = useNavigate();
 
@@ -85,13 +81,6 @@ export default function HomePage() {
             </Button>
           </div>
         </Box>
-        <div>
-          <Link to="/">
-          <button className="signoutButton" onClick={logOff} href="/">
-            SIGN OUT
-          </button>
-          </Link>
-        </div>
       </ThemeProvider>
     </CardMedia>
   );
