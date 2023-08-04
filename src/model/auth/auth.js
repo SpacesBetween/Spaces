@@ -216,7 +216,7 @@ export const getUserDetails = async (user) => {
 };
 
 export const tempGetPfp = (email) => {
-   const maybeNum = email?.slice(0, 1)[1];
+   const maybeNum = email?.slice(0, 3)[2];
 
    if (isNaN(maybeNum)) {
      return 10;
