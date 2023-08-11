@@ -44,7 +44,7 @@ export default function DescriptionPage({ user }) {
           err.message ===
           'duplicate key value violates unique constraint "EventParticipants_pkey"'
         ) {
-          alert("have you joined this event already?");
+          alert("User has already joined the event.");
         } else {
           alert(err.message);
         }

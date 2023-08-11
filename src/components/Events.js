@@ -2,9 +2,6 @@ import React from "react";
 import AvailableEvents from "./AvailableEvents.js";
 import "./Events.css";
 
-// have to change the src of image as well as the text, so that its kinda similar to the room page
-// not sure why it isnt showing like three in one line??
-
 function Events({ eventArr }) {
   // will return an arr of jsx syntax
   const eventArrJXS = [];
